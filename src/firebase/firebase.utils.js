@@ -3,14 +3,14 @@ import 'firebase/firestore';
 import 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyBfDAO2wKANNUfLRU-e-sP8XKCrXBgyJdw',
-  authDomain: 'remedi-clothing.firebaseapp.com',
-  databaseURL: 'https://remedi-clothing.firebaseio.com',
-  projectId: 'remedi-clothing',
-  storageBucket: 'remedi-clothing.appspot.com',
-  messagingSenderId: '873842050532',
-  appId: '1:873842050532:web:2449a71520a76c302233f1',
-  measurementId: 'G-9ZVJLLP1N7'
+  apiKey: 'AIzaSyBZSP7CF1qWOUtI7710O6eT_SJPzm2ow1k',
+  authDomain: 'blog-test-cf27d.firebaseapp.com',
+  databaseURL: 'https://blog-test-cf27d.firebaseio.com',
+  projectId: 'blog-test-cf27d',
+  storageBucket: 'blog-test-cf27d.appspot.com',
+  messagingSenderId: '712716765117',
+  appId: '1:712716765117:web:757aed783e2814d70eb4d4',
+  measurementId: 'G-3E2DRSVVNM'
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -23,13 +23,15 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   const snapShot = await userRef.get();
 
   if (!snapShot.exists) {
-    const { displayName, email } = userAuth;
+    const { displayName, email, photoURL, emailVerified } = userAuth;
     const createdAt = new Date();
     try {
       await userRef.set({
         displayName,
         email,
         createdAt,
+        photoURL,
+        emailVerified,
         ...additionalData
       });
     } catch (error) {
@@ -42,11 +44,16 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
-const provider = new firebase.auth.GoogleAuthProvider();
-provider.setCustomParameters({
+const googleProvider = new firebase.auth.GoogleAuthProvider();
+googleProvider.setCustomParameters({
   prompt: 'select_account'
 });
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
-export const signInWithFacebook = () => console.log('Sign In With Facebook');
+const facebookProvider = new firebase.auth.FacebookAuthProvider();
+facebookProvider.setCustomParameters({
+  display: 'popup'
+});
+
+export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
+export const signInWithFacebook = () => auth.signInWithPopup(facebookProvider);
 
 export default firebase;

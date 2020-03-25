@@ -19,9 +19,12 @@ export default class SignIn extends Component {
       email: '',
       password: '',
       errorMessage: '',
+      isShowPassword: false,
       isLoading: false
     };
   }
+  handleToggleShowPassword = () =>
+    this.setState({ isShowPassword: !this.state.isShowPassword });
   handleSubmit = async event => {
     event.preventDefault();
     const { email, password } = this.state;
@@ -56,8 +59,13 @@ export default class SignIn extends Component {
     });
   };
   render() {
-    const { email, password, errorMessage, isLoading } = this.state;
-    const { handleToggleSidebar } = this.props;
+    const {
+      email,
+      password,
+      errorMessage,
+      isShowPassword,
+      isLoading
+    } = this.state;
     return (
       <div className="sign-in">
         <div>
@@ -76,12 +84,16 @@ export default class SignIn extends Component {
               label="Email"
             />
             <FormInput
-              type="password"
+              type={isShowPassword ? 'text' : 'password'}
               name="password"
               value={password}
               required
               handleChange={this.handleChange}
               label="Password"
+              forgotPassword
+              toggleShowPassword={this.handleToggleShowPassword}
+              isShowPass={this.state.isShowPassword}
+              handleForgetPass={this.props.forgotPassword}
             />
             <div className="buttons">
               <CustomButton type="button" onClick={this.handleSubmit}>

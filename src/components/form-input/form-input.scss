@@ -39,6 +39,24 @@ $main-color: black;
       @include shrinkLabel();
     }
   }
+  .showpass {
+    cursor: pointer;
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 9999;
+  }
+  .forgot-password {
+    cursor: pointer;
+    font-size: 12px;
+    line-height: 14px;
+    color: #2d8be9;
+    position: absolute;
+    right: 0;
+    bottom: -20px;
+  }
 
   input[type='password'] {
     letter-spacing: 0.3em;

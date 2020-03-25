@@ -11,8 +11,11 @@ import Header from './components/header/header';
 /*PAGES*/
 /*==============================*/
 import Homepage from './pages/homepage/homepage';
+import UserProfilePage from './pages/user-profile-page/user-profile-page';
 import SignInPage from './pages/sign-in/sign-in-page';
 import SignUpPage from './pages/sign-up/sign-up-page';
+import Contactpage from './pages/contactpage/contactpage';
+import Aboutpage from './pages/aboutpage/aboutpage';
 
 class App extends React.Component {
   state = {
@@ -58,7 +61,14 @@ class App extends React.Component {
             path="/signin"
             render={() => (currentUser ? <Redirect to="/" /> : <SignInPage />)}
           />
-          <Route exact path="/signup" component={SignUpPage} />
+          <Route
+            exact
+            path="/signup"
+            render={() => (currentUser ? <Redirect to="/" /> : <SignUpPage />)}
+          />
+          <Route exact path="/user-profile" component={UserProfilePage} />
+          <Route exact path="/about" component={Aboutpage} />
+          <Route exact path="/contact" component={Contactpage} />
         </Switch>
       </div>
     );

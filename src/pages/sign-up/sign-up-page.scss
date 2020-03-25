@@ -19,9 +19,11 @@ $secondaryColor: #ffffff;
 .sign-in-page {
   text-align: left;
   .back {
+    position: absolute;
+    left: 40px;
     display: flex;
     align-items: center;
-    margin-top: 60px;
+    margin-top: 18px;
     img {
       margin-right: 7px;
       width: 22px;
@@ -29,6 +31,7 @@ $secondaryColor: #ffffff;
     }
   }
   .left-right {
+    margin-top: 20px;
     display: flex;
     justify-content: center;
     text-align: center;
@@ -72,6 +75,33 @@ $secondaryColor: #ffffff;
           }
         }
       }
+    }
+    .right {
+      position: relative;
+      .vertical,
+      .horizontal {
+        position: fixed;
+        width: 280px;
+        height: 93vh;
+        left: 877px;
+        top: 0px;
+        clip-path: inset(0 11% 0 10%);
+        background-color: $primaryColor;
+        z-index: -1;
+      }
+      .horizontal {
+        right: 0;
+        height: 730px;
+        transform: rotate(-90deg);
+      }
+    }
+  }
+  .pattern {
+    position: relative;
+    img {
+      position: fixed;
+      bottom: 0;
+      z-index: -2;
     }
   }
 }

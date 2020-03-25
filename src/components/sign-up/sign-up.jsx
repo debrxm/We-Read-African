@@ -22,6 +22,7 @@ export default class SignUp extends Component {
       displayName: '',
       email: '',
       password: '',
+      isShowPassword: false,
       confirmPassword: '',
       errorMessage: '',
       isLoading: false
@@ -31,6 +32,8 @@ export default class SignUp extends Component {
     const { name, value } = e.target;
     this.setState({ [name]: value, errorMessage: '' });
   };
+  handleToggleShowPassword = () =>
+    this.setState({ isShowPassword: !this.state.isShowPassword });
   handleSubmit = async e => {
     e.preventDefault();
     const { displayName, email, password, confirmPassword } = this.state;
@@ -40,6 +43,20 @@ export default class SignUp extends Component {
       });
       return;
     }
+    const actionCodeSettings = {
+      url: 'https://www.example.com/finishSignUp?cartId=1234',
+      handleCodeInApp: true,
+      iOS: {
+        bundleId: 'com.example.ios'
+      },
+      android: {
+        packageName: 'com.example.android',
+        installApp: true,
+        minimumVersion: '12'
+      },
+      dynamicLinkDomain: 'example.page.link'
+    };
+    
     try {
       this.setState({ isLoading: true });
       const { user } = await auth.createUserWithEmailAndPassword(
@@ -47,6 +64,7 @@ export default class SignUp extends Component {
         password
       );
       await createUserProfileDocument(user, { displayName });
+      await auth.sendSignInLinkToEmail(email, actionCodeSettings)
       this.setState({ isSuccess: true });
     } catch (error) {
       error.code === 'auth/email-already-in-use'
@@ -75,6 +93,7 @@ export default class SignUp extends Component {
       email,
       password,
       confirmPassword,
+      isShowPassword,
       errorMessage,
       isLoading
     } = this.state;
@@ -89,7 +108,7 @@ export default class SignUp extends Component {
             type="text"
             name="displayName"
             value={displayName}
-            label="Fullname"
+            label="Full name"
             onChange={this.handleChange}
           />
           <FormInput
@@ -100,18 +119,22 @@ export default class SignUp extends Component {
             onChange={this.handleChange}
           />
           <FormInput
-            type="password"
+            type={isShowPassword ? 'text' : 'password'}
             name="password"
             value={password}
             label="Password"
             onChange={this.handleChange}
+            toggleShowPassword={this.handleToggleShowPassword}
+            isShowPass={this.state.isShowPassword}
           />
           <FormInput
-            type="password"
+            type={isShowPassword ? 'text' : 'password'}
             name="confirmPassword"
             value={confirmPassword}
             label="Confirm password"
             onChange={this.handleChange}
+            toggleShowPassword={this.handleToggleShowPassword}
+            isShowPass={this.state.isShowPassword}
           />
           <div className="buttons">
             <CustomButton type="submit">

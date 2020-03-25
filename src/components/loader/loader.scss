@@ -1,0 +1,25 @@
+$smartphone: 500px;
+$primaryColor: #000000;
+$secondaryColor: #ffffff;
+
+// Mixin
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+
+.loading-screen {
+  height: calc(100vh - 160px);
+  width: 100vw;
+  background-color: $primaryColor;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  img {
+    width: 50px;
+  }
+}

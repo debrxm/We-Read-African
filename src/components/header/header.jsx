@@ -1,22 +1,36 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+// import { auth } from '../../firebase/firebase.utils';
+import { selectCurrentUser } from '../../redux/user/user.selectors';
+import UserDropdown from '../user-dropdown/user-dropdown';
 import CustomButton from '../custom-button/custom-button';
 import instagram from '../../assets/socials/instagram.svg';
 import twitter from '../../assets/socials/twitter.svg';
 import facebook from '../../assets/socials/facebook.svg';
 import search from '../../assets/search.svg';
 import logo from '../../assets/logo.svg';
+import user from '../../assets/user.svg';
 import arrowDown from '../../assets/arrowDown.svg';
 import './header.scss';
-const Header = () => {
+const Header = ({ currentUser }) => {
+  const [isShow, setisShow] = useState(false);
+  const handleToggleUserDropdown = () => {
+    setisShow(!isShow);
+  };
   return (
     <header className="header">
-      <div className="join-tribe">
-        <p>Join the WeReadAfrican Tribe. Register to be a part of the forum.</p>
-        <Link to="/signup">
-          <CustomButton acen>Register</CustomButton>
-        </Link>
-      </div>
+      {currentUser ? null : (
+        <div className="join-tribe">
+          <p>
+            Join the WeReadAfrican Tribe. Register to be a part of the forum.
+          </p>
+          <Link to="/signup">
+            <CustomButton acen>Register</CustomButton>
+          </Link>
+        </div>
+      )}
       <div className="branding container">
         <div className="social">
           <span className="icon-border">
@@ -36,9 +50,26 @@ const Header = () => {
           <span className="search">
             <img src={search} alt="Search Icon" />
           </span>
-          <Link to="/signup">
-            <CustomButton acen>Log In / Register</CustomButton>
-          </Link>
+
+          {currentUser ? (
+            <div className="user" onClick={handleToggleUserDropdown}>
+              <img
+                className="user-icon"
+                src={currentUser.imageUrl ? currentUser.imageUrl : user}
+                alt="User Icon"
+              />
+              <img
+                className="arrow-down"
+                src={currentUser.imageUrl ? null : arrowDown}
+                alt="Arrow Down Icon"
+              />
+              {isShow ? <UserDropdown /> : null}
+            </div>
+          ) : (
+            <Link to="/signup">
+              <CustomButton acen>Log In / Register</CustomButton>
+            </Link>
+          )}
         </div>
       </div>
       <nav>
@@ -79,4 +110,8 @@ const Header = () => {
   );
 };
 
-export default Header;
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser
+});
+
+export default connect(mapStateToProps)(Header);
