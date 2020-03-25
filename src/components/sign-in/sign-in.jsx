@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
-import FormInput from '../form-input/form-input';
-import CustomButton from '../custom-button/custom-button';
+import { Link } from 'react-router-dom';
 import {
   auth,
   signInWithGoogle,
   signInWithFacebook
 } from '../../firebase/firebase.utils';
+import FormInput from '../form-input/form-input';
+import CustomButton from '../custom-button/custom-button';
 import loader from '../../assets/loader.gif';
+import google from '../../assets/google.svg';
+import facebook from '../../assets/socials/facebook.svg';
 
 import './sign-in.scss';
 export default class SignIn extends Component {
@@ -59,8 +62,7 @@ export default class SignIn extends Component {
       <div className="sign-in">
         <div>
           {' '}
-          <h3 className="title">LOGIN</h3>
-          <span className="title">Sign in with your email and password</span>
+          <h3 className="title">Sign in to your account</h3>
           {errorMessage !== '' ? (
             <span className="error">{errorMessage}</span>
           ) : null}
@@ -85,18 +87,23 @@ export default class SignIn extends Component {
               <CustomButton type="button" onClick={this.handleSubmit}>
                 Sign In {isLoading ? <img src={loader} alt="Loader" /> : null}
               </CustomButton>
+            </div>
+            <p className="or-sign-in-with ">Or sign in with:</p>
+            <div className="buttons">
               <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
-                Sign In With Google
+                <img src={google} alt="Google Logo" /> Google Login
               </CustomButton>
-              <CustomButton onClick={signInWithFacebook} isGoogleSignIn>
-                Sign In With Facebook
+              <CustomButton onClick={signInWithFacebook} isFacebookSignIn>
+                <img src={facebook} alt="Facebook Logo" /> Facebook Login
               </CustomButton>
             </div>
           </form>
           <p>
             {' '}
             Don't have an account?{' '}
-            <span onClick={handleToggleSidebar}>Create an account </span>
+            <Link to="/signup">
+              <span>Create an account here</span>
+            </Link>
           </p>
         </div>
       </div>

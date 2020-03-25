@@ -12,6 +12,7 @@ const Homepage = () => {
         <meta property="og:site_name" content="REMEDI" />
         <meta property="og:url" content="https://www.wereadafrican.com" />
       </Helmet>
+      <h1>HOMEPAGE</h1>
     </div>
   );
 };

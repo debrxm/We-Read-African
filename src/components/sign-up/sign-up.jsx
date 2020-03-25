@@ -1,8 +1,17 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import {
+  auth,
+  signInWithGoogle,
+  signInWithFacebook,
+  createUserProfileDocument
+} from '../../firebase/firebase.utils';
 import FormInput from '../form-input/form-input';
 import CustomButton from '../custom-button/custom-button';
-import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
+
 import loader from '../../assets/loader.gif';
+import google from '../../assets/google.svg';
+import facebook from '../../assets/socials/facebook.svg';
 
 import './sign-up.scss';
 
@@ -69,11 +78,9 @@ export default class SignUp extends Component {
       errorMessage,
       isLoading
     } = this.state;
-    const { handleToggleSidebar } = this.props;
     return (
       <div className="sign-up">
         <h3 className="title">Create a New Account</h3>
-        <span>Sign up with your email</span>
         {errorMessage !== '' ? (
           <span className="error">{errorMessage}</span>
         ) : null}
@@ -82,7 +89,7 @@ export default class SignUp extends Component {
             type="text"
             name="displayName"
             value={displayName}
-            label="Name"
+            label="Fullname"
             onChange={this.handleChange}
           />
           <FormInput
@@ -106,15 +113,28 @@ export default class SignUp extends Component {
             label="Confirm password"
             onChange={this.handleChange}
           />
-          <CustomButton type="submit">
-            Create Account{' '}
-            {isLoading ? <img src={loader} alt="Loader" /> : null}
-          </CustomButton>
+          <div className="buttons">
+            <CustomButton type="submit">
+              Create Account{' '}
+              {isLoading ? <img src={loader} alt="Loader" /> : null}
+            </CustomButton>
+          </div>
+          <p className="or-sign-in-with">Or sign in with:</p>
+          <div className="buttons">
+            <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
+              <img src={google} alt="Google Logo" /> Google Login
+            </CustomButton>
+            <CustomButton onClick={signInWithFacebook} isFacebookSignIn>
+              <img src={facebook} alt="Facebook Logo" /> Facebook Login
+            </CustomButton>
+          </div>
         </form>
         <p>
           {' '}
-          Already own an account?{' '}
-          <span onClick={handleToggleSidebar}>Sign In</span>
+          Already have an account?{' '}
+          <Link to="/signin">
+            <span>Sign In</span>
+          </Link>
         </p>
       </div>
     );

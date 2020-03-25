@@ -1,16 +1,18 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import './App.css';
 import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
+import Header from './components/header/header';
 /*==============================*/
 /*PAGES*/
 /*==============================*/
-import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up';
 import Homepage from './pages/homepage/homepage';
+import SignInPage from './pages/sign-in/sign-in-page';
+import SignUpPage from './pages/sign-up/sign-up-page';
 
 class App extends React.Component {
   state = {
@@ -40,23 +42,23 @@ class App extends React.Component {
     this.unSubscribeFromAuth();
   }
   render() {
-    const { currentUser } = this.props;
-    console.log(currentUser);
-
+    const { currentUser, history } = this.props;
     return (
       <div className="App">
-        <header>
-          <h1>WE READ AFRICAN</h1>
-        </header>
+        {history.location.pathname === '/signin' ? null : history.location
+            .pathname === '/signup' ? null : (
+          <Header />
+        )}
+
         <Switch>
           <Route exact path="/" component={Homepage} />
+
           <Route
             exact
-            path="/auth"
-            render={() =>
-              currentUser ? <Redirect to="/" /> : <SignInAndSignUpPage />
-            }
+            path="/signin"
+            render={() => (currentUser ? <Redirect to="/" /> : <SignInPage />)}
           />
+          <Route exact path="/signup" component={SignUpPage} />
         </Switch>
       </div>
     );
@@ -69,4 +71,4 @@ const mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch(setCurrentUser(user))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
