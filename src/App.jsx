@@ -7,6 +7,7 @@ import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
 import Header from './components/header/header';
+import Footer from './components/footer/footer';
 /*==============================*/
 /*PAGES*/
 /*==============================*/
@@ -48,28 +49,39 @@ class App extends React.Component {
     const { currentUser, history } = this.props;
     return (
       <div className="App">
+        <div className="wrapper">
+          {history.location.pathname === '/signin' ? null : history.location
+              .pathname === '/signup' ? null : (
+            <Header />
+          )}
+
+          <Switch>
+            <Route exact path="/" component={Homepage} />
+
+            <Route
+              exact
+              path="/signin"
+              render={() =>
+                currentUser ? <Redirect to="/" /> : <SignInPage />
+              }
+            />
+            <Route
+              exact
+              path="/signup"
+              render={() =>
+                currentUser ? <Redirect to="/" /> : <SignUpPage />
+              }
+            />
+            <Route exact path="/user-profile" component={UserProfilePage} />
+            <Route exact path="/about" component={Aboutpage} />
+            <Route exact path="/contact" component={Contactpage} />
+          </Switch>
+        </div>
         {history.location.pathname === '/signin' ? null : history.location
-            .pathname === '/signup' ? null : (
-          <Header />
+            .pathname === '/signup' ? null : history.location.pathname ===
+          '/user-profile' ? null : (
+          <Footer />
         )}
-
-        <Switch>
-          <Route exact path="/" component={Homepage} />
-
-          <Route
-            exact
-            path="/signin"
-            render={() => (currentUser ? <Redirect to="/" /> : <SignInPage />)}
-          />
-          <Route
-            exact
-            path="/signup"
-            render={() => (currentUser ? <Redirect to="/" /> : <SignUpPage />)}
-          />
-          <Route exact path="/user-profile" component={UserProfilePage} />
-          <Route exact path="/about" component={Aboutpage} />
-          <Route exact path="/contact" component={Contactpage} />
-        </Switch>
       </div>
     );
   }

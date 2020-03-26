@@ -1,3 +1,88 @@
+$tablet: 850px;
+$smartphone: 500px;
+$primaryColor: #77323b;
+$blackColor: #000000;
+$secondaryColor: #ffffff;
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
 .user-profile-page {
-  margin-top: 120px;
+  margin-top: 110px;
+  .body {
+    display: flex;
+    .left {
+      padding: 30px;
+      width: 20vw;
+      background-color: #eab88c;
+      height: calc(100vh - 110px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      .logo {
+        img {
+          width: 100px;
+        }
+      }
+    }
+    .right {
+      width: 80vw;
+      display: flex;
+      justify-content: center;
+      padding: 30px;
+      .heading {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 60px;
+        border-right: 1px solid #eab88c;
+        border-left: 1px solid #eab88c;
+      }
+      .current-reading {
+        width: 50%;
+      }
+      .favorite {
+        width: 50%;
+      }
+      .pattern {
+        position: relative;
+        img {
+          position: fixed;
+          bottom: 0;
+          left: 0;
+          z-index: -2;
+        }
+      }
+    }
+    .user {
+      justify-content: center;
+      align-items: center;
+      .user-photo {
+        img {
+          height: 60px;
+          width: 60px;
+          border-radius: 50%;
+          margin-right: 10px;
+        }
+      }
+    }
+    .sign-out {
+      cursor: pointer;
+      img {
+        height: 16px;
+        margin-left: 10px;
+      }
+    }
+  }
 }

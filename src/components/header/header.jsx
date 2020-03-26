@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 // import { auth } from '../../firebase/firebase.utils';
@@ -11,10 +11,11 @@ import twitter from '../../assets/socials/twitter.svg';
 import facebook from '../../assets/socials/facebook.svg';
 import search from '../../assets/search.svg';
 import logo from '../../assets/logo.svg';
-import user from '../../assets/user.svg';
+// import user from '../../assets/user.svg';
+import userIco from '../../assets/userIco.svg';
 import arrowDown from '../../assets/arrowDown.svg';
 import './header.scss';
-const Header = ({ currentUser }) => {
+const Header = ({ currentUser, history }) => {
   const [isShow, setisShow] = useState(false);
   const handleToggleUserDropdown = () => {
     setisShow(!isShow);
@@ -55,12 +56,13 @@ const Header = ({ currentUser }) => {
             <div className="user" onClick={handleToggleUserDropdown}>
               <img
                 className="user-icon"
-                src={currentUser.imageUrl ? currentUser.imageUrl : user}
+                src={currentUser.photoURL ? currentUser.photoURL : userIco}
                 alt="User Icon"
               />
+              <span>{currentUser.displayName}</span>
               <img
                 className="arrow-down"
-                src={currentUser.imageUrl ? null : arrowDown}
+                src={arrowDown}
                 alt="Arrow Down Icon"
               />
               {isShow ? <UserDropdown /> : null}
@@ -75,32 +77,80 @@ const Header = ({ currentUser }) => {
       <nav>
         <ul className="nav-links">
           <li>
-            <Link to="/" className="nav-link">
+            <Link
+              to="/"
+              className="nav-link"
+              style={
+                history.location.pathname === '/'
+                  ? { borderBottom: '3px solid #77323b' }
+                  : { border: 'none' }
+              }
+            >
               Home
             </Link>
           </li>
           <li>
-            <Link to="/about" className="nav-link">
+            <Link
+              to="/about"
+              className="nav-link"
+              style={
+                history.location.pathname === '/about'
+                  ? { borderBottom: '3px solid #77323b' }
+                  : { border: 'none' }
+              }
+            >
               About
             </Link>
           </li>
           <li>
-            <Link to="/blog" className="nav-link">
+            <Link
+              to="/blog"
+              className="nav-link"
+              style={
+                history.location.pathname === '/blog'
+                  ? { borderBottom: '3px solid #77323b' }
+                  : { border: 'none' }
+              }
+            >
               Blog <img src={arrowDown} alt="Down Arrow Icon" />
             </Link>
           </li>
           <li>
-            <Link to="/forum" className="nav-link">
+            <Link
+              to="/forum"
+              className="nav-link"
+              style={
+                history.location.pathname === '/forum'
+                  ? { borderBottom: '3px solid #77323b' }
+                  : { border: 'none' }
+              }
+            >
               Forum <img src={arrowDown} alt="Down Arrow Icon" />
             </Link>
           </li>
           <li>
-            <Link to="/podcast" className="nav-link">
+            <Link
+              to="/podcast"
+              className="nav-link"
+              style={
+                history.location.pathname === '/podcast'
+                  ? { borderBottom: '3px solid #77323b' }
+                  : { border: 'none' }
+              }
+            >
               Podcast
             </Link>
           </li>
           <li>
-            <Link to="/contact" className="nav-link">
+            <Link
+              to="/contact"
+              className="nav-link"
+              style={
+                history.location.pathname === '/contact'
+                  ? { borderBottom: '3px solid #77323b' }
+                  : { border: 'none' }
+              }
+            >
               Contact
             </Link>
           </li>
@@ -114,4 +164,4 @@ const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser
 });
 
-export default connect(mapStateToProps)(Header);
+export default withRouter(connect(mapStateToProps)(Header));

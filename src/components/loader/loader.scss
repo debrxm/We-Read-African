@@ -1,5 +1,7 @@
-$smartphone: 500px;
-$primaryColor: #000000;
+$tablet: 850px;
+$smartphone: 600px;
+$primaryColor: #77323b;
+$blackColor: #000000;
 $secondaryColor: #ffffff;
 
 // Mixin
@@ -12,7 +14,7 @@ $secondaryColor: #ffffff;
 .loading-screen {
   height: calc(100vh - 160px);
   width: 100vw;
-  background-color: $primaryColor;
+  background-color: #eab88c;
   position: fixed;
   bottom: 0;
   display: flex;

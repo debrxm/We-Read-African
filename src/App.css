@@ -73,10 +73,15 @@ li {
 }
 a {
   font-size: 15px;
+  outline: none;
 }
 .container {
   width: 90%;
   margin: auto;
+}
+.wrapper {
+  min-height: 80vh;
+  /* margin-bottom: -50px; */
 }
 .App {
   text-align: center;

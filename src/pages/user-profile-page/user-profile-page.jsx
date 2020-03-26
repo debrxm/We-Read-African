@@ -1,11 +1,21 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
+import { auth } from '../../firebase/firebase.utils';
+import pattern from '../../assets/pattern.svg';
 import Loader from '../../components/loader/loader';
+import userIco from '../../assets/userIco.svg';
+import logo from '../../assets/logo.svg';
+import logout from '../../assets/logout.svg';
 import './user-profile-page.scss';
-const UserProfilePage = ({ currentUser }) => {
+const UserProfilePage = ({ currentUser, history }) => {
+  const handleSignout = () => {
+    auth.signOut();
+    history.push(`/`);
+  };
   return currentUser ? (
     <div className="user-profile-page">
       <Helmet>
@@ -19,10 +29,41 @@ const UserProfilePage = ({ currentUser }) => {
           content="https://www.wereadafrican.com/user-profile"
         />
       </Helmet>
-      <div className="head">
-        <h2>My Account</h2>
+      <div className="body">
+        <div className="left">
+          <div className="logo">
+            <img src={logo} alt="We Read African Logo" />
+          </div>
+          <div className="user">
+            <div className="user-photo">
+              <img
+                src={currentUser.photoURL ? currentUser.photoURL : userIco}
+                alt="user Img"
+              />
+            </div>
+            <h3>{currentUser.displayName}</h3>
+          </div>
+          <div className="sign-out" onClick={handleSignout}>
+            <span>LOGOUT</span>
+            <img src={logout} alt="Logout Icon" />
+          </div>
+        </div>
+        <div className="right">
+          <div className="current-reading">
+            <div className="heading">
+              <span>Current Reading</span>
+            </div>
+          </div>
+          <div className="favorite">
+            <div className="heading">
+              <span>Favorites</span>
+            </div>
+          </div>
+          <div className="pattern">
+            <img src={pattern} alt="Pattern" />
+          </div>
+        </div>
       </div>
-      <div className="body"></div>
     </div>
   ) : (
     <Loader />
@@ -31,4 +72,4 @@ const UserProfilePage = ({ currentUser }) => {
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser
 });
-export default connect(mapStateToProps)(UserProfilePage);
+export default withRouter(connect(mapStateToProps)(UserProfilePage));
