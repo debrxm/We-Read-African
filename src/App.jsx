@@ -2,12 +2,13 @@ import React from 'react';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import './App.css';
-import { auth, createUserProfileDocument } from './firebase/firebase.utils';
+import { auth, firestore , createUserProfileDocument } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
+import { updateCategories } from './redux/blog/blog.actions';
 import Header from './components/header/header';
 import Footer from './components/footer/footer';
+import Loader from './components/loader/loader'
 /*==============================*/
 /*PAGES*/
 /*==============================*/
@@ -17,6 +18,8 @@ import SignInPage from './pages/sign-in/sign-in-page';
 import SignUpPage from './pages/sign-up/sign-up-page';
 import Contactpage from './pages/contactpage/contactpage';
 import Aboutpage from './pages/aboutpage/aboutpage';
+import Blogpage from './pages/blogpage/blogpage';
+import './App.css';
 
 class App extends React.Component {
   state = {
@@ -25,7 +28,16 @@ class App extends React.Component {
   };
   unSubscribeFromAuth = null;
   componentDidMount() {
-    const { setCurrentUser } = this.props;
+    const { updateCategories, setCurrentUser } = this.props;
+    const blogs = [];
+    this.setState({ isLoading: true });
+    const collectionRef = firestore.collection('blog_temp');
+    collectionRef.onSnapshot(async snapshot => {
+      snapshot.docs.forEach(doc => {
+        blogs.push(doc.data());
+      });
+      updateCategories(blogs);
+    });
     this.unSubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
@@ -37,6 +49,7 @@ class App extends React.Component {
         });
       }
       setCurrentUser(userAuth);
+      
       this.setState({
         isLoading: false
       });
@@ -54,8 +67,8 @@ class App extends React.Component {
               .pathname === '/signup' ? null : (
             <Header />
           )}
-
-          <Switch>
+          
+          {this.state.isLoading? <Loader />: <Switch>
             <Route exact path="/" component={Homepage} />
 
             <Route
@@ -72,10 +85,11 @@ class App extends React.Component {
                 currentUser ? <Redirect to="/" /> : <SignUpPage />
               }
             />
+            <Route exact path="/blog" component={Blogpage} />
             <Route exact path="/user-profile" component={UserProfilePage} />
             <Route exact path="/about" component={Aboutpage} />
             <Route exact path="/contact" component={Contactpage} />
-          </Switch>
+          </Switch>}
         </div>
         {history.location.pathname === '/signin' ? null : history.location
             .pathname === '/signup' ? null : history.location.pathname ===
@@ -90,6 +104,7 @@ const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser
 });
 const mapDispatchToProps = dispatch => ({
+  updateCategories: collectionsMap => dispatch(updateCategories(collectionsMap)),
   setCurrentUser: user => dispatch(setCurrentUser(user))
 });
 

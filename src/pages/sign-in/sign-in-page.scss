@@ -36,17 +36,18 @@ $secondaryColor: #ffffff;
     justify-content: center;
     text-align: center;
     padding: 0 8%;
-    height: 100%;
+    height: 99vh;
     .left,
     .right {
       max-width: 50%;
       width: 100%;
-    }
-    .left {
       display: flex;
       flex-direction: column;
       // align-items: center;
       justify-content: center;
+    }
+    .left {
+      height: 90vh;
       text-align: left;
       .logo {
         width: 250px;
@@ -78,6 +79,7 @@ $secondaryColor: #ffffff;
     }
     .right {
       position: relative;
+      height: 90vh;
       .vertical,
       .horizontal {
         position: fixed;
