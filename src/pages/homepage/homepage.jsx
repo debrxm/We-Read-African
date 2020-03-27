@@ -1,6 +1,15 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
+import { connect } from 'react-redux';
+import { selectAllBlog } from '../../redux/blog/blog.selector';
+import { createStructuredSelector } from 'reselect';
+import { firestore } from '../../firebase/firebase.utils';
+import { updateCategories } from '../../redux/blog/blog.actions';
+// import NewsletterPopup from '../../components/newsletter-popup/newsletter-popup';
 import './homepage.scss';
+import Slider from '../../components/slider/slider';
+import LatestPost from '../../components/latest-post/latest-post';
+import ShopFavorite from '../../components/shop-favorite/shop-favorite';
 class Homepage extends React.Component {
   constructor(props) {
     super(props);
@@ -17,6 +26,19 @@ class Homepage extends React.Component {
     console.log(URL.createObjectURL(event.target.files[0]));
     this.setState({ [name]: value });
   };
+  // componentDidMount() {
+  //   const { updateCategories } = this.props;
+  //   const blogs = [];
+  //   this.setState({ isLoading: true });
+  //   const collectionRef = firestore.collection('blog_temp');
+  //   collectionRef.onSnapshot(async snapshot => {
+  //     snapshot.docs.forEach(doc => {
+  //       blogs.push(doc.data());
+  //     });
+  //     updateCategories(blogs);
+  //   });
+  //   this.setState({ isLoading: false });
+  // }
 
   render() {
     return (
@@ -29,10 +51,20 @@ class Homepage extends React.Component {
           <meta property="og:site_name" content="We Read African" />
           <meta property="og:url" content="https://www.wereadafrican.com" />
         </Helmet>
-        <h1>HOMEPAGE</h1>
+        <Slider />
+        <ShopFavorite />
+        <LatestPost blogs={this.props.allBlog} />
       </div>
     );
   }
 }
 
-export default Homepage;
+const mapDispatchToProps = dispatch => ({
+  updateCategories: collectionsMap => dispatch(updateCategories(collectionsMap))
+});
+
+const mapStateToProps = createStructuredSelector({
+  allBlog: selectAllBlog
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Homepage);

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-// import { auth } from '../../firebase/firebase.utils';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import UserDropdown from '../user-dropdown/user-dropdown';
 import CustomButton from '../custom-button/custom-button';
@@ -57,7 +56,7 @@ const Header = ({ currentUser, history }) => {
               <img
                 className="user-icon"
                 src={currentUser.photoURL ? currentUser.photoURL : userIco}
-                alt="User Icon"
+                alt="user"
               />
               <span>{currentUser.displayName}</span>
               <img
@@ -68,7 +67,7 @@ const Header = ({ currentUser, history }) => {
               {isShow ? <UserDropdown /> : null}
             </div>
           ) : (
-            <Link to="/signup">
+            <Link to="/signin">
               <CustomButton acen>Log In / Register</CustomButton>
             </Link>
           )}

@@ -38,7 +38,7 @@ const UserProfilePage = ({ currentUser, history }) => {
             <div className="user-photo">
               <img
                 src={currentUser.photoURL ? currentUser.photoURL : userIco}
-                alt="user Img"
+                alt="user"
               />
             </div>
             <h3>{currentUser.displayName}</h3>

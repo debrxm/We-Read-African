@@ -1,0 +1,37 @@
+$tablet: 850px;
+$smartphone: 500px;
+$primaryColor: #77323b;
+$blackColor: #000000;
+$secondaryColor: #ffffff;
+$shadow: 0px 4px 20px rgba(64, 27, 32, 0.15);
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+.blog-page {
+  margin-top: 200px;
+  padding-left: 7%;
+  .output {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    justify-items: center;
+
+    @include tablet() {
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+
+    @include smartphone() {
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+  }
+}
