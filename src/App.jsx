@@ -21,6 +21,8 @@ import Aboutpage from './pages/aboutpage/aboutpage';
 import Blogpage from './pages/blogpage/blogpage';
 import './App.css';
 
+import NotFound from './pages/notfoundpage/NotFoundPage';
+
 class App extends React.Component {
   state = {
     isAvailableInYourCountry: false,
@@ -90,6 +92,8 @@ class App extends React.Component {
             <Route exact path="/about" component={Aboutpage} />
             <Route exact path="/contact" component={Contactpage} />
           </Switch>}
+            <Route exact path="/notfound" component={NotFound} />
+          </Switch>
         </div>
         {history.location.pathname === '/signin' ? null : history.location
             .pathname === '/signup' ? null : history.location.pathname ===
