@@ -17,6 +17,7 @@ import SignInPage from './pages/sign-in/sign-in-page';
 import SignUpPage from './pages/sign-up/sign-up-page';
 import Contactpage from './pages/contactpage/contactpage';
 import Aboutpage from './pages/aboutpage/aboutpage';
+import NotFound from './pages/notfoundpage/NotFoundPage';
 
 class App extends React.Component {
   state = {
@@ -75,6 +76,7 @@ class App extends React.Component {
             <Route exact path="/user-profile" component={UserProfilePage} />
             <Route exact path="/about" component={Aboutpage} />
             <Route exact path="/contact" component={Contactpage} />
+            <Route exact path="/notfound" component={NotFound} />
           </Switch>
         </div>
         {history.location.pathname === '/signin' ? null : history.location
