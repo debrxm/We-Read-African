@@ -1,22 +1,21 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Link, Route, withRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { selectAllBlog } from '../../redux/blog/blog.selector';
 import { createStructuredSelector } from 'reselect';
-// import { firestore } from '../../firebase/firebase.utils';
 import { updateCategories } from '../../redux/blog/blog.actions';
-import PostPage from '../postpage/postpage';
 import BlogPosts from '../../components/blog-posts/blog-posts';
-// import NewsletterPopup from '../../components/newsletter-popup/newsletter-popup';
-// import loader from '../../assets/loader.gif';
+import TagPage from '../tagpage/tagpage';
+import PostPage from '../postpage/postpage';
 import './blogpage.scss';
+import BlogSubNav from '../../components/blog-sub-nav/blog-sub-nav';
 class Blogpage extends React.Component {
   state = {
     isLoading: true
   };
   render() {
-    const { match } = this.props;
+    const { history, match } = this.props;
     return (
       <div className="blog-page">
         <Helmet>
@@ -30,8 +29,19 @@ class Blogpage extends React.Component {
             content="https://www.wereadafrican.com/blog"
           />
         </Helmet>
+        {history.location.pathname === '/blog' ? (
+          <BlogSubNav />
+        ) : history.location.pathname === '/blog/book_review' ? (
+          <BlogSubNav />
+        ) : history.location.pathname === '/blog/lit_anatomy' ? (
+          <BlogSubNav />
+        ) : history.location.pathname === '/blog/african_lit_&_life' ? (
+          <BlogSubNav />
+        ) : null}
+
         <div className="left">
           <Route exact path={`${match.path}`} component={BlogPosts} />
+          <Route exact path={`/blog/:tagId`} component={TagPage} />
           <Route
             exact
             path={`/blog/book_review/:blogId`}
@@ -61,4 +71,6 @@ const mapStateToProps = createStructuredSelector({
   allBlog: selectAllBlog
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Blogpage);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Blogpage)
+);

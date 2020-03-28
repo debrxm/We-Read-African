@@ -19,6 +19,7 @@ const Header = ({ currentUser, history }) => {
   const handleToggleUserDropdown = () => {
     setisShow(!isShow);
   };
+
   return (
     <header className="header">
       {currentUser ? null : (
@@ -106,7 +107,7 @@ const Header = ({ currentUser, history }) => {
               to="/blog"
               className="nav-link"
               style={
-                history.location.pathname === '/blog'
+                history.location.pathname.includes('/blog')
                   ? { borderBottom: '3px solid #77323b' }
                   : { border: 'none' }
               }

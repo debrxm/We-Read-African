@@ -1,9 +1,19 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import renderHTML from 'react-render-html';
 import comment from '../../assets/comment.svg';
 import './post-preview.scss';
 const PostPreview = ({ history, blog_data, showTrunc, showDate }) => {
-  const { title, views, comments, content, image, tag, updated_at } = blog_data;
+  const {
+    title,
+    views,
+    comments,
+    content,
+    image,
+    tag,
+    updated_at,
+    truncate
+  } = blog_data;
   const date = new Date(updated_at.seconds * 1000),
     months = [
       'Jan',
@@ -22,13 +32,16 @@ const PostPreview = ({ history, blog_data, showTrunc, showDate }) => {
     currentMonth = months[date.getMonth()],
     currentDate = date.getDate(),
     year = date.getFullYear(),
-    trunc = content
+    trunc = truncate
       .split(' ')
-      .slice(0, 3)
+      .slice(0, 12)
       .join(' ');
   return (
     <div className="post-preview">
-      <div className="blog-image" style={{ background: `url(${image})` }}>
+      <div className="blog-image" 
+      // style={{ background: `url(${image})` }}
+      >
+        <img src={image} alt="post img"/>
         {showDate ? (
           <button className="date-created">
             {currentDate} <br /> {currentMonth}
@@ -59,7 +72,24 @@ const PostPreview = ({ history, blog_data, showTrunc, showDate }) => {
           >
             {title}
           </h4>
-          {showTrunc ? <p className="trunc">{trunc}...</p> : null}
+          {showTrunc ? (
+            <p className="trunc">
+              {renderHTML(`${trunc}`)}{' '}
+              <span
+                className="read-more"
+                onClick={() =>
+                  history.push(
+                    `blog/${tag}/${title
+                      .split(' ')
+                      .join('-')
+                      .toLowerCase()}`
+                  )
+                }
+              >
+                read more
+              </span>{' '}
+            </p>
+          ) : null}
         </div>
         <div className="post-footer">
           <span className="post-footer-date">

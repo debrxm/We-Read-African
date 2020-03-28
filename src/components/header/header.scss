@@ -17,7 +17,7 @@ $secondaryColor: #ffffff;
   }
 }
 .header {
-  border-bottom: 1px solid $primaryColor;
+  border-bottom: 1px solid darken($color: $secondaryColor, $amount: 40);
   position: fixed;
   top: 0;
   right: 0;
