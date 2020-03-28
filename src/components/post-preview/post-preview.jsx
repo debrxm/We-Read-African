@@ -48,7 +48,14 @@ const PostPreview = ({ history, blog_data, showTrunc, showDate }) => {
           <h4
             className="title"
             id="post-link"
-            onClick={() => history.push(`/${tag}/${title}`)}
+            onClick={() =>
+              history.push(
+                `blog/${tag}/${title
+                  .split(' ')
+                  .join('-')
+                  .toLowerCase()}`
+              )
+            }
           >
             {title}
           </h4>

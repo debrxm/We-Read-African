@@ -66,6 +66,7 @@ $shadow: 0px 4px 20px rgba(64, 27, 32, 0.15);
     .post-preview-header {
       min-height: 60px;
       .title {
+        cursor: pointer;
         font-weight: 500;
         font-size: 15px;
         // line-height: 32px;

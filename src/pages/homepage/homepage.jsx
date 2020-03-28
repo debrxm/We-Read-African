@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { selectAllBlog } from '../../redux/blog/blog.selector';
 import { createStructuredSelector } from 'reselect';
-import { firestore } from '../../firebase/firebase.utils';
+// import { firestore } from '../../firebase/firebase.utils';
 import { updateCategories } from '../../redux/blog/blog.actions';
 // import NewsletterPopup from '../../components/newsletter-popup/newsletter-popup';
 import './homepage.scss';
@@ -26,19 +26,6 @@ class Homepage extends React.Component {
     console.log(URL.createObjectURL(event.target.files[0]));
     this.setState({ [name]: value });
   };
-  // componentDidMount() {
-  //   const { updateCategories } = this.props;
-  //   const blogs = [];
-  //   this.setState({ isLoading: true });
-  //   const collectionRef = firestore.collection('blog_temp');
-  //   collectionRef.onSnapshot(async snapshot => {
-  //     snapshot.docs.forEach(doc => {
-  //       blogs.push(doc.data());
-  //     });
-  //     updateCategories(blogs);
-  //   });
-  //   this.setState({ isLoading: false });
-  // }
 
   render() {
     return (

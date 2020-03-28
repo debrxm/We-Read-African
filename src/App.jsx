@@ -2,13 +2,17 @@ import React from 'react';
 import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { auth, firestore , createUserProfileDocument } from './firebase/firebase.utils';
+import {
+  auth,
+  firestore,
+  createUserProfileDocument
+} from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
 import { updateCategories } from './redux/blog/blog.actions';
 import Header from './components/header/header';
 import Footer from './components/footer/footer';
-import Loader from './components/loader/loader'
+import Loader from './components/loader/loader';
 /*==============================*/
 /*PAGES*/
 /*==============================*/
@@ -31,13 +35,13 @@ class App extends React.Component {
     const { updateCategories, setCurrentUser } = this.props;
     const blogs = [];
     this.setState({ isLoading: true });
-    const collectionRef = firestore.collection('blog_temp');
-    collectionRef.onSnapshot(async snapshot => {
-      snapshot.docs.forEach(doc => {
-        blogs.push(doc.data());
-      });
-      updateCategories(blogs);
-    });
+    // const collectionRef = firestore.collection('blog_temp');
+    // collectionRef.onSnapshot(async snapshot => {
+    //   snapshot.docs.forEach(doc => {
+    //     blogs.push(doc.data());
+    //   });
+    //   updateCategories(blogs);
+    // });
     this.unSubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
@@ -49,7 +53,7 @@ class App extends React.Component {
         });
       }
       setCurrentUser(userAuth);
-      
+
       this.setState({
         isLoading: false
       });
@@ -67,29 +71,33 @@ class App extends React.Component {
               .pathname === '/signup' ? null : (
             <Header />
           )}
-          
-          {this.state.isLoading? <Loader />: <Switch>
-            <Route exact path="/" component={Homepage} />
 
-            <Route
-              exact
-              path="/signin"
-              render={() =>
-                currentUser ? <Redirect to="/" /> : <SignInPage />
-              }
-            />
-            <Route
-              exact
-              path="/signup"
-              render={() =>
-                currentUser ? <Redirect to="/" /> : <SignUpPage />
-              }
-            />
-            <Route exact path="/blog" component={Blogpage} />
-            <Route exact path="/user-profile" component={UserProfilePage} />
-            <Route exact path="/about" component={Aboutpage} />
-            <Route exact path="/contact" component={Contactpage} />
-          </Switch>}
+          {this.state.isLoading ? (
+            <Loader />
+          ) : (
+            <Switch>
+              <Route exact path="/" component={Homepage} />
+
+              <Route
+                exact
+                path="/signin"
+                render={() =>
+                  currentUser ? <Redirect to="/" /> : <SignInPage />
+                }
+              />
+              <Route
+                exact
+                path="/signup"
+                render={() =>
+                  currentUser ? <Redirect to="/" /> : <SignUpPage />
+                }
+              />
+              <Route path="/blog" component={Blogpage} />
+              <Route exact path="/user-profile" component={UserProfilePage} />
+              <Route exact path="/about" component={Aboutpage} />
+              <Route exact path="/contact" component={Contactpage} />
+            </Switch>
+          )}
         </div>
         {history.location.pathname === '/signin' ? null : history.location
             .pathname === '/signup' ? null : history.location.pathname ===
@@ -104,7 +112,8 @@ const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser
 });
 const mapDispatchToProps = dispatch => ({
-  updateCategories: collectionsMap => dispatch(updateCategories(collectionsMap)),
+  updateCategories: collectionsMap =>
+    dispatch(updateCategories(collectionsMap)),
   setCurrentUser: user => dispatch(setCurrentUser(user))
 });
 
