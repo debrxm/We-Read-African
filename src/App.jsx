@@ -92,6 +92,7 @@ class App extends React.Component {
             <Route exact path="/about" component={Aboutpage} />
             <Route exact path="/contact" component={Contactpage} />
           </Switch>}
+          <Switch>
             <Route exact path="/notfound" component={NotFound} />
           </Switch>
         </div>
