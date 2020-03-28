@@ -25,6 +25,8 @@ import Aboutpage from './pages/aboutpage/aboutpage';
 import Blogpage from './pages/blogpage/blogpage';
 import './App.css';
 
+import NotFound from './pages/notfoundpage/NotFoundPage';
+
 class App extends React.Component {
   state = {
     isAvailableInYourCountry: false,
@@ -77,7 +79,6 @@ class App extends React.Component {
           ) : (
             <Switch>
               <Route exact path="/" component={Homepage} />
-
               <Route
                 exact
                 path="/signin"
@@ -96,6 +97,7 @@ class App extends React.Component {
               <Route exact path="/user-profile" component={UserProfilePage} />
               <Route exact path="/about" component={Aboutpage} />
               <Route exact path="/contact" component={Contactpage} />
+              <Route exact path="/notfound" component={NotFound} />
             </Switch>
           )}
         </div>

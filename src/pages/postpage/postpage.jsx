@@ -1,15 +1,14 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-// import { selectBlog } from '../../redux/blog/blog.selector';
-import './postpage.scss';
 import { selectBlogPost } from '../../redux/blog/blog.selector';
+import './postpage.scss';
 
 const PostPage = ({ blog }) => {
-  console.log(blog);
+  // console.log(blog);
   return (
     <div className="post-page container">
-      {/* <Helmet>
+      <Helmet>
         <title>We Read African &mdash; {blog[0].title}</title>
         <meta
           title="keywords"
@@ -27,7 +26,7 @@ const PostPage = ({ blog }) => {
           property="og:url"
           content={`https://www.wereadafrican.com/${blog[0].title}`}
         />
-      </Helmet> */}
+      </Helmet>
       <h1>POSTPAGE</h1>
     </div>
   );
