@@ -73,7 +73,6 @@ class App extends React.Component {
               .pathname === '/signup' ? null : (
             <Header />
           )}
-
           {this.state.isLoading ? (
             <Loader />
           ) : (
