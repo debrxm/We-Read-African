@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
+import renderHTML from 'react-render-html';
 import { selectBlogPost } from '../../redux/blog/blog.selector';
 import './postpage.scss';
+import BlogNavigation from '../../components/blog-navigation/blog-navigation';
 
 const PostPage = ({ blog }) => {
   const { title, views, comments, content, image, tag, updated_at } = blog[0];
@@ -25,7 +27,14 @@ const PostPage = ({ blog }) => {
           content={`https://www.wereadafrican.com/${title}`}
         />
       </Helmet>
-      <h1 className="title">{title.toUpperCase()}</h1>
+      <div className="full-blog">
+        <h1 className="title">{title.toUpperCase()}</h1>
+        <div className="full-blog-image">
+          <img src={image} alt="Blog img" />
+          <div className="blog-content">{renderHTML(`${content}`)}</div>
+        </div>
+      </div>
+      <BlogNavigation />
     </div>
   );
 };

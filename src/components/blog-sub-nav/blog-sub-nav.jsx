@@ -6,7 +6,7 @@ class BlogSubNav extends React.Component {
     isLoading: true
   };
   render() {
-    const { history, match } = this.props;
+    const { history} = this.props;
     return (
           <div className="sub-nav">
             <ul className="sub-nav-links">

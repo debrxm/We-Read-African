@@ -103,7 +103,9 @@ class App extends React.Component {
         </div>
         {history.location.pathname === '/signin' ? null : history.location
             .pathname === '/signup' ? null : history.location.pathname ===
-          '/user-profile' ? null : (
+          '/user-profile' ? null : history.location.pathname.includes(
+            '/blog'
+          ) ? null : (
           <Footer />
         )}
       </div>

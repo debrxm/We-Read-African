@@ -1,0 +1,25 @@
+.blog-navigation {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .previous-blog,
+  .next-blog {
+    cursor: pointer;
+    .arrow {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img {
+        margin: 8px;
+        width: 22px;
+        height: 22px;
+      }
+    }
+  }
+  .next-blog {
+    img {
+      transform: rotate(180deg);
+    }
+  }
+}
