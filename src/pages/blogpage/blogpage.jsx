@@ -1,32 +1,21 @@
 import React from 'react';
+import { Link, Route, withRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { selectAllBlog } from '../../redux/blog/blog.selector';
 import { createStructuredSelector } from 'reselect';
-import { firestore } from '../../firebase/firebase.utils';
 import { updateCategories } from '../../redux/blog/blog.actions';
-import PostPreview from '../../components/post-preview/post-preview';
-// import NewsletterPopup from '../../components/newsletter-popup/newsletter-popup';
-import loader from '../../assets/loader.gif';
+import BlogPosts from '../../components/blog-posts/blog-posts';
+import TagPage from '../tagpage/tagpage';
+import PostPage from '../postpage/postpage';
 import './blogpage.scss';
+import BlogSubNav from '../../components/blog-sub-nav/blog-sub-nav';
 class Blogpage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      file: '',
-      isShowPassword: false,
-      isLoading: false
-    };
-  }
-
-  handleChange = event => {
-    const { name, value } = event.target;
-    console.log(event.target.files);
-    console.log(URL.createObjectURL(event.target.files[0]));
-    this.setState({ [name]: value });
+  state = {
+    isLoading: true
   };
-
   render() {
+    const { history, match } = this.props;
     return (
       <div className="blog-page">
         <Helmet>
@@ -40,19 +29,34 @@ class Blogpage extends React.Component {
             content="https://www.wereadafrican.com/blog"
           />
         </Helmet>
+        {history.location.pathname === '/blog' ? (
+          <BlogSubNav />
+        ) : history.location.pathname === '/blog/book_review' ? (
+          <BlogSubNav />
+        ) : history.location.pathname === '/blog/lit_anatomy' ? (
+          <BlogSubNav />
+        ) : history.location.pathname === '/blog/african_lit_&_life' ? (
+          <BlogSubNav />
+        ) : null}
+
         <div className="left">
-          <div className="output">
-            {this.props.allBlog ? (
-              this.props.allBlog.map(blog => (
-                <PostPreview showDate key={blog.title} blog_data={blog} />
-              ))
-            ) : (
-              <div className="loader">
-                {/* <img id="loader" src={loader} alt="Loader" /> */}
-                {/* <p className="date">No more posts</p> */}
-              </div>
-            )}
-          </div>
+          <Route exact path={`${match.path}`} component={BlogPosts} />
+          <Route exact path={`/blog/:tagId`} component={TagPage} />
+          <Route
+            exact
+            path={`/blog/book_review/:blogId`}
+            component={PostPage}
+          />
+          <Route
+            exact
+            path={`/blog/lit_anatomy/:blogId`}
+            component={PostPage}
+          />
+          <Route
+            exact
+            path={`/blog/african_lit_&_life/:blogId`}
+            component={PostPage}
+          />
         </div>
       </div>
     );
@@ -67,4 +71,6 @@ const mapStateToProps = createStructuredSelector({
   allBlog: selectAllBlog
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Blogpage);
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(Blogpage)
+);
