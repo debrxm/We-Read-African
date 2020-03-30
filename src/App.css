@@ -85,3 +85,14 @@ a {
 .App {
   text-align: center;
 }
+.showing .mobile {
+  display: none;
+}
+@media (max-width: 600px) {
+  .showing .desktop {
+    display: none;
+  }
+  .showing .mobile {
+    display: block;
+  }
+}

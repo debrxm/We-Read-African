@@ -42,18 +42,9 @@ class Blogpage extends React.Component {
         <div className="left">
           <Route exact path={`${match.path}`} component={BlogPosts} />
           <Route exact path={`/blog/:tagId`} component={TagPage} />
+          <Route path={`/blog/book_review/:blogId`} component={PostPage} />
+          <Route path={`/blog/lit_anatomy/:blogId`} component={PostPage} />
           <Route
-            exact
-            path={`/blog/book_review/:blogId`}
-            component={PostPage}
-          />
-          <Route
-            exact
-            path={`/blog/lit_anatomy/:blogId`}
-            component={PostPage}
-          />
-          <Route
-            exact
             path={`/blog/african_lit_&_life/:blogId`}
             component={PostPage}
           />

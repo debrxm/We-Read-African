@@ -1,5 +1,5 @@
 import React from 'react';
-import backArrow from '../../assets/backArrow.svg';
+import rightArrow from '../../assets/rightArrow.svg';
 import './blog-navigation.scss';
 
 const BlogNavigation = () => {
@@ -7,14 +7,14 @@ const BlogNavigation = () => {
     <div className="blog-navigation">
       <div className="previous-blog">
         <div className="arrow">
-          <img src={backArrow} alt="Back Arrow Icon" />
-          Previous
+          <img src={rightArrow} alt="Back Arrow Icon" />
+          <span> Previous Post</span>
         </div>
       </div>
       <div className="next-blog">
         <div className="arrow">
-          Next
-          <img src={backArrow} alt="Foward Arrow Icon" />
+          <span>Next Post</span>
+          <img src={rightArrow} alt="Foward Arrow Icon" />
         </div>
       </div>
     </div>

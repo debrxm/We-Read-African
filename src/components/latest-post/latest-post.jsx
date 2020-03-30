@@ -1,25 +1,34 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { selectAllBlog } from '../../redux/blog/blog.selector';
+import { createStructuredSelector } from 'reselect';
 import PostPreview from '../post-preview/post-preview';
 import CustomHeading from '../custom-heading/custom-heading';
 import loader from '../../assets/loader.gif';
 import './latest-post.scss';
-const LatestPost = ({ blogs }) => {
-  console.log(blogs);
-
+const LatestPost = ({ allBlog, homepage, line, postpage }) => {
   return (
     <div className="latest-post">
-      <CustomHeading>Latest Posts</CustomHeading>
+      {line ? (
+        <CustomHeading hasLine>Latest Posts</CustomHeading>
+      ) : (
+        <CustomHeading>Latest Posts</CustomHeading>
+      )}
       <div className="container">
         <section className="blog-area section">
           <div className="container ">
             <br />
             <br />
             <div className="output">
-              {blogs ? (
-                blogs.map(blog => (
-                  <PostPreview key={blog.title} blog_data={blog} />
-                ))
+              {allBlog ? (
+                allBlog.map(blog =>
+                  postpage ? (
+                    <PostPreview postpage key={blog.title} blog_data={blog} />
+                  ) : (
+                    <PostPreview key={blog.title} blog_data={blog} />
+                  )
+                )
               ) : (
                 <div className="loader">
                   <img id="loader" src={loader} alt="Loader" />
@@ -28,15 +37,13 @@ const LatestPost = ({ blogs }) => {
               )}
             </div>
             <div className="prevent">
-              {/* <div className="loader"> */}
-              {/* <img id="loader" src={loader} alt="Loader" /> */}
-              {/* <p className="date">No more posts</p> */}
-              {/* </div> */}
-              <Link to="/blog">
-                <span className="load-more-btn" id="load-more">
-                  View All Posts
-                </span>
-              </Link>
+              {homepage ? (
+                <Link to="/blog">
+                  <span className="load-more-btn" id="load-more">
+                    View All Posts
+                  </span>
+                </Link>
+              ) : null}
             </div>
           </div>
         </section>
@@ -45,4 +52,8 @@ const LatestPost = ({ blogs }) => {
   );
 };
 
-export default LatestPost;
+const mapStateToProps = createStructuredSelector({
+  allBlog: selectAllBlog
+});
+
+export default connect(mapStateToProps)(LatestPost);

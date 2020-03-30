@@ -45,15 +45,11 @@ const SignInPage = () => {
               Join the WeReadAfrican Tribe. Register to be a part of the forum.
             </p>
             <div className="social">
-              <span className="icon-border">
-                <img src={instagram} alt="Instagram Icon" />
-              </span>
-              <span className="icon-border">
-                <img src={twitter} alt="Twitter Icon" />
-              </span>
-              <span className="icon-border">
-                <img src={facebook} alt="Facebook Icon" />
-              </span>
+              <img className="icon" src={instagram} alt="Instagram Icon" />
+
+              <img className="icon" src={twitter} alt="Twitter Icon" />
+
+              <img className="icon" src={facebook} alt="Facebook Icon" />
             </div>
           </div>
         </div>

@@ -32,8 +32,9 @@ $secondaryColor: #ffffff;
   h3 {
     color: $primaryColor;
     font-weight: 400;
+    white-space: nowrap;
     margin-right: 10px;
-    font-size: 28px;
+    font-size: 25px;
     line-height: 35px;
   }
 }

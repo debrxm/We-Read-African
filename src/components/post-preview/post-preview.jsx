@@ -3,7 +3,15 @@ import { withRouter } from 'react-router-dom';
 import renderHTML from 'react-render-html';
 import comment from '../../assets/comment.svg';
 import './post-preview.scss';
-const PostPreview = ({ history, blog_data, showTrunc, showDate, reDirect }) => {
+const PostPreview = ({
+  history,
+  blog_data,
+  showTrunc,
+  showDate,
+  noFooter,
+  reDirect,
+  postpage
+}) => {
   const {
     title,
     views,
@@ -18,6 +26,13 @@ const PostPreview = ({ history, blog_data, showTrunc, showDate, reDirect }) => {
     reDirect
       ? history.push(
           `${tag}/${title
+            .split(' ')
+            .join('-')
+            .toLowerCase()}`
+        )
+      : postpage
+      ? history.push(
+          `${title
             .split(' ')
             .join('-')
             .toLowerCase()}`
@@ -73,7 +88,10 @@ const PostPreview = ({ history, blog_data, showTrunc, showDate, reDirect }) => {
       </div>
 
       <div className="blog-info">
-        <div className="post-preview-header">
+        <div
+          className="post-preview-header"
+          style={showTrunc ? { minHeight: '150px' } : { minHeight: '70px' }}
+        >
           <h4 className="title" id="post-link" onClick={handleRouting}>
             {title}
           </h4>
@@ -86,15 +104,17 @@ const PostPreview = ({ history, blog_data, showTrunc, showDate, reDirect }) => {
             </p>
           ) : null}
         </div>
-        <div className="post-footer">
-          <span className="post-footer-date">
-            {currentDate} {currentMonth} {year}
-          </span>
-          <span className="post-footer-comment">
-            <img src={comment} alt="Comment Icon" />
-            {comments.length} Comments
-          </span>
-        </div>
+        {noFooter ? null : (
+          <div className="post-footer">
+            <span className="post-footer-date">
+              {currentDate} {currentMonth} {year}
+            </span>
+            <span className="post-footer-comment">
+              <img src={comment} alt="Comment Icon" />
+              {comments.length} Comments
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

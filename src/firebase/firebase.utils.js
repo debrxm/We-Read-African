@@ -41,6 +41,47 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
   return userRef;
 };
+export const getAllComments = async title => {
+  const commentRef = firestore.doc(`blog_comments/${title}`);
+  const snapShot = await commentRef.get();
+  if (snapShot.exists) {
+    try {
+      return commentRef;
+    } catch (error) {
+      console.log('error creating user', error.message);
+    }
+  } else {
+    return null;
+  }
+};
+export const addAComment = async commentData => {
+  const addCommentRef = firestore.doc(`blog_comments/${commentData.post}`);
+  const newComment = [];
+  newComment.push(commentData);
+  const snapShot = await addCommentRef.get();
+  if (!snapShot.exists) {
+    try {
+      await addCommentRef.set({
+        comments: newComment
+      });
+      return addCommentRef;
+    } catch (error) {
+      console.log('error adding comment to database', error.message);
+    }
+  } else {
+    let oldComment = [];
+    oldComment = snapShot.data().comments;
+    oldComment.push(commentData);
+    try {
+      await addCommentRef.update({
+        comments: oldComment
+      });
+      return addCommentRef;
+    } catch (error) {
+      console.log('error adding comment to database', error.message);
+    }
+  }
+};
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 

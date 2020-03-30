@@ -7,7 +7,7 @@ import './tagpage.scss';
 
 const TagPage = ({ blogs }) => {
   return (
-    <div className="tag-page container">
+    <div className="tag-page">
       <div className="output">
         {blogs ? (
           blogs.map(blog => (

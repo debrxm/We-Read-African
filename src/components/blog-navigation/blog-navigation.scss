@@ -11,13 +11,16 @@
       justify-content: center;
       align-items: center;
       img {
-        margin: 8px;
-        width: 22px;
-        height: 22px;
+        margin: 0 0px;
+        width: 18px;
+        height: 18px;
+      }
+      span {
+        font-size: 14px;
       }
     }
   }
-  .next-blog {
+  .previous-blog {
     img {
       transform: rotate(180deg);
     }

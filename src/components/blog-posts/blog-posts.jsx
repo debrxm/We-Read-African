@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { selectAllBlog } from '../../redux/blog/blog.selector';
 import { createStructuredSelector } from 'reselect';
 import PostPreview from '../../components/post-preview/post-preview';
+import './blog-posts.scss';
 export const BlogPosts = ({ allBlog, history }) => {
   return (
     <div className="blog-post">
