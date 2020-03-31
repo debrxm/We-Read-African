@@ -3,7 +3,15 @@ import { withRouter } from 'react-router-dom';
 import renderHTML from 'react-render-html';
 import comment from '../../assets/comment.svg';
 import './post-preview.scss';
-const PostPreview = ({ history, blog_data, showTrunc, showDate }) => {
+const PostPreview = ({
+  history,
+  blog_data,
+  showTrunc,
+  showDate,
+  noFooter,
+  reDirect,
+  postpage
+}) => {
   const {
     title,
     views,
@@ -14,6 +22,28 @@ const PostPreview = ({ history, blog_data, showTrunc, showDate }) => {
     updated_at,
     truncate
   } = blog_data;
+  const handleRouting = () => {
+    reDirect
+      ? history.push(
+          `${tag}/${title
+            .split(' ')
+            .join('-')
+            .toLowerCase()}`
+        )
+      : postpage
+      ? history.push(
+          `${title
+            .split(' ')
+            .join('-')
+            .toLowerCase()}`
+        )
+      : history.push(
+          `blog/${tag}/${title
+            .split(' ')
+            .join('-')
+            .toLowerCase()}`
+        );
+  };
   const date = new Date(updated_at.seconds * 1000),
     months = [
       'Jan',
@@ -38,10 +68,11 @@ const PostPreview = ({ history, blog_data, showTrunc, showDate }) => {
       .join(' ');
   return (
     <div className="post-preview">
-      <div className="blog-image" 
-      // style={{ background: `url(${image})` }}
+      <div
+        className="blog-image"
+        // style={{ background: `url(${image})` }}
       >
-        <img src={image} alt="post img"/>
+        <img src={image} alt="post img" />
         {showDate ? (
           <button className="date-created">
             {currentDate} <br /> {currentMonth}
@@ -57,49 +88,33 @@ const PostPreview = ({ history, blog_data, showTrunc, showDate }) => {
       </div>
 
       <div className="blog-info">
-        <div className="post-preview-header">
-          <h4
-            className="title"
-            id="post-link"
-            onClick={() =>
-              history.push(
-                `blog/${tag}/${title
-                  .split(' ')
-                  .join('-')
-                  .toLowerCase()}`
-              )
-            }
-          >
+        <div
+          className="post-preview-header"
+          style={showTrunc ? { minHeight: '150px' } : { minHeight: '70px' }}
+        >
+          <h4 className="title" id="post-link" onClick={handleRouting}>
             {title}
           </h4>
           {showTrunc ? (
             <p className="trunc">
               {renderHTML(`${trunc}`)}{' '}
-              <span
-                className="read-more"
-                onClick={() =>
-                  history.push(
-                    `blog/${tag}/${title
-                      .split(' ')
-                      .join('-')
-                      .toLowerCase()}`
-                  )
-                }
-              >
+              <span className="read-more" onClick={handleRouting}>
                 read more
               </span>{' '}
             </p>
           ) : null}
         </div>
-        <div className="post-footer">
-          <span className="post-footer-date">
-            {currentDate} {currentMonth} {year}
-          </span>
-          <span className="post-footer-comment">
-            <img src={comment} alt="Comment Icon" />
-            {comments.length} Comments
-          </span>
-        </div>
+        {noFooter ? null : (
+          <div className="post-footer">
+            <span className="post-footer-date">
+              {currentDate} {currentMonth} {year}
+            </span>
+            <span className="post-footer-comment">
+              <img src={comment} alt="Comment Icon" />
+              {comments.length} Comments
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

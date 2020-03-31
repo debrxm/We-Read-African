@@ -8,7 +8,7 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './redux/store';
 import './index.css';
-require('./ably');
+// require('./ably');
 
 ReactDOM.render(
   <Provider store={store}>

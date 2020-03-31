@@ -26,6 +26,7 @@ import Blogpage from './pages/blogpage/blogpage';
 import './App.css';
 
 import NotFound from './pages/notfoundpage/NotFoundPage';
+import MobileHeader from './components/mobile-header/mobile-header';
 
 class App extends React.Component {
   state = {
@@ -67,12 +68,22 @@ class App extends React.Component {
   render() {
     const { currentUser, history } = this.props;
     return (
-      <div className="App">
+      <div
+        className="App"
+        style={currentUser ? { paddingTop: '110px' } : { paddingTop: '160px' }}
+      >
+        {history.location.pathname === '/signin' ? null : history.location
+            .pathname === '/signup' ? null : (
+          <div className="showing">
+            <div className="desktop">
+              <Header />
+            </div>
+            <div className="mobile">
+              <MobileHeader />
+            </div>
+          </div>
+        )}
         <div className="wrapper">
-          {history.location.pathname === '/signin' ? null : history.location
-              .pathname === '/signup' ? null : (
-            <Header />
-          )}
           {this.state.isLoading ? (
             <Loader />
           ) : (

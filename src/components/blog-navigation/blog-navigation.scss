@@ -1,0 +1,28 @@
+.blog-navigation {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .previous-blog,
+  .next-blog {
+    cursor: pointer;
+    .arrow {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img {
+        margin: 0 0px;
+        width: 18px;
+        height: 18px;
+      }
+      span {
+        font-size: 14px;
+      }
+    }
+  }
+  .previous-blog {
+    img {
+      transform: rotate(180deg);
+    }
+  }
+}

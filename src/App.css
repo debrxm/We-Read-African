@@ -81,8 +81,18 @@ a {
 }
 .wrapper {
   min-height: 80vh;
-  /* margin-bottom: -50px; */
 }
 .App {
   text-align: center;
+}
+.showing .mobile {
+  display: none;
+}
+@media (max-width: 600px) {
+  .showing .desktop {
+    display: none;
+  }
+  .showing .mobile {
+    display: block;
+  }
 }

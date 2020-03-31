@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import instagram from '../../assets/socials/instagram.svg';
 import facebook from '../../assets/socials/facebook.svg';
 import twitter from '../../assets/socials/twitter.svg';
-import footerPattern from '../../assets/footerPattern.svg';
+// import footerPattern from '../../assets/footerPattern.svg';
 import CustomForm from '../newsletter/custom-form';
 import './footer.scss';
 const Footer = () => {
@@ -39,28 +39,22 @@ const Footer = () => {
           <br />
           <div className="socials">
             <a href="https://www.instagram.com/">
-              <div className="icon-border">
-                <img src={instagram} alt="Instagram Logo" />
-              </div>
+              <img className="icon" src={instagram} alt="Instagram Logo" />
             </a>
             <a href="https://twitter.com/">
-              <div className="icon-border">
-                <img src={twitter} alt="Twitter Logo" />
-              </div>
+              <img className="icon" src={twitter} alt="Twitter Logo" />
             </a>
             <a href="https://web.facebook.com/">
-              <div className="icon-border">
-                <img src={facebook} alt="Facebook Logo" />
-              </div>
+              <img className="icon" src={facebook} alt="Facebook Logo" />
             </a>
           </div>
         </div>
       </div>
-      <img
+      {/* <img
         className="footer-pattern"
         src={footerPattern}
         alt="Footer Pattern"
-      />
+      /> */}
     </footer>
   );
 };

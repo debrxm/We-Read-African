@@ -1,8 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
-import { selectAllBlog } from '../../redux/blog/blog.selector';
-import { createStructuredSelector } from 'reselect';
 // import { firestore } from '../../firebase/firebase.utils';
 import { updateCategories } from '../../redux/blog/blog.actions';
 // import NewsletterPopup from '../../components/newsletter-popup/newsletter-popup';
@@ -40,7 +38,7 @@ class Homepage extends React.Component {
         </Helmet>
         <Slider />
         <ShopFavorite />
-        <LatestPost blogs={this.props.allBlog} />
+        <LatestPost homepage />
       </div>
     );
   }
@@ -50,8 +48,4 @@ const mapDispatchToProps = dispatch => ({
   updateCategories: collectionsMap => dispatch(updateCategories(collectionsMap))
 });
 
-const mapStateToProps = createStructuredSelector({
-  allBlog: selectAllBlog
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Homepage);
+export default connect(null, mapDispatchToProps)(Homepage);
