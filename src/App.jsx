@@ -38,13 +38,13 @@ class App extends React.Component {
     const { updateCategories, setCurrentUser } = this.props;
     const blogs = [];
     this.setState({ isLoading: true });
-    // const collectionRef = firestore.collection('blog_temp');
-    // collectionRef.onSnapshot(async snapshot => {
-    //   snapshot.docs.forEach(doc => {
-    //     blogs.push(doc.data());
-    //   });
-    //   updateCategories(blogs);
-    // });
+    const collectionRef = firestore.collection('blog_temp');
+    collectionRef.onSnapshot(async snapshot => {
+      snapshot.docs.forEach(doc => {
+        blogs.push(doc.data());
+      });
+      updateCategories(blogs);
+    });
     this.unSubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
