@@ -34,8 +34,8 @@ class CommentBox extends Component {
       date: Date.now(),
       replies: []
     };
-    const addCommentRef = await addAComment(data);
-    console.log('✔✔✔✔', addCommentRef);
+    await addAComment(data);
+
     axios
       .post('http://localhost:5000/comment', data)
       .then(() => {

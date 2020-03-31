@@ -29,11 +29,9 @@ class PostPage extends React.Component {
     );
     commentRef
       ? commentRef.onSnapshot(snapShot => {
-          console.log(snapShot.data());
           this.setState({
             comments: snapShot.data() ? snapShot.data().comments : []
           });
-          console.log(this.state.comments);
         })
       : console.log('no comment yet');
 
@@ -47,15 +45,7 @@ class PostPage extends React.Component {
     });
   }
   render() {
-    const {
-      title,
-      views,
-      comments,
-      content,
-      image,
-      tag,
-      updated_at
-    } = this.props.blog[0];
+    const { title, content, image, tag } = this.props.blog[0];
 
     return (
       <div className="post-page container">
