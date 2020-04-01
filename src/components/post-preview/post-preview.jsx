@@ -1,27 +1,34 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { createStructuredSelector } from 'reselect';
+import { selectAllComments } from '../../redux/blog/blog.selector';
 import renderHTML from 'react-render-html';
 import comment from '../../assets/comment.svg';
+import share from '../../assets/share.svg';
+import view from '../../assets/view.svg';
 import './post-preview.scss';
 const PostPreview = ({
   history,
   blog_data,
   showTrunc,
   showDate,
+  showViewShare,
   noFooter,
   reDirect,
-  postpage
+  postpage,
+  postComments
 }) => {
-  const {
-    title,
-    views,
-    comments,
-    content,
-    image,
-    tag,
-    updated_at,
-    truncate
-  } = blog_data;
+  const { title, image, tag, updated_at, truncate } = blog_data;
+  const [setComment, setCommentState] = useState({});
+  const setCommentsToState = comm => {
+    setCommentState(comm);
+  };
+  const handleFetchCommentsFromStore = () => {
+    postComments
+      .filter((item, index) => item.id === title.toLowerCase())
+      .map(comm => setCommentsToState(comm));
+  };
   const handleRouting = () => {
     reDirect
       ? history.push(
@@ -67,7 +74,7 @@ const PostPreview = ({
       .slice(0, 12)
       .join(' ');
   return (
-    <div className="post-preview">
+    <div className="post-preview" onLoad={handleFetchCommentsFromStore}>
       <div
         className="blog-image"
         // style={{ background: `url(${image})` }}
@@ -106,18 +113,37 @@ const PostPreview = ({
         </div>
         {noFooter ? null : (
           <div className="post-footer">
-            <span className="post-footer-date">
-              {currentDate} {currentMonth} {year}
-            </span>
+            {showViewShare ? null : (
+              <span className="post-footer-date">
+                {currentDate} {currentMonth} {year}
+              </span>
+            )}
             <span className="post-footer-comment">
               <img src={comment} alt="Comment Icon" />
-              {comments.length} Comments
+              {setComment.comments
+                ? setComment.comments.comments.length
+                : 0}{' '}
+              Comments
             </span>
+            {showViewShare ? (
+              <span className="post-footer-comment">
+                <img src={view} alt="Comment Icon" />0 Views
+              </span>
+            ) : null}
+            {showViewShare ? (
+              <span className="post-footer-comment">
+                <img src={share} alt="Comment Icon" />
+                share
+              </span>
+            ) : null}
           </div>
         )}
       </div>
     </div>
   );
 };
+const mapStateToProps = createStructuredSelector({
+  postComments: selectAllComments
+});
 
-export default withRouter(PostPreview);
+export default withRouter(connect(mapStateToProps)(PostPreview));

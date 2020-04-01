@@ -30,12 +30,9 @@ $secondaryColor: #ffffff;
       width: 100%;
       // height: 500px;
       img {
-        width: 600px;
+        width: 100%;
         // height: 400px;
         margin-bottom: 20px;
-        @include smartphone() {
-          width: 100%;
-        }
       }
     }
     .blog-content {
@@ -88,4 +85,20 @@ $secondaryColor: #ffffff;
       }
     }
   }
+}
+.progress-container {
+  position: fixed;
+  top: 110px;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: #ccc;
+  z-index: 10;
+}
+
+/* The progress bar (scroll indicator) */
+.progress-bar {
+  height: 4px;
+  background: $primaryColor;
+  width: 0%;
 }

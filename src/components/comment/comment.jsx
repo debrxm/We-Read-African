@@ -2,9 +2,7 @@ import React from 'react';
 import userIco from '../../assets/userIco.svg';
 import './comment.scss';
 const Comment = ({ comment }) => {
-  const { date, name, photo, replies, text } = comment;
-  console.log(comment);
-
+  const { date, name, photo, text } = comment;
   return (
     <article className="media">
       <div className="user">

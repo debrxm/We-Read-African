@@ -51,7 +51,7 @@ const LatestPost = ({ allBlog, homepage, line, postpage }) => {
         </section>
       </div>
     </div>
-  );
+  ); 
 };
 
 const mapStateToProps = createStructuredSelector({

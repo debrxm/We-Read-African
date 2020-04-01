@@ -9,7 +9,10 @@ import {
 } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
-import { updateCategories } from './redux/blog/blog.actions';
+import {
+  updateCategories,
+  updateBlogComments
+} from './redux/blog/blog.actions';
 import Header from './components/header/header';
 import Footer from './components/footer/footer';
 import Loader from './components/loader/loader';
@@ -35,10 +38,22 @@ class App extends React.Component {
   unsubscribFromSnapshot = null;
   unSubscribeFromAuth = null;
   componentDidMount() {
-    const { updateCategories, setCurrentUser } = this.props;
+    const { updateBlogComments, updateCategories, setCurrentUser } = this.props;
     this.setState({ isLoading: true });
-    const collectionRef = firestore.collection('blog_temp');
-    collectionRef.onSnapshot(async snapshot => {
+    const blogRef = firestore.collection('blog_temp');
+    const commentRef = firestore.collection('blog_comments');
+    commentRef.onSnapshot(async snapshot => {
+      const comments = []
+      snapshot.docs.forEach(doc => {
+        const commentObj ={
+          id: doc.id,
+          comments:doc.data() 
+        }
+        comments.push(commentObj);
+      });
+      updateBlogComments(comments);
+    });
+    blogRef.onSnapshot(async snapshot => {
       const blogs = [];
       snapshot.docs.forEach(doc => {
         blogs.push(doc.data());
@@ -126,6 +141,7 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = dispatch => ({
   updateCategories: collectionsMap =>
     dispatch(updateCategories(collectionsMap)),
+  updateBlogComments: comment => dispatch(updateBlogComments(comment)),
   setCurrentUser: user => dispatch(setCurrentUser(user))
 });
 

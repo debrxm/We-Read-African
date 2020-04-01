@@ -27,11 +27,9 @@ $secondaryColor: #ffffff;
     margin-bottom: 5px;
     .user-icon {
       height: 35px;
+      width: 35px;
       border-radius: 50%;
       margin-right: 5px;
-      @include smartphone() {
-        height: 15px;
-      }
     }
     .name-time {
       h5 {

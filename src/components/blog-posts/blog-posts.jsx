@@ -11,7 +11,13 @@ export const BlogPosts = ({ allBlog, history }) => {
       <div className="output">
         {allBlog ? (
           allBlog.map(blog => (
-            <PostPreview showTrunc showDate key={blog.title} blog_data={blog} />
+            <PostPreview
+              showTrunc
+              showViewShare
+              showDate
+              key={blog.title}
+              blog_data={blog}
+            />
           ))
         ) : (
           <div className="loader">

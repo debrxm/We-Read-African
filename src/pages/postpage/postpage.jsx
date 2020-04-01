@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import renderHTML from 'react-render-html';
 import Pusher from 'pusher-js';
-import axios from 'axios';
 import { getAllComments } from '../../firebase/firebase.utils';
 import { selectBlogPost } from '../../redux/blog/blog.selector';
 import BlogNavigation from '../../components/blog-navigation/blog-navigation';
@@ -15,9 +14,22 @@ import './postpage.scss';
 import PostpageLatestPost from '../../components/postpage-latest-post/postpage-latest-post';
 import Comments from '../../components/comments/comments';
 import CommentBox from '../../components/comment-box/comment-box';
+import ProgressIndicator from '../../components/progress-indicator/progress-indicator';
 class PostPage extends React.Component {
   state = {
     comments: []
+  };
+  handleFetchComments = async () => {
+    const commentRef = await getAllComments(
+      this.props.blog[0].title.toLowerCase()
+    );
+    if (commentRef) {
+      commentRef.onSnapshot(snapShot => {
+        this.setState({
+          comments: snapShot.data() ? snapShot.data().comments : []
+        });
+      });
+    }
   };
   async componentDidMount() {
     const pusher = new Pusher('a247b37a0b23d81855bb', {
@@ -27,30 +39,23 @@ class PostPage extends React.Component {
     const commentRef = await getAllComments(
       this.props.blog[0].title.toLowerCase()
     );
-    commentRef
-      ? commentRef.onSnapshot(snapShot => {
-          this.setState({
-            comments: snapShot.data() ? snapShot.data().comments : []
-          });
-        })
-      : console.log('no comment yet');
-
     const channel = pusher.subscribe('comments');
     channel.bind('new-comment', data => {
       let oldComment = this.state.comments;
       oldComment.push(data.comment);
       if (!commentRef) {
+        this.props.updateBlogComments([data.comment]);
         this.setState({ comments: [data.comment] });
       }
-      // console.log('💥💥💥💥💥', data);
-      // console.log(this.state.comments);
     });
+    if (this.props.blog[0]) {
+    }
   }
   render() {
     const { title, content, image, tag } = this.props.blog[0];
 
     return (
-      <div className="post-page container">
+      <div className="post-page container" onLoad={this.handleFetchComments}>
         <Helmet>
           <title>We Read African &mdash; {title}</title>
           <meta title="keywords" content={`${tag}, ${title}`} />
@@ -74,6 +79,7 @@ class PostPage extends React.Component {
           </div>
           <div className="blog-content">{renderHTML(`${content}`)}</div>
         </div>
+        <ProgressIndicator />
         <BlogNavigation />
         <div className="full-blog-footer">
           <div className="date-posted">

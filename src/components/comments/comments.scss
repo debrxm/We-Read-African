@@ -1,9 +1,18 @@
-$smartphone-width: 600px;
-$primaryColor: #000000;
+$tablet: 850px;
+$smartphone: 600px;
+$primaryColor: #77323b;
+$blackColor: #000000;
 $secondaryColor: #ffffff;
 
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
 @mixin smartphone {
-  @media (max-width: #{$smartphone-width}) {
+  @media (max-width: #{$smartphone}) {
     @content;
   }
 }
@@ -23,6 +32,9 @@ $secondaryColor: #ffffff;
     padding: 10px;
     margin-top: 15px;
     border-bottom: 1px solid #eab88c;
+    @include smartphone() {
+      justify-content: center;
+    }
 
     h5 {
       @include smartphone() {
@@ -42,6 +54,9 @@ $secondaryColor: #ffffff;
       color: #77323b;
       &:hover {
         transform: translateY(-2px);
+      }
+      @include smartphone() {
+        display: none;
       }
     }
   }
