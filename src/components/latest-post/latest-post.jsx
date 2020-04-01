@@ -22,13 +22,15 @@ const LatestPost = ({ allBlog, homepage, line, postpage }) => {
             <br />
             <div className="output">
               {allBlog ? (
-                allBlog.map(blog =>
-                  postpage ? (
-                    <PostPreview postpage key={blog.title} blog_data={blog} />
-                  ) : (
-                    <PostPreview key={blog.title} blog_data={blog} />
+                allBlog
+                  .filter((item, index) => index < 9)
+                  .map(blog =>
+                    postpage ? (
+                      <PostPreview postpage key={blog.title} blog_data={blog} />
+                    ) : (
+                      <PostPreview key={blog.title} blog_data={blog} />
+                    )
                   )
-                )
               ) : (
                 <div className="loader">
                   <img id="loader" src={loader} alt="Loader" />

@@ -39,7 +39,9 @@ class PostPage extends React.Component {
     channel.bind('new-comment', data => {
       let oldComment = this.state.comments;
       oldComment.push(data.comment);
-      // this.setState({ comments: oldComment });
+      if (!commentRef) {
+        this.setState({ comments: [data.comment] });
+      }
       // console.log('💥💥💥💥💥', data);
       // console.log(this.state.comments);
     });

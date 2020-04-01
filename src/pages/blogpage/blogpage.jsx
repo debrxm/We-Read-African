@@ -2,6 +2,7 @@ import React from 'react';
 import { Route, withRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
+// import { firestore} from '../../firebase/firebase.utils';
 import { selectAllBlog } from '../../redux/blog/blog.selector';
 import { createStructuredSelector } from 'reselect';
 import { updateCategories } from '../../redux/blog/blog.actions';

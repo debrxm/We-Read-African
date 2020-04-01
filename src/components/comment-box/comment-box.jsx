@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { addAComment } from '../../firebase/firebase.utils';
+import { GenerateId } from '../../utils/id-generator';
 import './comment-box.scss';
 
 class CommentBox extends Component {
@@ -27,6 +28,7 @@ class CommentBox extends Component {
     if (name.trim() === '' || newComment.trim() === '') return;
 
     const data = {
+      id: GenerateId(),
       name: currentUser.displayName,
       text: newComment,
       photo: currentUser.photoURL ? currentUser.photoURL : null,

@@ -23,23 +23,23 @@ import SignUpPage from './pages/sign-up/sign-up-page';
 import Contactpage from './pages/contactpage/contactpage';
 import Aboutpage from './pages/aboutpage/aboutpage';
 import Blogpage from './pages/blogpage/blogpage';
-import './App.css';
-
 import NotFound from './pages/notfoundpage/NotFoundPage';
 import MobileHeader from './components/mobile-header/mobile-header';
+import './App.css';
 
 class App extends React.Component {
   state = {
     isAvailableInYourCountry: false,
     isLoading: true
   };
+  unsubscribFromSnapshot = null;
   unSubscribeFromAuth = null;
   componentDidMount() {
     const { updateCategories, setCurrentUser } = this.props;
-    const blogs = [];
     this.setState({ isLoading: true });
     const collectionRef = firestore.collection('blog_temp');
     collectionRef.onSnapshot(async snapshot => {
+      const blogs = [];
       snapshot.docs.forEach(doc => {
         blogs.push(doc.data());
       });
