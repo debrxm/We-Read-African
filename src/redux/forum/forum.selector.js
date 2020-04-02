@@ -6,6 +6,15 @@ export const selectAllForumTopics = createSelector(
   forum => forum.forums
 );
 export const selectForumFilteredTopic = (forumUrlParam, url) =>
-  createSelector([selectForum], forum =>
+  createSelector([selectAllForumTopics], forum =>
     forum.filter((item, index) => item.tag.toLowerCase() === forumUrlParam)
+  );
+
+export const selectForumTopic = (forumUrlParam, url) =>
+  createSelector([selectAllForumTopics], forum =>
+    forum.filter(
+      (item, index) =>
+        item.topic_data.title.toLowerCase() ===
+        forumUrlParam.split('-').join(' ')
+    )
   );

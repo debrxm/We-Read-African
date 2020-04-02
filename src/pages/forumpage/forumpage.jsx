@@ -8,6 +8,7 @@ import ForumSubPage from '../forum-sub-page/forum-sub-page';
 import { firestore } from '../../firebase/firebase.utils';
 import { updateForums } from '../../redux/forum/forum.actions';
 import './forumpage.scss';
+import TopicPage from '../topicpage/topicpage';
 class Forumpage extends React.Component {
   state = {
     isLoading: true
@@ -49,6 +50,7 @@ class Forumpage extends React.Component {
         <div className="left">
           <Route exact path={`${match.path}`} component={LatestTopics} />
           <Route path={`/forum/:forumId`} component={ForumSubPage} />
+          <Route path={`/forum/:forumPostId`} component={TopicPage} />
         </div>
       </div>
     );

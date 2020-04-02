@@ -1,11 +1,22 @@
 import React from 'react';
-import userIco from '../../assets/userIco.svg';
+// import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import renderHTML from 'react-render-html';
+// import userIco from '../../assets/userIco.svg';
 import comment from '../../assets/comment.svg';
 import view from '../../assets/view.svg';
 import './forum-preview.scss';
-const ForumPreview = topicData => {
-  const { title, body, user, posted_at } = topicData.topicData;
+const ForumPreview = ({ topicData, history }) => {
+  const { title, body, user, posted_at } = topicData;
   const { displayName, photoURL } = user;
+  const handleRouting = () => {
+    history.push(
+      `forum/${title
+        .split(' ')
+        .join('-')
+        .toLowerCase()}`
+    );
+  };
   return (
     <div className="forum-preview">
       <h3 className="title">{title}</h3>
@@ -13,15 +24,20 @@ const ForumPreview = topicData => {
         <img className="user-icon" src={photoURL} alt="user" />
         <div className="name-time">
           <h5>{displayName}</h5>
-          <span>{new Date(posted_at).toString()}</span>
+          <span>
+            {new Date(posted_at)
+              .toString()
+              .split(' ')
+              .slice(0, 5)
+              .join(' ')}
+          </span>
         </div>
       </div>
-      <p className="trunc">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Accusamus
-        saepe vitae consectetur eaque porro recusandae provident, tempore
-        excepturi mollitia, corporis quidem reprehenderit harum quae sint cumque
-        deserunt ullam fuga tempora!{' '}
-        <span className="read-more">read more</span>
+      <p className="content">
+        {renderHTML(body).props.children[0]}{' '}
+        <span className="read-more" onClick={handleRouting}>
+          read more
+        </span>
       </p>
       <div className="forum-preview-footer">
         <span className="forum-preview-footer-comment">
@@ -37,4 +53,4 @@ const ForumPreview = topicData => {
   );
 };
 
-export default ForumPreview;
+export default withRouter(ForumPreview);

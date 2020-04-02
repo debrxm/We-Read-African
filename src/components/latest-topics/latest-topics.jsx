@@ -28,9 +28,14 @@ const LatestTopics = ({ currentUser, forumTopics }) => {
       {isShow ? (
         <ForumEditor handleToggleEditore={handleToggleEditore} />
       ) : null}
-      {forumTopics.map(topic => (
-        <ForumPreview key={topic.topic_data.id} topicData={topic.topic_data} />
-      ))}
+      {forumTopics
+        ? forumTopics.map(topic => (
+            <ForumPreview
+              key={topic.topic_data.id}
+              topicData={topic.topic_data}
+            />
+          ))
+        : null}
     </div>
   );
 };
