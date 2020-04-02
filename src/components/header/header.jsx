@@ -11,8 +11,6 @@ import twitter from '../../assets/socials/twitter.svg';
 import facebook from '../../assets/socials/facebook.svg';
 import search from '../../assets/search.svg';
 import logo from '../../assets/logo.svg';
-// import user from '../../assets/user.svg';
-import userIco from '../../assets/userIco.svg';
 import arrowDown from '../../assets/arrowDown.svg';
 import './header.scss';
 const Header = ({ currentUser, history }) => {
