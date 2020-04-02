@@ -10,6 +10,15 @@ const LatestTopics = ({ currentUser }) => {
   const [isShow, setisShow] = useState(false);
   const handleToggleEditore = () => {
     setisShow(!isShow);
+    // if (!isShow) {
+    //   window.onscroll = () => window.scrollTo(0, 0);
+    // }
+    // isShow
+    //   ? window.addEventListener('scroll', () => window.scrollTo(0, 0))
+    //   : window.removeEventListener('scroll', () => window.scrollTo());
+    !isShow
+      ? (document.documentElement.style.overflowY = 'hidden')
+      : (document.documentElement.style.overflowY = 'scroll');
   };
   return (
     <div className="latest-topics">
@@ -21,7 +30,9 @@ const LatestTopics = ({ currentUser }) => {
       </div>
       <br />
       <br />
-      <ForumEditor />
+      {isShow ? (
+        <ForumEditor handleToggleEditore={handleToggleEditore} />
+      ) : null}
       <ForumPreview />
       <ForumPreview />
       <ForumPreview />

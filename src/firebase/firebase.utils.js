@@ -54,6 +54,22 @@ export const getAllComments = async title => {
     return null;
   }
 };
+export const sendNewTopicToDatabase = async topicData => {
+  const newTopicRef = firestore.doc(`forum/${topicData.title}`);
+  const snapShot = await newTopicRef.get();
+  if (!snapShot.exists) {
+    try {
+      await newTopicRef.set({
+        topic_data: topicData
+      });
+      return newTopicRef;
+    } catch (error) {
+      console.log('error adding comment to database', error.message);
+    }
+  } else {
+    return 'This topic already exist';
+  }
+};
 export const addAComment = async commentData => {
   const addCommentRef = firestore.doc(`blog_comments/${commentData.post}`);
   const newComment = [];

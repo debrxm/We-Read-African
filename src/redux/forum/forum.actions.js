@@ -1,4 +1,4 @@
-import ForumActionTypes from './blog.types';
+import ForumActionTypes from './forum.types';
 
 export const updateForums = forums => ({
   type: ForumActionTypes.UPDATE_FORUMS,

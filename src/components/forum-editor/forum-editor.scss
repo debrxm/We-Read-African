@@ -1,0 +1,98 @@
+$tablet: 850px;
+$smartphone: 600px;
+$primaryColor: #77323b;
+$blackColor: #000000;
+$secondaryColor: #ffffff;
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+.bg {
+  background-color: #00000080;
+  height: calc(100vh - 145px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+}
+.forum-editor {
+  background-color: $secondaryColor;
+  padding: 20px;
+  width: 60vw;
+  margin: auto;
+  h4 {
+    text-align: center;
+    font-weight: 500;
+  }
+  label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 0 5px;
+    .required {
+      color: red;
+      font-size: 12px;
+    }
+  }
+  .group-input {
+    margin: 20px 0;
+    .form-input {
+      background: none;
+      // background-color: white;
+      color: $blackColor;
+      font-size: 18px;
+      padding: 10px;
+      display: block;
+      width: 100%;
+      border: none;
+      border-radius: 0;
+      border: 1px solid darken($color: $secondaryColor, $amount: 15);
+      // margin: 20px 0;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+  .forum-editor-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .btn {
+      cursor: pointer;
+      white-space: nowrap;
+      width: 150px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0px 45px;
+      background-color: $primaryColor;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 500;
+      color: $secondaryColor;
+      text-transform: uppercase;
+      margin-top: 20px;
+      &:hover {
+        transform: translateY(-2px);
+      }
+      @include smartphone() {
+        display: none;
+      }
+    }
+  }
+}
