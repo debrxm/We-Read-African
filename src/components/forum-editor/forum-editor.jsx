@@ -7,7 +7,7 @@ import plugins from 'suneditor/src/plugins';
 import image from 'suneditor/src/plugins/dialog/link';
 import { sendNewTopicToDatabase } from '../../firebase/firebase.utils';
 import { GenerateId } from '../../utils/id-generator';
-
+import loader from '../../assets/loader.gif';
 import 'suneditor/dist/css/suneditor.min.css';
 import './forum-editor.scss';
 class ForumEditor extends React.Component {
@@ -15,7 +15,8 @@ class ForumEditor extends React.Component {
     super(props);
     this.state = {
       title: '',
-      body: ''
+      body: '',
+      isLoading: false
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -27,14 +28,18 @@ class ForumEditor extends React.Component {
     console.log(content); //Get Content Inside Editor
     this.setState({ body: content });
   }
-  handlePostTopic = () => {
+  handlePostTopic = async () => {
+    this.setState({ isLoading: !this.state.isLoading });
     const newTopic = {
       title: this.state.title,
       body: this.state.body,
       id: GenerateId(),
-      user: this.props.currentUser
+      user: this.props.currentUser,
+      posted_at: Date.now()
     };
-    sendNewTopicToDatabase(newTopic);
+    await sendNewTopicToDatabase(newTopic);
+    this.setState({ isLoading: !this.setState.isLoading });
+    this.props.handleToggleEditore();
   };
   render() {
     return (
@@ -85,7 +90,10 @@ class ForumEditor extends React.Component {
               Cancel
             </span>
             <span className="post-topic-btn btn" onClick={this.handlePostTopic}>
-              Post Topic
+              Post Topic{' '}
+              {this.state.isLoading ? (
+                <img src={loader} alt="loader gif" />
+              ) : null}
             </span>
           </div>
         </div>

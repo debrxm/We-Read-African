@@ -3,15 +3,17 @@ import userIco from '../../assets/userIco.svg';
 import comment from '../../assets/comment.svg';
 import view from '../../assets/view.svg';
 import './forum-preview.scss';
-const ForumPreview = () => {
+const ForumPreview = topicData => {
+  const { title, body, user, posted_at } = topicData.topicData;
+  const { displayName, photoURL } = user;
   return (
     <div className="forum-preview">
-      <h3 className="title">Your Book Activity - February 2020</h3>
+      <h3 className="title">{title}</h3>
       <div className="writer">
-        <img className="user-icon" src={userIco} alt="user" />
+        <img className="user-icon" src={photoURL} alt="user" />
         <div className="name-time">
-          <h5>{'Alex Kruger'}</h5>
-          <span>{'February 7 2020'}</span>
+          <h5>{displayName}</h5>
+          <span>{new Date(posted_at).toString()}</span>
         </div>
       </div>
       <p className="trunc">

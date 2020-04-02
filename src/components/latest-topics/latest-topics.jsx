@@ -2,20 +2,15 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
+import { selectAllForumTopics } from '../../redux/forum/forum.selector';
 import UserPreview from '../user-preview/user-preview';
 import './latest-topics.scss';
 import ForumPreview from '../forum-preview/forum-preview';
 import ForumEditor from '../forum-editor/forum-editor';
-const LatestTopics = ({ currentUser }) => {
+const LatestTopics = ({ currentUser, forumTopics }) => {
   const [isShow, setisShow] = useState(false);
   const handleToggleEditore = () => {
     setisShow(!isShow);
-    // if (!isShow) {
-    //   window.onscroll = () => window.scrollTo(0, 0);
-    // }
-    // isShow
-    //   ? window.addEventListener('scroll', () => window.scrollTo(0, 0))
-    //   : window.removeEventListener('scroll', () => window.scrollTo());
     !isShow
       ? (document.documentElement.style.overflowY = 'hidden')
       : (document.documentElement.style.overflowY = 'scroll');
@@ -33,16 +28,16 @@ const LatestTopics = ({ currentUser }) => {
       {isShow ? (
         <ForumEditor handleToggleEditore={handleToggleEditore} />
       ) : null}
-      <ForumPreview />
-      <ForumPreview />
-      <ForumPreview />
-      <ForumPreview />
+      {forumTopics.map(topic => (
+        <ForumPreview key={topic.topic_data.id} topicData={topic.topic_data} />
+      ))}
     </div>
   );
 };
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
+  forumTopics: selectAllForumTopics
 });
 
 export default connect(mapStateToProps)(LatestTopics);

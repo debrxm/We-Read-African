@@ -6,7 +6,7 @@ import ForumSubNav from '../../components/forum-sub-nav/forum-sub-nav';
 import LatestTopics from '../../components/latest-topics/latest-topics';
 import ForumSubPage from '../forum-sub-page/forum-sub-page';
 import { firestore } from '../../firebase/firebase.utils';
-import {updateForums} from '../../redux/forum/forum.actions'
+import { updateForums } from '../../redux/forum/forum.actions';
 import './forumpage.scss';
 class Forumpage extends React.Component {
   state = {
@@ -19,8 +19,7 @@ class Forumpage extends React.Component {
       snapshot.docs.forEach(doc => {
         forumTopics.push(doc.data());
       });
-      console.log(forumTopics);
-      this.props.updateForums(forumTopics)
+      this.props.updateForums(forumTopics);
       // send to redux
     });
   }
@@ -55,8 +54,8 @@ class Forumpage extends React.Component {
     );
   }
 }
-const mapDespatchToProps = dispatch =>({
+const mapDespatchToProps = dispatch => ({
   updateForums: forumTopic => dispatch(updateForums(forumTopic))
-})
+});
 
-export default withRouter(connect(null, mapDespatchToProps) (Forumpage));
+export default withRouter(connect(null, mapDespatchToProps)(Forumpage));
