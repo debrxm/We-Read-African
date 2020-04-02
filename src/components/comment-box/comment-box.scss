@@ -66,8 +66,13 @@ $secondaryColor: #ffffff;
     padding: 0px 45px;
     border: 1px solid #77323b;
     border-radius: 30px;
+    white-space: nowrap;
     font-size: 14px;
     color: #77323b;
+    @include smartphone() {
+      width: 90%;
+      float: none;
+    }
     &:hover {
       transform: translateY(-2px);
     }

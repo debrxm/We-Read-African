@@ -1,0 +1,50 @@
+$tablet: 850px;
+$smartphone: 500px;
+$primaryColor: #77323b;
+$blackColor: #000000;
+$secondaryColor: #ffffff;
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+.latest-topics {
+  text-align: left;
+  .post-topic {
+    border-bottom: 1px solid darken($color: $secondaryColor, $amount: 10);
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .post-topic-btn {
+      cursor: pointer;
+      white-space: nowrap;
+      width: 150px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0px 45px;
+      background-color: $primaryColor;
+      border-radius: 30px;
+      font-size: 13px;
+      font-weight: 500;
+      color: $secondaryColor;
+      text-transform: uppercase;
+      &:hover {
+        transform: translateY(-2px);
+      }
+      @include smartphone() {
+        display: none;
+      }
+    }
+  }
+}

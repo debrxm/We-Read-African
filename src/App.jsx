@@ -29,6 +29,7 @@ import Blogpage from './pages/blogpage/blogpage';
 import NotFound from './pages/notfoundpage/NotFoundPage';
 import MobileHeader from './components/mobile-header/mobile-header';
 import './App.css';
+import Forumpage from './pages/forumpage/forumpage';
 
 class App extends React.Component {
   state = {
@@ -43,12 +44,12 @@ class App extends React.Component {
     const blogRef = firestore.collection('blog_temp');
     const commentRef = firestore.collection('blog_comments');
     commentRef.onSnapshot(async snapshot => {
-      const comments = []
+      const comments = [];
       snapshot.docs.forEach(doc => {
-        const commentObj ={
+        const commentObj = {
           id: doc.id,
-          comments:doc.data() 
-        }
+          comments: doc.data()
+        };
         comments.push(commentObj);
       });
       updateBlogComments(comments);
@@ -118,7 +119,9 @@ class App extends React.Component {
                   currentUser ? <Redirect to="/" /> : <SignUpPage />
                 }
               />
+
               <Route path="/blog" component={Blogpage} />
+              <Route path="/forum" component={Forumpage} />
               <Route exact path="/user-profile" component={UserProfilePage} />
               <Route exact path="/about" component={Aboutpage} />
               <Route exact path="/contact" component={Contactpage} />

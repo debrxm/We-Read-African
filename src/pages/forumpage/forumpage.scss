@@ -1,0 +1,27 @@
+$tablet: 850px;
+$smartphone: 500px;
+$primaryColor: #77323b;
+$blackColor: #000000;
+$secondaryColor: #ffffff;
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+.forum-page {
+  .left {
+    width: 65vw;
+    margin-left: 6%;
+    @include smartphone() {
+      width: 100%;
+    }
+  }
+}

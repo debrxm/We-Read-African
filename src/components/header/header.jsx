@@ -5,6 +5,7 @@ import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import UserDropdown from '../user-dropdown/user-dropdown';
 import CustomButton from '../custom-button/custom-button';
+import UserPreview from '../user-preview/user-preview';
 import instagram from '../../assets/socials/instagram.svg';
 import twitter from '../../assets/socials/twitter.svg';
 import facebook from '../../assets/socials/facebook.svg';
@@ -52,18 +53,8 @@ const Header = ({ currentUser, history }) => {
           </span>
 
           {currentUser ? (
-            <div className="user" onClick={handleToggleUserDropdown}>
-              <img
-                className="user-icon"
-                src={currentUser.photoURL ? currentUser.photoURL : userIco}
-                alt="user"
-              />
-              <span>{currentUser.displayName}</span>
-              <img
-                className="arrow-down"
-                src={arrowDown}
-                alt="Arrow Down Icon"
-              />
+            <div onClick={handleToggleUserDropdown}>
+              <UserPreview currentUser={currentUser} arrowD />
               {isShow ? <UserDropdown /> : null}
             </div>
           ) : (
