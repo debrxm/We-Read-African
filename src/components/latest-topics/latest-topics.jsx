@@ -30,10 +30,7 @@ const LatestTopics = ({ currentUser, forumTopics }) => {
       ) : null}
       {forumTopics
         ? forumTopics.map(topic => (
-            <ForumPreview
-              key={topic.topic_data.id}
-              topicData={topic.topic_data}
-            />
+            <ForumPreview key={topic.id} topicData={topic} />
           ))
         : null}
     </div>

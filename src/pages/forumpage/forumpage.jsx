@@ -6,7 +6,11 @@ import ForumSubNav from '../../components/forum-sub-nav/forum-sub-nav';
 import LatestTopics from '../../components/latest-topics/latest-topics';
 import ForumSubPage from '../forum-sub-page/forum-sub-page';
 import { firestore } from '../../firebase/firebase.utils';
-import { updateForums } from '../../redux/forum/forum.actions';
+import {
+  updateForums,
+  updateForumComments,
+  updateForumViews
+} from '../../redux/forum/forum.actions';
 import './forumpage.scss';
 import TopicPage from '../topicpage/topicpage';
 class Forumpage extends React.Component {
@@ -14,7 +18,7 @@ class Forumpage extends React.Component {
     isLoading: true
   };
   componentDidMount() {
-    const forumRef = firestore.collection('forum');
+    const forumRef = firestore.collection('forum').orderBy('posted_at', 'desc');
     forumRef.onSnapshot(async snapshot => {
       const forumTopics = [];
       snapshot.docs.forEach(doc => {
@@ -22,6 +26,30 @@ class Forumpage extends React.Component {
       });
       this.props.updateForums(forumTopics);
       // send to redux
+    });
+    const commentRef = firestore.collection('forum_comments');
+    const viewRef = firestore.collection('forum_views');
+    commentRef.onSnapshot(async snapshot => {
+      const comments = [];
+      snapshot.docs.forEach(doc => {
+        const commentObj = {
+          id: doc.id,
+          comments: doc.data()
+        };
+        comments.push(commentObj);
+      });
+      this.props.updateForumComments(comments);
+    });
+    viewRef.onSnapshot(async snapshot => {
+      const views = [];
+      snapshot.docs.forEach(doc => {
+        const viewObj = {
+          id: doc.id,
+          view: doc.data()
+        };
+        views.push(viewObj);
+      });
+      this.props.updateForumViews(views);
     });
   }
   render() {
@@ -57,7 +85,9 @@ class Forumpage extends React.Component {
   }
 }
 const mapDespatchToProps = dispatch => ({
-  updateForums: forumTopic => dispatch(updateForums(forumTopic))
+  updateForums: forumTopic => dispatch(updateForums(forumTopic)),
+  updateForumComments: comments => dispatch(updateForumComments(comments)),
+  updateForumViews: views => dispatch(updateForumViews(views))
 });
 
 export default withRouter(connect(null, mapDespatchToProps)(Forumpage));

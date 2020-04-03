@@ -47,7 +47,9 @@ class App extends React.Component {
       setCurrentUser
     } = this.props;
     this.setState({ isLoading: true });
-    const blogRef = firestore.collection('blog_temp');
+    const blogRef = firestore
+      .collection('blog_temp')
+      .orderBy('updated_at', 'desc');
     const commentRef = firestore.collection('blog_comments');
     const viewRef = firestore.collection('blog_views');
     commentRef.onSnapshot(async snapshot => {

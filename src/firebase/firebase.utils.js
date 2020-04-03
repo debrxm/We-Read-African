@@ -41,8 +41,8 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
   return userRef;
 };
-export const getAllComments = async title => {
-  const commentRef = firestore.doc(`blog_comments/${title}`);
+export const getAllComments = async ({ collection, documente }) => {
+  const commentRef = firestore.doc(`${collection}/${documente}`);
   const snapShot = await commentRef.get();
   if (snapShot.exists) {
     try {
@@ -54,34 +54,32 @@ export const getAllComments = async title => {
     return null;
   }
 };
-export const updateBlogViews = async blogViews => {
-  const blogViewRef = firestore.doc(`blog_views/${blogViews.title}`);
+export const updateViews = async ({ collection, title, userIp }) => {
+  const viewRef = firestore.doc(`${collection}/${title}`);
   const newView = [];
-  newView.push(blogViews.userIp);
-  const snapShot = await blogViewRef.get();
+  newView.push(userIp);
+  const snapShot = await viewRef.get();
   if (!snapShot.exists) {
     try {
-      await blogViewRef.set({
+      await viewRef.set({
         views: newView
       });
 
-      return blogViewRef;
+      return viewRef;
     } catch (error) {
       console.log('error adding view to database', error.message);
     }
   } else {
     let oldView = [];
     oldView = snapShot.data().views;
-    oldView.push(blogViews.userIp);
-    console.log(oldView);
-
+    oldView.push(userIp);
     try {
-      if (snapShot.data().views.includes(blogViews.userIp) === false) {
-        await blogViewRef.update({
+      if (snapShot.data().views.includes(userIp) === false) {
+        await viewRef.update({
           views: oldView
         });
       }
-      return blogViewRef;
+      return viewRef;
     } catch (error) {
       console.log('error adding view to database', error.message);
     }
@@ -93,7 +91,7 @@ export const sendNewTopicToDatabase = async topicData => {
   if (!snapShot.exists) {
     try {
       await newTopicRef.set({
-        topic_data: topicData
+        ...topicData
       });
       return newTopicRef;
     } catch (error) {
@@ -103,10 +101,11 @@ export const sendNewTopicToDatabase = async topicData => {
     return 'This topic already exist';
   }
 };
-export const addAComment = async commentData => {
-  const addCommentRef = firestore.doc(`blog_comments/${commentData.post}`);
+export const addAComment = async ({ collection, d_ata }) => {
+  // console.log(collection, d_ata);
+  const addCommentRef = firestore.doc(`${collection}/${d_ata.post}`);
   const newComment = [];
-  newComment.push(commentData);
+  newComment.push(d_ata);
   const snapShot = await addCommentRef.get();
   if (!snapShot.exists) {
     try {
@@ -120,7 +119,7 @@ export const addAComment = async commentData => {
   } else {
     let oldComment = [];
     oldComment = snapShot.data().comments;
-    oldComment.push(commentData);
+    oldComment.push(d_ata);
     try {
       await addCommentRef.update({
         comments: oldComment

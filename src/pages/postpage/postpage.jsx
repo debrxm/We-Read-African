@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import renderHTML from 'react-render-html';
-import Pusher from 'pusher-js';
-import { getAllComments, updateBlogViews } from '../../firebase/firebase.utils';
+import { getAllComments, updateViews } from '../../firebase/firebase.utils';
 import { selectBlogPost } from '../../redux/blog/blog.selector';
 import BlogNavigation from '../../components/blog-navigation/blog-navigation';
 import whatsapp from '../../assets/socials/whatsapp.svg';
@@ -20,10 +19,16 @@ class PostPage extends React.Component {
     comments: [],
     userIp: ''
   };
-  handleFetchComments = async () => {
-    const commentRef = await getAllComments(
-      this.props.blog[0].title.toLowerCase()
-    );
+
+  async componentDidMount() {
+    let response = await fetch('https://api.ipify.org?format=json');
+    let IP = await response.json();
+    this.setState({ userIp: IP.ip });
+
+    const commentRef = await getAllComments({
+      collection: 'blog_comments',
+      documente: this.props.blog[0].title.toLowerCase()
+    });
     if (commentRef) {
       commentRef.onSnapshot(snapShot => {
         this.setState({
@@ -31,39 +36,18 @@ class PostPage extends React.Component {
         });
       });
     }
-  };
 
-  async componentDidMount() {
-    let response = await fetch('https://api.ipify.org?format=json');
-    let IP = await response.json();
-    this.setState({ userIp: IP.ip });
-    const pusher = new Pusher('a247b37a0b23d81855bb', {
-      cluster: 'eu',
-      forceTLS: true
+    await updateViews({
+      collection: 'blog_views',
+      title: this.props.blog[0].title.toLowerCase(),
+      userIp: this.state.userIp
     });
-    const commentRef = await getAllComments(
-      this.props.blog[0].title.toLowerCase()
-    );
-
-    await updateBlogViews({title:this.props.blog[0].title.toLowerCase(), userIp: this.state.userIp })
-    const channel = pusher.subscribe('comments');
-    channel.bind('new-comment', data => {
-      let oldComment = this.state.comments;
-      oldComment.push(data.comment);
-      if (!commentRef) {
-        this.props.updateBlogComments([data.comment]);
-        this.setState({ comments: [data.comment] });
-      }
-    });
-    if (this.props.blog[0]) {
-    }
-
   }
   render() {
     const { title, content, image, tag } = this.props.blog[0];
 
     return (
-      <div className="post-page container" onLoad={this.handleFetchComments}>
+      <div className="post-page container">
         <Helmet>
           <title>We Read African &mdash; {title}</title>
           <meta title="keywords" content={`${tag}, ${title}`} />
@@ -111,9 +95,9 @@ class PostPage extends React.Component {
             </div>
           </div>
         </div>
-        <PostpageLatestPost line postpage />
-        <Comments comments={this.state.comments} />
-        <CommentBox blogData={this.props.blog[0]} />
+        <PostpageLatestPost line postpage except={title} />
+        <Comments category="blog_comments" comments={this.state.comments} />
+        <CommentBox category="blog_comments" title={this.props.blog[0].title} />
       </div>
     );
   }

@@ -37,7 +37,7 @@ class ForumEditor extends React.Component {
       user: this.props.currentUser,
       posted_at: Date.now()
     };
-    await sendNewTopicToDatabase(newTopic);
+    await sendNewTopicToDatabase(newTopic); 
     this.setState({ isLoading: !this.setState.isLoading });
     this.props.handleToggleEditore();
   };

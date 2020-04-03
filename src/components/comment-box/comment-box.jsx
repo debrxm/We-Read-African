@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { addAComment } from '../../firebase/firebase.utils';
 import { GenerateId } from '../../utils/id-generator';
+import loader from '../../assets/loader.gif';
 import './comment-box.scss';
 
 class CommentBox extends Component {
   state = {
     name: this.props.currentUser ? this.props.currentUser.displayName : '',
-    newComment: ''
+    newComment: '',
+    isLoading: false
   };
 
   updateInput = event => {
@@ -22,31 +23,25 @@ class CommentBox extends Component {
   };
 
   addComment = async event => {
+    this.setState({ isLoading: true });
     event.preventDefault();
-    const { blogData, currentUser } = this.props;
+    const { title, category, currentUser } = this.props;
     const { name, newComment } = this.state;
     if (name.trim() === '' || newComment.trim() === '') return;
-
-    const data = {
+    const d_ata = {
       id: GenerateId(),
       name: currentUser.displayName,
       text: newComment,
       photo: currentUser.photoURL ? currentUser.photoURL : null,
-      post: blogData.title.toLowerCase(),
+      post: title.toLowerCase(),
       date: Date.now(),
       replies: []
     };
-    await addAComment(data);
-
-    axios
-      .post('http://localhost:5000/comment', data)
-      .then(() => {
-        this.setState({
-          // name: ''
-          newComment: ''
-        });
-      })
-      .catch(error => console.log(error));
+    await addAComment({ collection: category, d_ata });
+    this.setState({
+      newComment: '',
+      isLoading: false
+    });
   };
 
   render() {
@@ -83,8 +78,14 @@ class CommentBox extends Component {
 
           <div className="field">
             <div className="control">
-              <span className="post-comment" onClick={this.addComment}>
-                Post a Comment
+              <span
+                className="post-comment"
+                onClick={this.state.isLoading ? null : this.addComment}
+              >
+                Post a Comment{' '}
+                {this.state.isLoading ? (
+                  <img src={loader} alt="Loader Gif" />
+                ) : null}
               </span>
             </div>
           </div>

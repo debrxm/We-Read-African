@@ -69,6 +69,11 @@ $secondaryColor: #ffffff;
     white-space: nowrap;
     font-size: 14px;
     color: #77323b;
+    img {
+      width: 18px;
+      height: 18px;
+      margin-left: 5px;
+    }
     @include smartphone() {
       width: 90%;
       float: none;
