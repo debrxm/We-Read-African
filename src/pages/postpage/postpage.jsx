@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import renderHTML from 'react-render-html';
 import Pusher from 'pusher-js';
-import { getAllComments } from '../../firebase/firebase.utils';
+import { getAllComments, updateBlogViews } from '../../firebase/firebase.utils';
 import { selectBlogPost } from '../../redux/blog/blog.selector';
 import BlogNavigation from '../../components/blog-navigation/blog-navigation';
 import whatsapp from '../../assets/socials/whatsapp.svg';
@@ -17,7 +17,8 @@ import CommentBox from '../../components/comment-box/comment-box';
 import ProgressIndicator from '../../components/progress-indicator/progress-indicator';
 class PostPage extends React.Component {
   state = {
-    comments: []
+    comments: [],
+    userIp: ''
   };
   handleFetchComments = async () => {
     const commentRef = await getAllComments(
@@ -31,7 +32,11 @@ class PostPage extends React.Component {
       });
     }
   };
+
   async componentDidMount() {
+    let response = await fetch('https://api.ipify.org?format=json');
+    let IP = await response.json();
+    this.setState({ userIp: IP.ip });
     const pusher = new Pusher('a247b37a0b23d81855bb', {
       cluster: 'eu',
       forceTLS: true
@@ -39,6 +44,8 @@ class PostPage extends React.Component {
     const commentRef = await getAllComments(
       this.props.blog[0].title.toLowerCase()
     );
+
+    await updateBlogViews({title:this.props.blog[0].title.toLowerCase(), userIp: this.state.userIp })
     const channel = pusher.subscribe('comments');
     channel.bind('new-comment', data => {
       let oldComment = this.state.comments;
@@ -50,6 +57,7 @@ class PostPage extends React.Component {
     });
     if (this.props.blog[0]) {
     }
+
   }
   render() {
     const { title, content, image, tag } = this.props.blog[0];

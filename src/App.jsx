@@ -11,7 +11,8 @@ import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
 import {
   updateCategories,
-  updateBlogComments
+  updateBlogComments,
+  updateBlogViews
 } from './redux/blog/blog.actions';
 import Header from './components/header/header';
 import Footer from './components/footer/footer';
@@ -39,10 +40,16 @@ class App extends React.Component {
   unsubscribFromSnapshot = null;
   unSubscribeFromAuth = null;
   componentDidMount() {
-    const { updateBlogComments, updateCategories, setCurrentUser } = this.props;
+    const {
+      updateBlogComments,
+      updateCategories,
+      updateBlogViews,
+      setCurrentUser
+    } = this.props;
     this.setState({ isLoading: true });
     const blogRef = firestore.collection('blog_temp');
     const commentRef = firestore.collection('blog_comments');
+    const viewRef = firestore.collection('blog_views');
     commentRef.onSnapshot(async snapshot => {
       const comments = [];
       snapshot.docs.forEach(doc => {
@@ -60,6 +67,17 @@ class App extends React.Component {
         blogs.push(doc.data());
       });
       updateCategories(blogs);
+    });
+    viewRef.onSnapshot(async snapshot => {
+      const views = [];
+      snapshot.docs.forEach(doc => {
+        const viewObj = {
+          id: doc.id,
+          view: doc.data()
+        };
+        views.push(viewObj);
+      });
+      updateBlogViews(views);
     });
     this.unSubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
@@ -145,6 +163,7 @@ const mapDispatchToProps = dispatch => ({
   updateCategories: collectionsMap =>
     dispatch(updateCategories(collectionsMap)),
   updateBlogComments: comment => dispatch(updateBlogComments(comment)),
+  updateBlogViews: views => dispatch(updateBlogViews(views)),
   setCurrentUser: user => dispatch(setCurrentUser(user))
 });
 

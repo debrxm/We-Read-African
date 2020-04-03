@@ -9,8 +9,8 @@ import whatsapp from '../../assets/socials/whatsapp.svg';
 import linkedin from '../../assets/socials/linkedin.svg';
 import facebook from '../../assets/socials/facebook.svg';
 import twitter from '../../assets/socials/twitter.svg';
-// import Comments from '../../components/comments/comments';
-// import CommentBox from '../../components/comment-box/comment-box';
+import Comments from '../../components/comments/comments';
+import CommentBox from '../../components/comment-box/comment-box';
 import ProgressIndicator from '../../components/progress-indicator/progress-indicator';
 import './topicpage.scss';
 class TopicPage extends React.Component {
@@ -112,8 +112,8 @@ class TopicPage extends React.Component {
             </div>
           </div>
         </div>
-        {/* <Comments comments={this.state.comments} /> */}
-        {/* <CommentBox blogData={this.props.blog[0]} /> */}
+        <Comments comments={this.state.comments} />
+        <CommentBox />
       </div>
     );
   }

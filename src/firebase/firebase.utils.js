@@ -54,6 +54,37 @@ export const getAllComments = async title => {
     return null;
   }
 };
+export const updateBlogViews = async blogViews => {
+  const blogViewRef = firestore.doc(`blog_views/${blogViews.title}`);
+  const newView = [];
+  newView.push(blogViews.userIp);
+  const snapShot = await blogViewRef.get();
+  if (!snapShot.exists) {
+    try {
+      await blogViewRef.set({
+        views: newView
+      });
+
+      return blogViewRef;
+    } catch (error) {
+      console.log('error adding view to database', error.message);
+    }
+  } else {
+    let oldView = [];
+    oldView = snapShot.data().views;
+    oldView.push(blogViews.userIp);
+    try {
+      if (!snapShot.data().views.includes(blogViews.userIp)) {
+        await blogViewRef.update({
+          views: oldView
+        });
+      }
+      return blogViewRef;
+    } catch (error) {
+      console.log('error adding view to database', error.message);
+    }
+  }
+};
 export const sendNewTopicToDatabase = async topicData => {
   const newTopicRef = firestore.doc(`forum/${topicData.title}`);
   const snapShot = await newTopicRef.get();

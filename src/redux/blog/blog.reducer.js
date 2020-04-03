@@ -1,7 +1,8 @@
 import BlogActionTypes from './blog.types';
 const INITIAL_STATE = {
   blogs: null,
-  comments: []
+  comments: [],
+  views: []
 };
 
 const BlogReducer = (state = INITIAL_STATE, action) => {
@@ -15,6 +16,11 @@ const BlogReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         comments: action.payload
+      };
+    case BlogActionTypes.UPDATE_BLOG_VIEWS:
+      return {
+        ...state,
+        views: action.payload
       };
     default:
       return state;
