@@ -73,8 +73,10 @@ export const updateBlogViews = async blogViews => {
     let oldView = [];
     oldView = snapShot.data().views;
     oldView.push(blogViews.userIp);
+    console.log(oldView);
+
     try {
-      if (!snapShot.data().views.includes(blogViews.userIp)) {
+      if (snapShot.data().views.includes(blogViews.userIp) === false) {
         await blogViewRef.update({
           views: oldView
         });
