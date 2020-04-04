@@ -85,30 +85,8 @@ $secondaryColor: #ffffff;
 
         img {
           margin: auto;
-          width: 100%;
-        }
-      }
-      .user {
-        cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-left: 20px;
-        .user-icon {
-          height: 30px;
-          border-radius: 50%;
-          margin-right: 5px;
-
-          @include smartphone() {
-            height: 15px;
-          }
-        }
-        span {
-          font-size: 14px;
-        }
-        .arrow-down {
-          margin-left: 5px;
-          width: 10px;
+          width: 18px;
+          height: 18px;
         }
       }
     }

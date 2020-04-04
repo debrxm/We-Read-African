@@ -9,7 +9,11 @@ import {
 } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
-import { updateCategories } from './redux/blog/blog.actions';
+import {
+  updateCategories,
+  updateBlogComments,
+  updateBlogViews
+} from './redux/blog/blog.actions';
 import Header from './components/header/header';
 import Footer from './components/footer/footer';
 import Loader from './components/loader/loader';
@@ -23,28 +27,60 @@ import SignUpPage from './pages/sign-up/sign-up-page';
 import Contactpage from './pages/contactpage/contactpage';
 import Aboutpage from './pages/aboutpage/aboutpage';
 import Blogpage from './pages/blogpage/blogpage';
-import './App.css';
-
 import NotFound from './pages/notfoundpage/NotFoundPage';
 import MobileHeader from './components/mobile-header/mobile-header';
+import './App.css';
+import Forumpage from './pages/forumpage/forumpage';
 
 class App extends React.Component {
   state = {
     isAvailableInYourCountry: false,
     isLoading: true
   };
+  unsubscribFromSnapshot = null;
   unSubscribeFromAuth = null;
   componentDidMount() {
-    const { updateCategories, setCurrentUser } = this.props;
-    const blogs = [];
+    const {
+      updateBlogComments,
+      updateCategories,
+      updateBlogViews,
+      setCurrentUser
+    } = this.props;
     this.setState({ isLoading: true });
-    // const collectionRef = firestore.collection('blog_temp');
-    // collectionRef.onSnapshot(async snapshot => {
-    //   snapshot.docs.forEach(doc => {
-    //     blogs.push(doc.data());
-    //   });
-    //   updateCategories(blogs);
-    // });
+    const blogRef = firestore
+      .collection('blog_temp')
+      .orderBy('updated_at', 'desc');
+    const commentRef = firestore.collection('blog_comments');
+    const viewRef = firestore.collection('blog_views');
+    commentRef.onSnapshot(async snapshot => {
+      const comments = [];
+      snapshot.docs.forEach(doc => {
+        const commentObj = {
+          id: doc.id,
+          comments: doc.data()
+        };
+        comments.push(commentObj);
+      });
+      updateBlogComments(comments);
+    });
+    blogRef.onSnapshot(async snapshot => {
+      const blogs = [];
+      snapshot.docs.forEach(doc => {
+        blogs.push(doc.data());
+      });
+      updateCategories(blogs);
+    });
+    viewRef.onSnapshot(async snapshot => {
+      const views = [];
+      snapshot.docs.forEach(doc => {
+        const viewObj = {
+          id: doc.id,
+          view: doc.data()
+        };
+        views.push(viewObj);
+      });
+      updateBlogViews(views);
+    });
     this.unSubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
@@ -103,7 +139,9 @@ class App extends React.Component {
                   currentUser ? <Redirect to="/" /> : <SignUpPage />
                 }
               />
+
               <Route path="/blog" component={Blogpage} />
+              <Route path="/forum" component={Forumpage} />
               <Route exact path="/user-profile" component={UserProfilePage} />
               <Route exact path="/about" component={Aboutpage} />
               <Route exact path="/contact" component={Contactpage} />
@@ -126,6 +164,8 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = dispatch => ({
   updateCategories: collectionsMap =>
     dispatch(updateCategories(collectionsMap)),
+  updateBlogComments: comment => dispatch(updateBlogComments(comment)),
+  updateBlogViews: views => dispatch(updateBlogViews(views)),
   setCurrentUser: user => dispatch(setCurrentUser(user))
 });
 

@@ -1,5 +1,5 @@
 $tablet: 850px;
-$smartphone: 500px;
+$smartphone: 600px;
 $primaryColor: #77323b;
 $blackColor: #000000;
 $secondaryColor: #ffffff;
@@ -34,6 +34,12 @@ $shadow: 0px 4px 20px rgba(64, 27, 32, 0.15);
       display: flex;
       margin: auto;
       text-align: center;
+      @include smartphone() {
+        overflow-x: hidden;
+        &:hover {
+          overflow-x: scroll;
+        }
+      }
       .sub-nav-link {
         cursor: pointer;
         margin: 0 20px;
@@ -42,6 +48,7 @@ $shadow: 0px 4px 20px rgba(64, 27, 32, 0.15);
         font-size: 15px;
         font-weight: 300;
         line-height: 19px;
+        white-space: nowrap;
         color: #303030;
       }
     }
@@ -58,6 +65,7 @@ $shadow: 0px 4px 20px rgba(64, 27, 32, 0.15);
     }
 
     @include smartphone() {
+      padding-right: 6.8%;
       grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
   }

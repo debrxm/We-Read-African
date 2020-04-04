@@ -3,31 +3,28 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import renderHTML from 'react-render-html';
 import { getAllComments, updateViews } from '../../firebase/firebase.utils';
-import { selectBlogPost } from '../../redux/blog/blog.selector';
-import BlogNavigation from '../../components/blog-navigation/blog-navigation';
+import { selectForumTopic } from '../../redux/forum/forum.selector';
 import whatsapp from '../../assets/socials/whatsapp.svg';
 import linkedin from '../../assets/socials/linkedin.svg';
 import facebook from '../../assets/socials/facebook.svg';
 import twitter from '../../assets/socials/twitter.svg';
-import './postpage.scss';
-import PostpageLatestPost from '../../components/postpage-latest-post/postpage-latest-post';
 import Comments from '../../components/comments/comments';
 import CommentBox from '../../components/comment-box/comment-box';
 import ProgressIndicator from '../../components/progress-indicator/progress-indicator';
-class PostPage extends React.Component {
+import './topicpage.scss';
+class TopicPage extends React.Component {
   state = {
     comments: [],
     userIp: ''
   };
-
   async componentDidMount() {
     let response = await fetch('https://api.ipify.org?format=json');
     let IP = await response.json();
     this.setState({ userIp: IP.ip });
 
     const commentRef = await getAllComments({
-      collection: 'blog_comments',
-      documente: this.props.blog[0].title.toLowerCase()
+      collection: 'forum_comments',
+      documente: this.props.forum[0].title.toLowerCase()
     });
     if (commentRef) {
       commentRef.onSnapshot(snapShot => {
@@ -36,21 +33,21 @@ class PostPage extends React.Component {
         });
       });
     }
-
     await updateViews({
-      collection: 'blog_views',
-      title: this.props.blog[0].title.toLowerCase(),
+      collection: 'forum_views',
+      title: this.props.forum[0].title.toLowerCase(),
       userIp: this.state.userIp
     });
   }
   render() {
-    const { title, content, image, tag } = this.props.blog[0];
+    const { body, title, user, posted_at } = this.props.forum[0];
+    const { displayName, photoURL } = user;
 
     return (
       <div className="post-page container">
         <Helmet>
           <title>We Read African &mdash; {title}</title>
-          <meta title="keywords" content={`${tag}, ${title}`} />
+          <meta title="keywords" content={`${title}`} />
           <meta name="description" content={`${title} `} />
           <meta
             property="og:title"
@@ -65,18 +62,27 @@ class PostPage extends React.Component {
           />
         </Helmet>
         <div className="full-blog">
-          <h1 className="title">{title.toUpperCase()}</h1>
-          <div className="full-blog-image">
-            <img src={image} alt="Blog img" />
+          <h1 className="title">{title}</h1>
+          <div className="writer">
+            <>
+              <img className="user-icon" src={photoURL} alt="user" />
+              <div className="name-time">
+                <h5>{displayName}</h5>
+                <span>
+                  {new Date(posted_at)
+                    .toString()
+                    .split(' ')
+                    .slice(0, 5)
+                    .join(' ')}
+                </span>
+              </div>
+            </>
+            <span className="report">Report Post</span>
           </div>
-          <div className="blog-content">{renderHTML(`${content}`)}</div>
+          <div className="blog-content">{renderHTML(body)}</div>
         </div>
         <ProgressIndicator />
-        <BlogNavigation />
         <div className="full-blog-footer">
-          <div className="date-posted">
-            <span>Posted Febuary 16 2020</span>
-          </div>
           <div className="share">
             <span>Share This Post</span>
             <div className="social">
@@ -95,9 +101,11 @@ class PostPage extends React.Component {
             </div>
           </div>
         </div>
-        <PostpageLatestPost line postpage except={title} />
-        <Comments category="blog_comments" comments={this.state.comments} />
-        <CommentBox category="blog_comments" title={this.props.blog[0].title} />
+        <Comments comments={this.state.comments} />
+        <CommentBox
+          category="forum_comments"
+          title={this.props.forum[0].title}
+        />
       </div>
     );
   }
@@ -105,11 +113,11 @@ class PostPage extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    blog: selectBlogPost(
-      ownProps.match.params.blogId,
+    forum: selectForumTopic(
+      ownProps.match.params.forumPostId,
       ownProps.match.url
     )(state)
   };
 };
 
-export default connect(mapStateToProps)(PostPage);
+export default connect(mapStateToProps)(TopicPage);

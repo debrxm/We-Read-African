@@ -89,6 +89,9 @@ a {
   display: none;
 }
 @media (max-width: 600px) {
+  .App {
+    padding-top: 110px !important;
+  }
   .showing .desktop {
     display: none;
   }
