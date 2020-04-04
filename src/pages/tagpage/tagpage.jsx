@@ -14,6 +14,7 @@ const TagPage = ({ blogs }) => {
             <PostPreview
               showDate
               showTrunc
+              showViewShare
               key={blog.title}
               blog_data={blog}
               reDirect

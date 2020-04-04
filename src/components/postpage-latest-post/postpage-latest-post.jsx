@@ -7,7 +7,7 @@ import PostPreview from '../post-preview/post-preview';
 import CustomHeading from '../custom-heading/custom-heading';
 import loader from '../../assets/loader.gif';
 import './postpage-latest-post.scss';
-const PostpageLatestPost = ({ allBlog, homepage, line, postpage }) => {
+const PostpageLatestPost = ({ allBlog, homepage, line, postpage, except }) => {
   return (
     <div className="postpage-latest-post">
       {line ? (
@@ -21,19 +21,21 @@ const PostpageLatestPost = ({ allBlog, homepage, line, postpage }) => {
           <br />
           <div className="output">
             {allBlog ? (
-              allBlog.map(blog =>
-                postpage ? (
-                  <PostPreview
-                    noFooter
-                    postpage
-                    showTrunc
-                    key={blog.title}
-                    blog_data={blog}
-                  />
-                ) : (
-                  <PostPreview key={blog.title} blog_data={blog} />
+              allBlog
+                .filter((item, index) => item.title !== except)
+                .map(blog =>
+                  postpage ? (
+                    <PostPreview
+                      noFooter
+                      postpage
+                      showTrunc
+                      key={blog.title}
+                      blog_data={blog}
+                    />
+                  ) : (
+                    <PostPreview key={blog.title} blog_data={blog} />
+                  )
                 )
-              )
             ) : (
               <div className="loader">
                 <img id="loader" src={loader} alt="Loader" />

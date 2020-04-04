@@ -65,4 +65,13 @@ $secondaryColor: #ffffff;
       transform: translateY(-2px);
     }
   }
+  .loader {
+    display: flex;
+    width: 100%;
+    img {
+      height: 50px;
+      width: 50px;
+      margin: auto;
+    }
+  }
 }

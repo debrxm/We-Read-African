@@ -1,5 +1,5 @@
 $tablet: 850px;
-$smartphone: 600px;
+$smartphone: 500px;
 $primaryColor: #77323b;
 $blackColor: #000000;
 $secondaryColor: #ffffff;
@@ -16,42 +16,29 @@ $secondaryColor: #ffffff;
     @content;
   }
 }
-
-.comments {
-  // max-width: 500px;
-  margin-top: 20px;
-  // color: #ffffff;
-
-  .head {
-    cursor: pointer;
+.latest-topics {
+  text-align: left;
+  .post-topic {
+    border-bottom: 1px solid darken($color: $secondaryColor, $amount: 10);
+    padding: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    // height: 40px;
-    border: 1px solid $secondaryColor;
-    padding: 10px;
-    margin-top: 15px;
-    border-bottom: 1px solid #eab88c;
-    @include smartphone() {
-      justify-content: center;
-    }
-
-    h5 {
-      @include smartphone() {
-        font-size: 14px;
-      }
-    }
-    .post-comment {
+    .post-topic-btn {
       cursor: pointer;
+      white-space: nowrap;
+      width: 150px;
       height: 30px;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 0px 45px;
-      border: 1px solid #77323b;
+      background-color: $primaryColor;
       border-radius: 30px;
-      font-size: 14px;
-      color: #77323b;
+      font-size: 13px;
+      font-weight: 500;
+      color: $secondaryColor;
+      text-transform: uppercase;
       &:hover {
         transform: translateY(-2px);
       }
