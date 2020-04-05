@@ -53,6 +53,7 @@ class ForumEditor extends React.Component {
             <input
               type="text"
               name="title"
+              required
               value={this.state.title}
               className="form-input"
               onChange={this.handleChangeInput}
@@ -69,7 +70,7 @@ class ForumEditor extends React.Component {
             show={true}
             enable={true}
             setOptions={{
-              // height: 200,
+              height: 100,
               plugins: plugins,
               buttonList: [
                 ['undo', 'redo'],

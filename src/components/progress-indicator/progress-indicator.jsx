@@ -13,11 +13,9 @@ class ProgressIndicator extends React.Component {
 
   componentDidMount() {
     window.addEventListener('scroll', this.scrollProgress);
-    window.addEventListener('resize', () => {
-      window.innerWidth <= 600
-        ? this.setState({ isSmallScreen: true })
-        : this.setState({ isSmallScreen: false });
-    });
+    window.innerWidth <= 500
+      ? this.setState({ isSmallScreen: true })
+      : this.setState({ isSmallScreen: false });
   }
 
   componentWillUnmount() {
@@ -47,6 +45,7 @@ class ProgressIndicator extends React.Component {
         ? '70px'
         : '160px',
       left: 0,
+      right: 0,
       width: '100vw',
       zIndex: 99,
     };

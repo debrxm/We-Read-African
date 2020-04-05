@@ -1,4 +1,4 @@
-$tablet: 850px;
+$tablet: 750px;
 $smartphone: 500px;
 $primaryColor: #77323b;
 $secondaryColor: #ffffff;
@@ -19,6 +19,9 @@ $secondaryColor: #ffffff;
   width: 90vw;
   margin: auto;
   height: 400px;
+  @include smartphone() {
+    width: 100%;
+  }
   img {
     width: 100%;
   }
@@ -51,7 +54,10 @@ $secondaryColor: #ffffff;
       padding: 50px;
       color: $secondaryColor;
       font-size: 36px;
-      line-height: 24px;
+      line-height: 35px;
+      @include smartphone() {
+        font-size: 25px;
+      }
     }
   }
 }

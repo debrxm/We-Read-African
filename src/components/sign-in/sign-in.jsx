@@ -95,7 +95,7 @@ export default class SignIn extends Component {
               isShowPass={this.state.isShowPassword}
               handleForgetPass={this.props.forgotPassword}
             />
-            <div className="buttons signin-btn">
+            <div className="buttons">
               <CustomButton type="button" onClick={this.handleSubmit}>
                 Sign In {isLoading ? <img src={loader} alt="Loader" /> : null}
               </CustomButton>

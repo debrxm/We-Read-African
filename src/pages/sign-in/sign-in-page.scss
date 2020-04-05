@@ -36,6 +36,9 @@ $secondaryColor: #ffffff;
       width: 22px;
       height: 22px;
     }
+    @include smartphone() {
+      display: none;
+    }
   }
   .left-right {
     margin-top: 20px;
