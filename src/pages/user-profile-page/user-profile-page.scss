@@ -21,6 +21,9 @@ $secondaryColor: #ffffff;
   border-top: 1px solid $primaryColor;
   .body {
     display: flex;
+    @include smartphone() {
+      flex-direction: column;
+    }
     .left {
       padding: 30px;
       width: 20vw;
@@ -31,12 +34,17 @@ $secondaryColor: #ffffff;
       justify-content: space-between;
       align-items: center;
       .logo {
+        @include smartphone() {
+          display: none;
+        }
         img {
           width: 100px;
         }
       }
       @include smartphone() {
-        width: 40vw;
+        width: 100vw;
+        height: 100px;
+        flex-direction: row;
       }
     }
     .right {
@@ -47,9 +55,11 @@ $secondaryColor: #ffffff;
       padding: 30px;
       @include smartphone() {
         flex-direction: column;
-        align-items: center;
-        justify-content: flex-start;
+        // align-items: center;
+        justify-content: space-evenly;
         padding: 20px 0;
+        width: 100vw;
+        height: calc(90vh - 100px);
       }
 
       .heading {
@@ -64,17 +74,16 @@ $secondaryColor: #ffffff;
         @include smartphone() {
           border: none;
           height: 40px;
-          // border-top: 1px solid #eab88c;
           border-bottom: 1px solid #eab88c;
         }
       }
       .current-reading {
         width: 50%;
-        height: 40%;
+        // height: 40%;
       }
       .favorite {
         width: 50%;
-        height: 40%;
+        // height: 40%;
       }
       .pattern {
         position: relative;
@@ -113,6 +122,11 @@ $secondaryColor: #ffffff;
     }
     .sign-out {
       cursor: pointer;
+      span {
+        @include smartphone() {
+          display: none;
+        }
+      }
       img {
         height: 16px;
         margin-left: 10px;

@@ -35,15 +35,18 @@ class ProgressIndicator extends React.Component {
 
   render() {
     const progressContainerStyle = {
-      background: '#77323b2c',
-      boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
+      background: 'transparent',
+      // boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
       height: '5px',
       position: 'fixed',
-      top: this.props.currentUser
-        ? '110px'
-        : this.state.isSmallScreen
-        ? '70px'
-        : '160px',
+      top:
+        this.props.currentUser || this.state.isSmallScreen
+          ? '70px'
+          : this.props.currentUser
+          ? '110px'
+          : this.state.isSmallScreen
+          ? '70px'
+          : '160px',
       left: 0,
       right: 0,
       width: '100vw',

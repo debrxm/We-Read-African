@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
+import {DeviceUUID} from 'device-uuid';
 import renderHTML from 'react-render-html';
 import { getAllComments, updateViews } from '../../firebase/firebase.utils';
 import { selectForumTopic } from '../../redux/forum/forum.selector';
@@ -20,7 +21,10 @@ class TopicPage extends React.Component {
   async componentDidMount() {
     let response = await fetch('https://api.ipify.org?format=json');
     let IP = await response.json();
-    this.setState({ userIp: IP.ip });
+
+    const uuid = new DeviceUUID().get();
+    console.log(uuid);
+    this.setState({ userIp: uuid });
 
     const commentRef = await getAllComments({
       collection: 'forum_comments',

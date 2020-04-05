@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
+import {DeviceUUID} from 'device-uuid';
 import renderHTML from 'react-render-html';
 import { getAllComments, updateViews } from '../../firebase/firebase.utils';
 import { selectBlogPost } from '../../redux/blog/blog.selector';
@@ -9,11 +10,11 @@ import whatsapp from '../../assets/socials/whatsapp.svg';
 import linkedin from '../../assets/socials/linkedin.svg';
 import facebook from '../../assets/socials/facebook.svg';
 import twitter from '../../assets/socials/twitter.svg';
-import './postpage.scss';
 import PostpageLatestPost from '../../components/postpage-latest-post/postpage-latest-post';
 import Comments from '../../components/comments/comments';
 import CommentBox from '../../components/comment-box/comment-box';
 import ProgressIndicator from '../../components/progress-indicator/progress-indicator';
+import './postpage.scss';
 class PostPage extends React.Component {
   state = {
     comments: [],
@@ -21,20 +22,24 @@ class PostPage extends React.Component {
   };
 
   async componentDidMount() {
-    let response = await fetch('https://api.ipify.org?format=json');
-    let IP = await response.json();
-    this.setState({ userIp: IP.ip });
+    // let response = await fetch('https://api.ipify.org?format=json');
+    // let IP = await response.json();
+    const uuid = new DeviceUUID().get();
+    console.log(uuid);
+    this.setState({ userIp: uuid });
 
-    const commentRef = await getAllComments({
-      collection: 'blog_comments',
-      documente: this.props.blog[0].title.toLowerCase(),
-    });
-    if (commentRef) {
-      commentRef.onSnapshot((snapShot) => {
-        this.setState({
-          comments: snapShot.data() ? snapShot.data().comments : [],
-        });
+    if (this.props.blog[0]) {
+      const commentRef = await getAllComments({
+        collection: 'blog_comments',
+        documente: this.props.blog[0].title.toLowerCase(),
       });
+      if (commentRef) {
+        commentRef.onSnapshot((snapShot) => {
+          this.setState({
+            comments: snapShot.data() ? snapShot.data().comments : [],
+          });
+        });
+      }
     }
 
     await updateViews({

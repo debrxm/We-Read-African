@@ -70,6 +70,6 @@ const UserProfilePage = ({ currentUser, history }) => {
   );
 };
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
 });
 export default withRouter(connect(mapStateToProps)(UserProfilePage));
