@@ -14,7 +14,7 @@ const CustomHeading = ({ children, hasLine, ...otherProps }) => {
             ? {
                 transform: 'rotate(180deg)',
                 marginRight: '10px',
-                width: '100%'
+                width: '100%',
               }
             : { transform: 'rotate(0deg)' }
         }
@@ -27,7 +27,7 @@ const CustomHeading = ({ children, hasLine, ...otherProps }) => {
         style={
           hasLine
             ? {
-                width: '100%'
+                width: '100%',
               }
             : { transform: 'rotate(0deg)' }
         }

@@ -64,12 +64,14 @@ $secondaryColor: #ffffff;
 .ctrl-btn {
   cursor: pointer;
   border: none;
+  height: 60px;
+  width: 30px;
   background-color: #888888;
   display: flex;
   justify-content: center;
   align-items: center;
   color: $secondaryColor;
-  padding: 20px 6px;
+  // padding: 20px 6px;
   img {
     height: 15px;
   }
