@@ -14,11 +14,11 @@ class Homepage extends React.Component {
     this.state = {
       file: '',
       isShowPassword: false,
-      isLoading: false
+      isLoading: false,
     };
   }
 
-  handleChange = event => {
+  handleChange = (event) => {
     const { name, value } = event.target;
     console.log(event.target.files);
     console.log(URL.createObjectURL(event.target.files[0]));
@@ -44,8 +44,9 @@ class Homepage extends React.Component {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  updateCategories: collectionsMap => dispatch(updateCategories(collectionsMap))
+const mapDispatchToProps = (dispatch) => ({
+  updateCategories: (collectionsMap) =>
+    dispatch(updateCategories(collectionsMap)),
 });
 
 export default connect(null, mapDispatchToProps)(Homepage);

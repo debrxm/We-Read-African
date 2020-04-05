@@ -21,12 +21,13 @@ $secondaryColor: #ffffff;
   justify-content: center;
   align-items: center;
   margin-top: 20px;
+  width: 100%;
   .before,
   .after {
     width: 150px;
     // margin: 10px;
     @include smartphone() {
-      width: 100%;
+      width: calc((100% - 180px) / 2);
     }
   }
   .after {

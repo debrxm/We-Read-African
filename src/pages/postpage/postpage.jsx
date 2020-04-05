@@ -17,7 +17,7 @@ import ProgressIndicator from '../../components/progress-indicator/progress-indi
 class PostPage extends React.Component {
   state = {
     comments: [],
-    userIp: ''
+    userIp: '',
   };
 
   async componentDidMount() {
@@ -27,12 +27,12 @@ class PostPage extends React.Component {
 
     const commentRef = await getAllComments({
       collection: 'blog_comments',
-      documente: this.props.blog[0].title.toLowerCase()
+      documente: this.props.blog[0].title.toLowerCase(),
     });
     if (commentRef) {
-      commentRef.onSnapshot(snapShot => {
+      commentRef.onSnapshot((snapShot) => {
         this.setState({
-          comments: snapShot.data() ? snapShot.data().comments : []
+          comments: snapShot.data() ? snapShot.data().comments : [],
         });
       });
     }
@@ -40,7 +40,7 @@ class PostPage extends React.Component {
     await updateViews({
       collection: 'blog_views',
       title: this.props.blog[0].title.toLowerCase(),
-      userIp: this.state.userIp
+      userIp: this.state.userIp,
     });
   }
   render() {
@@ -108,7 +108,7 @@ const mapStateToProps = (state, ownProps) => {
     blog: selectBlogPost(
       ownProps.match.params.blogId,
       ownProps.match.url
-    )(state)
+    )(state),
   };
 };
 
