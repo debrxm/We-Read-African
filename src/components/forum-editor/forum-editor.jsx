@@ -69,7 +69,7 @@ class ForumEditor extends React.Component {
             show={true}
             enable={true}
             setOptions={{
-              height: 200,
+              // height: 200,
               plugins: plugins,
               buttonList: [
                 ['undo', 'redo'],

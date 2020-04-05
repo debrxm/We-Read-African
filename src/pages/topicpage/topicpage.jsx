@@ -15,7 +15,7 @@ import './topicpage.scss';
 class TopicPage extends React.Component {
   state = {
     comments: [],
-    userIp: ''
+    userIp: '',
   };
   async componentDidMount() {
     let response = await fetch('https://api.ipify.org?format=json');
@@ -24,19 +24,19 @@ class TopicPage extends React.Component {
 
     const commentRef = await getAllComments({
       collection: 'forum_comments',
-      documente: this.props.forum[0].title.toLowerCase()
+      documente: this.props.forum[0].title.toLowerCase(),
     });
     if (commentRef) {
-      commentRef.onSnapshot(snapShot => {
+      commentRef.onSnapshot((snapShot) => {
         this.setState({
-          comments: snapShot.data() ? snapShot.data().comments : []
+          comments: snapShot.data() ? snapShot.data().comments : [],
         });
       });
     }
     await updateViews({
       collection: 'forum_views',
       title: this.props.forum[0].title.toLowerCase(),
-      userIp: this.state.userIp
+      userIp: this.state.userIp,
     });
   }
   render() {
@@ -81,7 +81,7 @@ class TopicPage extends React.Component {
           </div>
           <div className="blog-content">{renderHTML(body)}</div>
         </div>
-        <ProgressIndicator />
+
         <div className="full-blog-footer">
           <div className="share">
             <span>Share This Post</span>
@@ -106,6 +106,9 @@ class TopicPage extends React.Component {
           category="forum_comments"
           title={this.props.forum[0].title}
         />
+        {/* <div className="progress-indicator"> */}
+        <ProgressIndicator />
+        {/* </div> */}
       </div>
     );
   }
@@ -116,7 +119,7 @@ const mapStateToProps = (state, ownProps) => {
     forum: selectForumTopic(
       ownProps.match.params.forumPostId,
       ownProps.match.url
-    )(state)
+    )(state),
   };
 };
 

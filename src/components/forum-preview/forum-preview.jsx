@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import {
   selectTopicComments,
-  selectTopicViews
+  selectTopicViews,
 } from '../../redux/forum/forum.selector';
 import renderHTML from 'react-render-html';
 import userIco from '../../assets/userIco.svg';
@@ -14,14 +14,11 @@ import './forum-preview.scss';
 class ForumPreview extends React.Component {
   state = {
     setComment: {},
-    views: {}
+    views: {},
   };
   handleRouting = () => {
     this.props.history.push(
-      `forum/${this.props.topicData.title
-        .split(' ')
-        .join('-')
-        .toLowerCase()}`
+      `forum/${this.props.topicData.title.split(' ').join('-').toLowerCase()}`
     );
   };
   componentDidMount() {
@@ -29,12 +26,12 @@ class ForumPreview extends React.Component {
       .filter(
         (item, index) => item.id === this.props.topicData.title.toLowerCase()
       )
-      .map(comm => this.setState({ setComment: comm }));
+      .map((comm) => this.setState({ setComment: comm }));
     this.props.topicViews
       .filter(
         (item, index) => item.id === this.props.topicData.title.toLowerCase()
       )
-      .map(view => this.setState({ views: view }));
+      .map((view) => this.setState({ views: view }));
   }
   render() {
     const { title, body, user, posted_at } = this.props.topicData;
@@ -51,11 +48,7 @@ class ForumPreview extends React.Component {
           <div className="name-time">
             <h5>{displayName}</h5>
             <span>
-              {new Date(posted_at)
-                .toString()
-                .split(' ')
-                .slice(0, 5)
-                .join(' ')}
+              {new Date(posted_at).toString().split(' ').slice(0, 5).join(' ')}
             </span>
           </div>
         </div>
@@ -65,7 +58,10 @@ class ForumPreview extends React.Component {
                 .props.children[0].split(' ')
                 .slice(0, 30)
                 .join(' ')
-            : null}{' '}
+            : renderHTML(body)[0]
+                .props.children[0].split(' ')
+                .slice(0, 30)
+                .join(' ')}{' '}
           <span className="read-more" onClick={this.handleRouting}>
             read more
           </span>
@@ -92,7 +88,7 @@ class ForumPreview extends React.Component {
 }
 const mapStateToProps = createStructuredSelector({
   topicComments: selectTopicComments,
-  topicViews: selectTopicViews
+  topicViews: selectTopicViews,
 });
 
 export default withRouter(connect(mapStateToProps)(ForumPreview));

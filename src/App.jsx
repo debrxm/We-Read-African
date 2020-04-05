@@ -106,10 +106,17 @@ class App extends React.Component {
     return (
       <div
         className="App"
-        style={currentUser ? { paddingTop: '110px' } : { paddingTop: '160px' }}
+        style={
+          currentUser
+            ? { paddingTop: '110px' }
+            : history.location.pathname === '/notfound'
+            ? { paddingTop: 0 }
+            : { paddingTop: '160px' }
+        }
       >
         {history.location.pathname === '/signin' ? null : history.location
-            .pathname === '/signup' ? null : (
+            .pathname === '/notfound' ? null : history.location.pathname ===
+          '/signup' ? null : (
           <div className="showing">
             <div className="desktop">
               <Header />
@@ -151,6 +158,7 @@ class App extends React.Component {
         </div>
         {history.location.pathname === '/signin' ? null : history.location
             .pathname === '/signup' ? null : history.location.pathname ===
+          '/notfound' ? null : history.location.pathname ===
           '/user-profile' ? null : (
           <Footer />
         )}
