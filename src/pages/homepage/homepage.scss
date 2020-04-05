@@ -17,5 +17,10 @@ $secondaryColor: #ffffff;
 }
 
 .homepage {
-  // margin-top: 159px;
+  @include smartphone() {
+    // margin-top: -190px;
+    width: 100%;
+    margin: 0;
+    padding: 0 10px;
+  }
 }

@@ -47,7 +47,7 @@ class ProgressIndicator extends React.Component {
       left: 0,
       right: 0,
       width: '100vw',
-      zIndex: 99,
+      zIndex: 10,
     };
 
     const progressBarStyle = {
