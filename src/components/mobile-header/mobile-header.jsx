@@ -9,6 +9,9 @@ const MobileHeader = () => {
   const [isShow, setisShow] = useState(false);
   const handleToggleSideNav = () => {
     setisShow(!isShow);
+    !isShow
+      ? (document.documentElement.style.overflowY = 'hidden')
+      : (document.documentElement.style.overflowY = 'scroll');
   };
   return (
     <div className="mobile-header">

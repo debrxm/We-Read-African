@@ -25,7 +25,7 @@ $secondaryColor: #ffffff;
   text-align: center;
   color: $blackColor;
   background: #eab88c;
-  padding: 20px;
+  padding: 20px 30px;
   width: 100vw;
   p {
     color: lighten($color: $blackColor, $amount: 30) !important;
@@ -50,7 +50,6 @@ $secondaryColor: #ffffff;
       }
       .form-input {
         background: none;
-        // background-color: white;
         margin-top: 10px;
         color: $blackColor;
         font-size: 14px;

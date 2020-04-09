@@ -1,0 +1,25 @@
+$tablet: 850px;
+$smartphone: 500px;
+$primaryColor: #77323b;
+$secondaryColor: #ffffff;
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+
+.podcastpage {
+  padding-top: 30px;
+  padding-left: 5%;
+  .left {
+    width: 60vw;
+  }
+}

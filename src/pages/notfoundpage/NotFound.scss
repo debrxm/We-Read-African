@@ -19,7 +19,14 @@ $lightColor: #d6a478;
 
 .NotFound {
   // margin-top: 15vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
   height: 100vh;
+  background-color: $secondaryColor;
+  z-index: 99;
   padding: 30px;
   & .notfoundHeading {
     & p {

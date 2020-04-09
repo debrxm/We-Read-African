@@ -10,7 +10,7 @@ const firebaseConfig = {
   storageBucket: 'blog-test-cf27d.appspot.com',
   messagingSenderId: '712716765117',
   appId: '1:712716765117:web:757aed783e2814d70eb4d4',
-  measurementId: 'G-3E2DRSVVNM'
+  measurementId: 'G-3E2DRSVVNM',
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -32,7 +32,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
         createdAt,
         photoURL,
         emailVerified,
-        ...additionalData
+        ...additionalData,
       });
     } catch (error) {
       console.log('error creating user', error.message);
@@ -41,6 +41,25 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
   return userRef;
 };
+
+export const convertCollectionsSnapshotToMap = (collections) => {
+  const compare = (a, b) => {
+    // console.log(a.view.views.length);
+    // console.log(b.view.views.length);
+    if (a.view.views.length < b.view.views.length) return 1;
+    if (a.view.views.length > b.view.views.length) return -1;
+
+    return 0;
+  };
+  // console.log(collections.sort(compare));
+  return collections.sort(compare);
+
+  // return transformedCollection.reduce((accumulator, collection) => {
+  //   // accumulator[collection.id.toLowerCase()] = collection;
+  //   return accumulator;
+  // }, {});
+};
+
 export const getAllComments = async ({ collection, documente }) => {
   const commentRef = firestore.doc(`${collection}/${documente}`);
   const snapShot = await commentRef.get();
@@ -62,7 +81,7 @@ export const updateViews = async ({ collection, title, userIp }) => {
   if (!snapShot.exists) {
     try {
       await viewRef.set({
-        views: newView
+        views: newView,
       });
 
       return viewRef;
@@ -76,7 +95,7 @@ export const updateViews = async ({ collection, title, userIp }) => {
     try {
       if (snapShot.data().views.includes(userIp) === false) {
         await viewRef.update({
-          views: oldView
+          views: oldView,
         });
       }
       return viewRef;
@@ -85,13 +104,13 @@ export const updateViews = async ({ collection, title, userIp }) => {
     }
   }
 };
-export const sendNewTopicToDatabase = async topicData => {
+export const sendNewTopicToDatabase = async (topicData) => {
   const newTopicRef = firestore.doc(`forum/${topicData.title}`);
   const snapShot = await newTopicRef.get();
   if (!snapShot.exists) {
     try {
       await newTopicRef.set({
-        ...topicData
+        ...topicData,
       });
       return newTopicRef;
     } catch (error) {
@@ -99,6 +118,41 @@ export const sendNewTopicToDatabase = async topicData => {
     }
   } else {
     return 'This topic already exist';
+  }
+};
+export const addAReply = async ({ collection, d_ata, commentId, blogName }) => {
+  // const addReplyRef =
+  // console.log(collection, d_ata, commentId, blogName);
+  const addReplyRef = firestore.doc(`${collection}/${blogName}`);
+  const snapShot = await addReplyRef.get();
+  // snapShot.forEach((doc) => {
+  //   console.log(doc);
+  // });
+  const { comments } = snapShot.data();
+  const updatedComment = [];
+  comments.forEach(async (item) => {
+    if (item.id === commentId) {
+      // console.log(item);
+      // console.log(comments.indexOf(item));
+
+      const { replies } = item;
+      let oldReply = [];
+      oldReply = replies;
+      oldReply.push(d_ata);
+      updatedComment.push(item);
+    }
+    if (item.id !== commentId) {
+      updatedComment.push(item);
+    }
+  });
+  // console.log(updatedComment);
+  try {
+    await addReplyRef.update({
+      comments: updatedComment,
+    });
+    return addReplyRef;
+  } catch (error) {
+    console.log('error Updating comment', error.message);
   }
 };
 export const addAComment = async ({ collection, d_ata }) => {
@@ -110,7 +164,7 @@ export const addAComment = async ({ collection, d_ata }) => {
   if (!snapShot.exists) {
     try {
       await addCommentRef.set({
-        comments: newComment
+        comments: newComment,
       });
       return addCommentRef;
     } catch (error) {
@@ -122,7 +176,7 @@ export const addAComment = async ({ collection, d_ata }) => {
     oldComment.push(d_ata);
     try {
       await addCommentRef.update({
-        comments: oldComment
+        comments: oldComment,
       });
       return addCommentRef;
     } catch (error) {
@@ -135,11 +189,11 @@ export const firestore = firebase.firestore();
 
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 googleProvider.setCustomParameters({
-  prompt: 'select_account'
+  prompt: 'select_account',
 });
 const facebookProvider = new firebase.auth.FacebookAuthProvider();
 facebookProvider.setCustomParameters({
-  display: 'popup'
+  display: 'popup',
 });
 
 export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import {DeviceUUID} from 'device-uuid';
+import { DeviceUUID } from 'device-uuid';
 import renderHTML from 'react-render-html';
 import { getAllComments, updateViews } from '../../firebase/firebase.utils';
 import { selectForumTopic } from '../../redux/forum/forum.selector';
@@ -19,11 +19,7 @@ class TopicPage extends React.Component {
     userIp: '',
   };
   async componentDidMount() {
-    let response = await fetch('https://api.ipify.org?format=json');
-    let IP = await response.json();
-
     const uuid = new DeviceUUID().get();
-    console.log(uuid);
     this.setState({ userIp: uuid });
 
     const commentRef = await getAllComments({
@@ -46,7 +42,6 @@ class TopicPage extends React.Component {
   render() {
     const { body, title, user, posted_at } = this.props.forum[0];
     const { displayName, photoURL } = user;
-
     return (
       <div className="post-page container">
         <Helmet>
@@ -105,7 +100,7 @@ class TopicPage extends React.Component {
             </div>
           </div>
         </div>
-        <Comments comments={this.state.comments} />
+        <Comments collection="forum_comments" comments={this.state.comments} />
         <CommentBox
           category="forum_comments"
           title={this.props.forum[0].title}

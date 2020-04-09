@@ -16,11 +16,6 @@ class ForumPreview extends React.Component {
     setComment: {},
     views: {},
   };
-  handleRouting = () => {
-    this.props.history.push(
-      `forum/${this.props.topicData.title.split(' ').join('-').toLowerCase()}`
-    );
-  };
   componentDidMount() {
     this.props.topicComments
       .filter(
@@ -34,9 +29,25 @@ class ForumPreview extends React.Component {
       .map((view) => this.setState({ views: view }));
   }
   render() {
-    const { title, body, user, posted_at } = this.props.topicData;
+    const { history, reDirect, postpage } = this.props;
+    const { title, body, user, posted_at, tag } = this.props.topicData;
     const { displayName, photoURL } = user;
-    return (
+    const handleRouting = () => {
+      reDirect
+        ? history.push(`${tag}/${title.split(' ').join('-').toLowerCase()}`)
+        : postpage
+        ? history.push(`${title.split(' ').join('-').toLowerCase()}`)
+        : history.push(
+            `forum/${tag}/${title.split(' ').join('-').toLowerCase()}`
+          );
+    };
+    let commentLength = 0;
+    this.state.setComment.comments
+      ? this.state.setComment.comments.comments.forEach((comment) => {
+          commentLength = commentLength + comment.replies.length;
+        })
+      : console.log(undefined);
+    return this.props.topicData ? (
       <div className="forum-preview">
         <h3 className="title">{title}</h3>
         <div className="writer">
@@ -62,7 +73,7 @@ class ForumPreview extends React.Component {
                 .props.children[0].split(' ')
                 .slice(0, 30)
                 .join(' ')}{' '}
-          <span className="read-more" onClick={this.handleRouting}>
+          <span className="read-more" onClick={handleRouting}>
             read more
           </span>
         </p>
@@ -70,7 +81,7 @@ class ForumPreview extends React.Component {
           <span className="forum-preview-footer-comment">
             <img src={comment} alt="Comment Icon" />
             {this.state.setComment.comments
-              ? this.state.setComment.comments.comments.length
+              ? commentLength + this.state.setComment.comments.comments.length
               : 0}{' '}
             Comments
           </span>
@@ -83,7 +94,7 @@ class ForumPreview extends React.Component {
           </span>
         </div>
       </div>
-    );
+    ) : null;
   }
 }
 const mapStateToProps = createStructuredSelector({

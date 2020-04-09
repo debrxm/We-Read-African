@@ -2,7 +2,8 @@ import ForumActionTypes from './forum.types';
 const INITIAL_STATE = {
   forums: null,
   comments: [],
-  views: []
+  views: [],
+  trending: [],
 };
 
 const ForumReducer = (state = INITIAL_STATE, action) => {
@@ -10,17 +11,22 @@ const ForumReducer = (state = INITIAL_STATE, action) => {
     case ForumActionTypes.UPDATE_FORUMS:
       return {
         ...state,
-        forums: action.payload
+        forums: action.payload,
       };
     case ForumActionTypes.UPDATE_FORUM_COMMENTS:
       return {
         ...state,
-        comments: action.payload
+        comments: action.payload,
       };
     case ForumActionTypes.UPDATE_FORUM_VIEWS:
       return {
         ...state,
-        views: action.payload
+        views: action.payload,
+      };
+    case ForumActionTypes.UPDATE_TRENDING_TOPICS:
+      return {
+        ...state,
+        trending: action.payload,
       };
     default:
       return state;

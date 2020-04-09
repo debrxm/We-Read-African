@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import {DeviceUUID} from 'device-uuid';
+import { DeviceUUID } from 'device-uuid';
 import renderHTML from 'react-render-html';
 import { getAllComments, updateViews } from '../../firebase/firebase.utils';
 import { selectBlogPost } from '../../redux/blog/blog.selector';
@@ -25,7 +25,6 @@ class PostPage extends React.Component {
     // let response = await fetch('https://api.ipify.org?format=json');
     // let IP = await response.json();
     const uuid = new DeviceUUID().get();
-    console.log(uuid);
     this.setState({ userIp: uuid });
 
     if (this.props.blog[0]) {
@@ -77,7 +76,7 @@ class PostPage extends React.Component {
           <div className="blog-content">{renderHTML(`${content}`)}</div>
         </div>
         <ProgressIndicator />
-        <BlogNavigation />
+        <BlogNavigation title={title} />
         <div className="full-blog-footer">
           <div className="date-posted">
             <span>Posted Febuary 16 2020</span>
@@ -101,7 +100,7 @@ class PostPage extends React.Component {
           </div>
         </div>
         <PostpageLatestPost line postpage except={title} />
-        <Comments category="blog_comments" comments={this.state.comments} />
+        <Comments collection="blog_comments" comments={this.state.comments} />
         <CommentBox category="blog_comments" title={this.props.blog[0].title} />
       </div>
     );

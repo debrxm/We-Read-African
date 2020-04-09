@@ -2,53 +2,73 @@ import React from 'react';
 import { Route, withRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import ForumSubNav from '../../components/forum-sub-nav/forum-sub-nav';
 import LatestTopics from '../../components/latest-topics/latest-topics';
 import ForumSubPage from '../forum-sub-page/forum-sub-page';
-import { firestore } from '../../firebase/firebase.utils';
+import {
+  firestore,
+  convertCollectionsSnapshotToMap,
+} from '../../firebase/firebase.utils';
 import {
   updateForums,
   updateForumComments,
-  updateForumViews
+  updateForumViews,
 } from '../../redux/forum/forum.actions';
+import { selectAllForumTopics } from '../../redux/forum/forum.selector';
 import './forumpage.scss';
 import TopicPage from '../topicpage/topicpage';
+
 class Forumpage extends React.Component {
   state = {
-    isLoading: true
+    isLoading: true,
   };
   componentDidMount() {
     const forumRef = firestore.collection('forum').orderBy('posted_at', 'desc');
-    forumRef.onSnapshot(async snapshot => {
+    forumRef.onSnapshot(async (snapshot) => {
       const forumTopics = [];
-      snapshot.docs.forEach(doc => {
+      snapshot.docs.forEach((doc) => {
         forumTopics.push(doc.data());
       });
+
       this.props.updateForums(forumTopics);
       // send to redux
     });
     const commentRef = firestore.collection('forum_comments');
     const viewRef = firestore.collection('forum_views');
-    commentRef.onSnapshot(async snapshot => {
+    commentRef.onSnapshot(async (snapshot) => {
       const comments = [];
-      snapshot.docs.forEach(doc => {
+      snapshot.docs.forEach((doc) => {
         const commentObj = {
           id: doc.id,
-          comments: doc.data()
+          comments: doc.data(),
         };
         comments.push(commentObj);
       });
       this.props.updateForumComments(comments);
     });
-    viewRef.onSnapshot(async snapshot => {
+    viewRef.onSnapshot(async (snapshot) => {
       const views = [];
-      snapshot.docs.forEach(doc => {
+      snapshot.docs.forEach((doc) => {
         const viewObj = {
           id: doc.id,
-          view: doc.data()
+          view: doc.data(),
         };
         views.push(viewObj);
       });
+      const trendingTopicArr = convertCollectionsSnapshotToMap(views).filter(
+        (item, index) => index < 4
+      );
+      // console.log(trendingTopicArr);
+      this.props.forums.map((topic) => {
+        trendingTopicArr.forEach((item) => {
+          if (topic.title.toLowerCase() === item.id) {
+            topic.tag = 'trending_topics';
+          }
+        });
+      });
+      // console.log(this.props.forums);
+      this.props.updateForums(this.props.forums);
       this.props.updateForumViews(views);
     });
   }
@@ -77,17 +97,38 @@ class Forumpage extends React.Component {
 
         <div className="left">
           <Route exact path={`${match.path}`} component={LatestTopics} />
-          <Route path={`/forum/:forumId`} component={ForumSubPage} />
-          <Route path={`/forum/:forumPostId`} component={TopicPage} />
+          <Route exact path={`/forum/:forumId`} component={ForumSubPage} />
+          {/* <Route path={`/forum/:forumPostId`} component={TopicPage} /> */}
+          {/* <Route path={`/forum/latest/:forumPostId`} component={TopicPage} /> */}
+          <Route
+            exact
+            path={`/forum/blank/:forumPostId`}
+            component={TopicPage}
+          />
+          <Route
+            exact
+            path={`/forum/trending_topics/:forumPostId`}
+            component={TopicPage}
+          />
+          <Route
+            exact
+            path={`/forum/featured_topics/:forumPostId`}
+            component={TopicPage}
+          />
         </div>
       </div>
     );
   }
 }
-const mapDespatchToProps = dispatch => ({
-  updateForums: forumTopic => dispatch(updateForums(forumTopic)),
-  updateForumComments: comments => dispatch(updateForumComments(comments)),
-  updateForumViews: views => dispatch(updateForumViews(views))
+const mapDespatchToProps = (dispatch) => ({
+  updateForums: (forumTopic) => dispatch(updateForums(forumTopic)),
+  updateForumComments: (comments) => dispatch(updateForumComments(comments)),
+  updateForumViews: (views) => dispatch(updateForumViews(views)),
+});
+const mapStateToProps = createStructuredSelector({
+  forums: selectAllForumTopics,
 });
 
-export default withRouter(connect(null, mapDespatchToProps)(Forumpage));
+export default withRouter(
+  connect(mapStateToProps, mapDespatchToProps)(Forumpage)
+);

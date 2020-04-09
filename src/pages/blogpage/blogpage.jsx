@@ -10,7 +10,7 @@ import TagPage from '../tagpage/tagpage';
 import PostPage from '../postpage/postpage';
 import BlogSubNav from '../../components/blog-sub-nav/blog-sub-nav';
 import './blogpage.scss';
-class Blogpage extends React.Component {
+class Blogpage extends React.Component { 
   state = {
     isLoading: true
   };
