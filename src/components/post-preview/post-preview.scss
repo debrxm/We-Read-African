@@ -103,14 +103,11 @@ $shadow: 0px 4px 20px rgba(64, 27, 32, 0.15);
         position: relative;
 
         .share {
-          // margin-top: 15em;
           position: absolute;
           top: 0;
           left: 0;
           bottom: 0;
           right: 0;
-          // height: 20px;
-          // width: 20px;
           ul {
             li {
               position: absolute;
@@ -139,11 +136,6 @@ $shadow: 0px 4px 20px rgba(64, 27, 32, 0.15);
               left: 0;
               bottom: 0;
               right: 0;
-              // height: 20;
-
-              // padding: 0.9em 1em;
-              // font-family: fontAwesome;
-              // font-size: 2em;
               cursor: pointer;
               text-align: center;
               color: black;

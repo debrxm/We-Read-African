@@ -40,6 +40,7 @@ export default class EpisodePreview extends Component {
           <ReactWebMediaPlayer
             width={220}
             height={210}
+            className="player"
             thumbnail={tomb}
             audio={audio_file}
             vinyl={{ img: tomb, rpm: 10 }}
