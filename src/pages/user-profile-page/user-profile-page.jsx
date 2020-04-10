@@ -13,8 +13,6 @@ import logo from '../../assets/logo.svg';
 import logout from '../../assets/logout.svg';
 import './user-profile-page.scss';
 const UserProfilePage = ({ currentUser, history, reading }) => {
-  console.log(reading);
-
   const handleSignout = () => {
     auth.signOut();
     history.push(`/`);
@@ -56,14 +54,16 @@ const UserProfilePage = ({ currentUser, history, reading }) => {
             <div className="heading">
               <span>Current Reading</span>
             </div>
-            <Link
-              to={`/blog/${reading.tag}/${reading.title
-                .split(' ')
-                .join('-')
-                .toLowerCase()}`}
-            >
-              <h3 className="reading">{reading.title}</h3>
-            </Link>
+            {reading ? (
+              <Link
+                to={`/blog/${reading.tag}/${reading.title
+                  .split(' ')
+                  .join('-')
+                  .toLowerCase()}`}
+              >
+                <h3 className="reading">{reading.title}</h3>
+              </Link>
+            ) : null}
           </div>
           <div className="favorite">
             <div className="heading">
