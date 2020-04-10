@@ -69,11 +69,11 @@ class PostPreview extends React.Component {
       year = date.getFullYear(),
       trunc = truncate.split(' ').slice(0, 12).join(' ');
     let commentLength = 0;
-    this.state.setComment.comments
-      ? this.state.setComment.comments.comments.forEach((comment) => {
-          commentLength = commentLength + comment.replies.length;
-        })
-      : console.log(undefined);
+    if (this.state.setComment.comments) {
+      this.state.setComment.comments.comments.forEach((comment) => {
+        commentLength = commentLength + comment.replies.length;
+      });
+    }
     // console.log(this.state.setComment);
 
     return (

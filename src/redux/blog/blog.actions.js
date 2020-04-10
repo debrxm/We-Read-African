@@ -13,6 +13,10 @@ export const updateBlogViews = (views) => ({
   payload: views,
 });
 
+export const updateHistory = (hist) => ({
+  type: BlogActionTypes.UPDATE_HISTORY,
+  payload: hist,
+});
 export const setCurrentReading = (reading) => ({
   type: BlogActionTypes.SET_CURRENT_READING,
   payload: reading,

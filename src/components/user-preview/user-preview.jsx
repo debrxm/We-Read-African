@@ -5,7 +5,7 @@ import './user-preview.scss';
 const UserPreview = ({ currentUser, arrowD, welcome }) => {
   return (
     <div
-      className="user"
+      className="user-preview"
       style={welcome ? { marginLeft: '0' } : { border: 'none' }}
     >
       <img

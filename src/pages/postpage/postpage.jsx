@@ -5,7 +5,10 @@ import { DeviceUUID } from 'device-uuid';
 import renderHTML from 'react-render-html';
 import { getAllComments, updateViews } from '../../firebase/firebase.utils';
 import { selectBlogPost } from '../../redux/blog/blog.selector';
-import { setCurrentReading } from '../../redux/blog/blog.actions';
+import {
+  setCurrentReading,
+  updateHistory,
+} from '../../redux/blog/blog.actions';
 import BlogNavigation from '../../components/blog-navigation/blog-navigation';
 import whatsapp from '../../assets/socials/whatsapp.svg';
 import linkedin from '../../assets/socials/linkedin.svg';
@@ -47,7 +50,10 @@ class PostPage extends React.Component {
     });
     setTimeout(() => {
       this.props.setCurrentReading(this.props.blog[0]);
-    }, 30000);
+    }, 1000);
+  }
+  componentWillUnmount() {
+    this.props.addToHistory(this.props.blog[0]);
   }
   render() {
     const { title, content, image, tag } = this.props.blog[0];
@@ -115,10 +121,12 @@ const mapStateToProps = (state, ownProps) => {
       ownProps.match.params.blogId,
       ownProps.match.url
     )(state),
+    prevHistory: state.blog.history,
   };
 };
 const mapDispatchToProps = (dispatch) => ({
   setCurrentReading: (reading) => dispatch(setCurrentReading(reading)),
+  addToHistory: (history) => dispatch(updateHistory(history)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostPage);

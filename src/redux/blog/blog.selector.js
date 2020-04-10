@@ -12,6 +12,10 @@ export const selectCurrentReading = createSelector(
   [selectBlog],
   (blog) => blog.reading
 );
+export const selectHistory = createSelector(
+  [selectBlog],
+  (blog) => blog.history
+);
 
 // export const selectPostComments = title =>
 //   createSelector([selectAllComments], comments =>

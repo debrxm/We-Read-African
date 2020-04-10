@@ -3,6 +3,7 @@ const INITIAL_STATE = {
   blogs: null,
   comments: [],
   views: [],
+  history: [],
   reading: null,
 };
 
@@ -22,6 +23,13 @@ const BlogReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         views: action.payload,
+      };
+    case BlogActionTypes.UPDATE_HISTORY:
+      return {
+        ...state,
+        history: [...state.history, action.payload],
+        // .filter((item, index) => item.title === action.payload.title)
+        // .push(action.payload),
       };
     case BlogActionTypes.SET_CURRENT_READING:
       return {
