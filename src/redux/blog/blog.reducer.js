@@ -2,7 +2,8 @@ import BlogActionTypes from './blog.types';
 const INITIAL_STATE = {
   blogs: null,
   comments: [],
-  views: []
+  views: [],
+  reading: null,
 };
 
 const BlogReducer = (state = INITIAL_STATE, action) => {
@@ -10,17 +11,22 @@ const BlogReducer = (state = INITIAL_STATE, action) => {
     case BlogActionTypes.UPDATE_CATEGORIES:
       return {
         ...state,
-        blogs: action.payload
+        blogs: action.payload,
       };
     case BlogActionTypes.UPDATE_BLOG_COMMENTS:
       return {
         ...state,
-        comments: action.payload
+        comments: action.payload,
       };
     case BlogActionTypes.UPDATE_BLOG_VIEWS:
       return {
         ...state,
-        views: action.payload
+        views: action.payload,
+      };
+    case BlogActionTypes.SET_CURRENT_READING:
+      return {
+        ...state,
+        reading: action.payload,
       };
     default:
       return state;

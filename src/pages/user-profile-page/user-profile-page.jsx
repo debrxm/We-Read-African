@@ -1,9 +1,10 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
+import { selectCurrentReading } from '../../redux/blog/blog.selector';
 import { auth } from '../../firebase/firebase.utils';
 import pattern from '../../assets/pattern.svg';
 import Loader from '../../components/loader/loader';
@@ -11,7 +12,9 @@ import userIco from '../../assets/userIco.svg';
 import logo from '../../assets/logo.svg';
 import logout from '../../assets/logout.svg';
 import './user-profile-page.scss';
-const UserProfilePage = ({ currentUser, history }) => {
+const UserProfilePage = ({ currentUser, history, reading }) => {
+  console.log(reading);
+
   const handleSignout = () => {
     auth.signOut();
     history.push(`/`);
@@ -53,6 +56,14 @@ const UserProfilePage = ({ currentUser, history }) => {
             <div className="heading">
               <span>Current Reading</span>
             </div>
+            <Link
+              to={`/blog/${reading.tag}/${reading.title
+                .split(' ')
+                .join('-')
+                .toLowerCase()}`}
+            >
+              <h3 className="reading">{reading.title}</h3>
+            </Link>
           </div>
           <div className="favorite">
             <div className="heading">
@@ -71,5 +82,6 @@ const UserProfilePage = ({ currentUser, history }) => {
 };
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
+  reading: selectCurrentReading,
 });
 export default withRouter(connect(mapStateToProps)(UserProfilePage));

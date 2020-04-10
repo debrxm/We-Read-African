@@ -51,7 +51,17 @@ $secondaryColor: #ffffff;
     p {
       color: darken($color: $secondaryColor, $amount: 20);
     }
-
+    .smart-form-section {
+      display: none;
+      @include smartphone() {
+        display: block;
+      }
+    }
+    .custom-form-section {
+      @include smartphone() {
+        display: none;
+      }
+    }
     .socials {
       height: 30px;
       display: flex;
@@ -66,7 +76,7 @@ $secondaryColor: #ffffff;
       font-weight: 500;
       margin-bottom: 10px;
 
-      @include smartphone() {
+      @include tablet() {
         margin-top: 30px;
         font-size: 20px;
       }

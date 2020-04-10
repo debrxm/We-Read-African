@@ -1,14 +1,19 @@
 import BlogActionTypes from './blog.types';
 
-export const updateCategories = categoriesMap => ({
+export const updateCategories = (categoriesMap) => ({
   type: BlogActionTypes.UPDATE_CATEGORIES,
-  payload: categoriesMap
+  payload: categoriesMap,
 });
-export const updateBlogComments = comment => ({
+export const updateBlogComments = (comment) => ({
   type: BlogActionTypes.UPDATE_BLOG_COMMENTS,
-  payload: comment
+  payload: comment,
 });
-export const updateBlogViews = views => ({
+export const updateBlogViews = (views) => ({
   type: BlogActionTypes.UPDATE_BLOG_VIEWS,
-  payload: views
+  payload: views,
+});
+
+export const setCurrentReading = (reading) => ({
+  type: BlogActionTypes.SET_CURRENT_READING,
+  payload: reading,
 });

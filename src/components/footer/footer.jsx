@@ -11,7 +11,9 @@ const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-content">
-        {window.innerWidth <= 500 ? <SmartNewsletter /> : null}
+        <div className="smart-form-section">
+          <SmartNewsletter />
+        </div>
         <div className="menu">
           <h2 className="heading">Quick Links</h2>
           <div className="menu-links">
@@ -35,8 +37,9 @@ const Footer = () => {
             </Link>
           </div>
         </div>
-
-        {window.innerWidth <= 500 ? null : <CustomForm />}
+        <div className="custom-form-section">
+          <CustomForm />
+        </div>
         <div className="connect">
           <h2 className="heading">Connect</h2>
           <br />

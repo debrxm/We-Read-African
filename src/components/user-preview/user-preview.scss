@@ -19,13 +19,14 @@ $secondaryColor: #ffffff;
 .user {
   cursor: pointer;
   display: flex;
-  // justify-content: center;
+
   align-items: center;
   margin-left: 20px;
   .user-icon {
-    height: 30px;
+    // height: 30px;
     border-radius: 50%;
     margin-right: 5px;
+    width: 30px !important;
 
     @include smartphone() {
       height: 15px;
@@ -33,6 +34,9 @@ $secondaryColor: #ffffff;
   }
   span {
     font-size: 14px;
+    @include tablet() {
+      font-size: 12px;
+    }
   }
   .arrow-down {
     margin-left: 5px;

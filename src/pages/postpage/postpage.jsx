@@ -5,6 +5,7 @@ import { DeviceUUID } from 'device-uuid';
 import renderHTML from 'react-render-html';
 import { getAllComments, updateViews } from '../../firebase/firebase.utils';
 import { selectBlogPost } from '../../redux/blog/blog.selector';
+import { setCurrentReading } from '../../redux/blog/blog.actions';
 import BlogNavigation from '../../components/blog-navigation/blog-navigation';
 import whatsapp from '../../assets/socials/whatsapp.svg';
 import linkedin from '../../assets/socials/linkedin.svg';
@@ -22,8 +23,6 @@ class PostPage extends React.Component {
   };
 
   async componentDidMount() {
-    // let response = await fetch('https://api.ipify.org?format=json');
-    // let IP = await response.json();
     const uuid = new DeviceUUID().get();
     this.setState({ userIp: uuid });
 
@@ -46,6 +45,9 @@ class PostPage extends React.Component {
       title: this.props.blog[0].title.toLowerCase(),
       userIp: this.state.userIp,
     });
+    setTimeout(() => {
+      this.props.setCurrentReading(this.props.blog[0]);
+    }, 30000);
   }
   render() {
     const { title, content, image, tag } = this.props.blog[0];
@@ -115,5 +117,8 @@ const mapStateToProps = (state, ownProps) => {
     )(state),
   };
 };
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentReading: (reading) => dispatch(setCurrentReading(reading)),
+});
 
-export default connect(mapStateToProps)(PostPage);
+export default connect(mapStateToProps, mapDispatchToProps)(PostPage);

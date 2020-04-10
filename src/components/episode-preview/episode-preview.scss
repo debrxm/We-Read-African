@@ -1,6 +1,6 @@
 $tablet: 850px;
-$smartphone: 500px;
-$smartphone: 300px;
+$smartphone: 600px;
+$extremsmallphone: 300px;
 $primaryColor: #77323b;
 $secondaryColor: #ffffff;
 
@@ -16,10 +16,16 @@ $secondaryColor: #ffffff;
     @content;
   }
 }
+@mixin extremsmallphone {
+  @media (max-width: #{$extremsmallphone}) {
+    @content;
+  }
+}
 
 .episode-preview {
   display: flex;
   text-align: left;
+  // flex-direction: column;
   align-items: center;
   margin-bottom: 50px;
   @include smartphone() {
@@ -27,7 +33,6 @@ $secondaryColor: #ffffff;
   }
   .image-container {
     img {
-      // height: 100%;
       width: 220px;
     }
   }
@@ -86,6 +91,9 @@ $secondaryColor: #ffffff;
         span {
           margin-left: 8px;
           font-size: 13px;
+          @include extremsmallphone() {
+            display: none;
+          }
         }
       }
     }
