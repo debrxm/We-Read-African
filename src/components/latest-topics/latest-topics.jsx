@@ -18,6 +18,11 @@ const LatestTopics = ({ currentUser, forumTopics }) => {
       ? (document.documentElement.style.overflowY = 'hidden')
       : (document.documentElement.style.overflowY = 'scroll');
   };
+  const compare = (a, b) => {
+    if (a.posted_at < b.posted_at) return 1;
+    // if (a.view.views.length < b.view.views.length) return -1;
+    return 0;
+  };
   return (
     <div className="latest-topics">
       <div className="post-topic">
@@ -38,7 +43,7 @@ const LatestTopics = ({ currentUser, forumTopics }) => {
         <ForumEditor handleToggleEditore={handleToggleEditore} />
       ) : null}
       {forumTopics
-        ? forumTopics.map((topic) => {
+        ? forumTopics.sort(compare).map((topic) => {
             const modifiedTopic = {
               tag: 'latest',
               ...topic,

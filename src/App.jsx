@@ -15,6 +15,7 @@ import {
   updateBlogViews,
 } from './redux/blog/blog.actions';
 import Header from './components/header/header';
+import Search from './components/search/search';
 import Footer from './components/footer/footer';
 import Loader from './components/loader/loader';
 /*==============================*/
@@ -37,6 +38,7 @@ class App extends React.Component {
   state = {
     isAvailableInYourCountry: false,
     isLoading: true,
+    isShowSearch: false,
   };
   unsubscribFromSnapshot = null;
   unSubscribeFromAuth = null;
@@ -102,6 +104,9 @@ class App extends React.Component {
   componentWillUnmount() {
     this.unSubscribeFromAuth();
   }
+  handleSearchShow = () => {
+    this.setState({ isShowSearch: !this.state.isShowSearch });
+  };
   render() {
     const { currentUser, history } = this.props;
     return (
@@ -123,10 +128,13 @@ class App extends React.Component {
               <Header />
             </div>
             <div className="mobile">
-              <MobileHeader />
+              <MobileHeader showSearch={this.handleSearchShow} />
             </div>
           </div>
         )}
+        {this.state.isShowSearch ? (
+          <Search showSearch={this.handleSearchShow} />
+        ) : null}
         <div className="wrapper">
           {this.state.isLoading ? (
             <Loader />

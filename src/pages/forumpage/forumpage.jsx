@@ -8,7 +8,8 @@ import LatestTopics from '../../components/latest-topics/latest-topics';
 import ForumSubPage from '../forum-sub-page/forum-sub-page';
 import {
   firestore,
-  convertCollectionsSnapshotToMap,
+  convertTrendingForumSnapshotToMap,
+  convertFeaturedForumSnapshotToMap
 } from '../../firebase/firebase.utils';
 import {
   updateForums,
@@ -56,18 +57,27 @@ class Forumpage extends React.Component {
         };
         views.push(viewObj);
       });
-      const trendingTopicArr = convertCollectionsSnapshotToMap(views).filter(
-        (item, index) => index < 4
-      );
-      // console.log(trendingTopicArr);
-      this.props.forums.map((topic) => {
+      const compare = (a, b) => {
+        if (a.posted_at > b.posted_at) return 1;
+        // if (a.view.views.length < b.view.views.length) return -1;
+        return 0;
+      };
+      const trendingTopicArr = convertTrendingForumSnapshotToMap(views);
+      const featuredTopicArr = convertFeaturedForumSnapshotToMap(views);
+      this.props.forums.sort(compare).map((topic) => {
         trendingTopicArr.forEach((item) => {
           if (topic.title.toLowerCase() === item.id) {
             topic.tag = 'trending_topics';
           }
         });
       });
-      // console.log(this.props.forums);
+      this.props.forums.sort(compare).map((topic) => {
+        featuredTopicArr.forEach((item) => {
+          if (topic.title.toLowerCase() === item.id) {
+            topic.tag = 'featured_topics';
+          }
+        });
+      });
       this.props.updateForums(this.props.forums);
       this.props.updateForumViews(views);
     });

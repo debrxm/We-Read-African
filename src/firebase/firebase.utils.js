@@ -42,22 +42,23 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   return userRef;
 };
 
-export const convertCollectionsSnapshotToMap = (collections) => {
+export const convertTrendingForumSnapshotToMap = (collections) => {
   const compare = (a, b) => {
-    // console.log(a.view.views.length);
-    // console.log(b.view.views.length);
     if (a.view.views.length < b.view.views.length) return 1;
-    if (a.view.views.length > b.view.views.length) return -1;
-
+    if (a.view.views.length < b.view.views.length) return -1;
     return 0;
   };
-  // console.log(collections.sort(compare));
-  return collections.sort(compare);
 
-  // return transformedCollection.reduce((accumulator, collection) => {
-  //   // accumulator[collection.id.toLowerCase()] = collection;
-  //   return accumulator;
-  // }, {});
+  return collections.sort(compare).filter((item, index) => index < 24);
+};
+export const convertFeaturedForumSnapshotToMap = (collections) => {
+  const compare = (a, b) => {
+    if (a.view.views.length < b.view.views.length) return 1;
+    if (a.view.views.length < b.view.views.length) return -1;
+    return 0;
+  };
+
+  return collections.sort(compare).filter((item, index) => index < 9);
 };
 
 export const getAllComments = async ({ collection, documente }) => {

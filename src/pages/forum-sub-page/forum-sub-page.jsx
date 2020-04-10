@@ -6,8 +6,6 @@ import ForumPreview from '../../components/forum-preview/forum-preview';
 import './forum-sub-page.scss';
 
 const ForumSubPage = ({ forums }) => {
-  console.log(forums);
-
   return (
     <div className="tag-page">
       <div className="output">

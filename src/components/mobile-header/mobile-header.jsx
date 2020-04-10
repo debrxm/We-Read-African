@@ -5,7 +5,7 @@ import logo from '../../assets/logo.svg';
 import search from '../../assets/search.svg';
 import './mobile-header.scss';
 import SideNav from '../side-nav/side-nav';
-const MobileHeader = () => {
+const MobileHeader = ({ showSearch }) => {
   const [isShow, setisShow] = useState(false);
   const handleToggleSideNav = () => {
     setisShow(!isShow);
@@ -27,7 +27,7 @@ const MobileHeader = () => {
         </Link>
       </div>
       <span className="search">
-        <img src={search} alt="Search Icon" />
+        <img src={search} alt="Search Icon" onClick={showSearch} />
       </span>
       {isShow ? <SideNav handleToggleSideNav={handleToggleSideNav} /> : null}
     </div>
