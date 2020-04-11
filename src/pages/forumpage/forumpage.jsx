@@ -9,7 +9,7 @@ import ForumSubPage from '../forum-sub-page/forum-sub-page';
 import {
   firestore,
   convertTrendingForumSnapshotToMap,
-  convertFeaturedForumSnapshotToMap
+  convertFeaturedForumSnapshotToMap,
 } from '../../firebase/firebase.utils';
 import {
   updateForums,
@@ -65,7 +65,7 @@ class Forumpage extends React.Component {
       const trendingTopicArr = convertTrendingForumSnapshotToMap(views);
       const featuredTopicArr = convertFeaturedForumSnapshotToMap(views);
       this.props.forums.sort(compare).map((topic) => {
-        trendingTopicArr.forEach((item) => {
+        return trendingTopicArr.forEach((item) => {
           if (topic.title.toLowerCase() === item.id) {
             topic.tag = 'trending_topics';
           }

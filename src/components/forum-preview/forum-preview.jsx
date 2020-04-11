@@ -29,7 +29,7 @@ class ForumPreview extends React.Component {
       .map((view) => this.setState({ views: view }));
   }
   render() {
-    const { history, reDirect, closeSearch, postpage } = this.props;
+    const { closeSearch } = this.props;
     const { title, body, user, posted_at, tag } = this.props.topicData;
     const { displayName, photoURL } = user;
     const handleRouting = () => {
@@ -45,11 +45,11 @@ class ForumPreview extends React.Component {
       }
     };
     let commentLength = 0;
-    this.state.setComment.comments
-      ? this.state.setComment.comments.comments.forEach((comment) => {
-          commentLength = commentLength + comment.replies.length;
-        })
-      : console.log(undefined);
+    if (this.state.setComment.comments) {
+      this.state.setComment.comments.comments.forEach((comment) => {
+        commentLength = commentLength + comment.replies.length;
+      });
+    }
     return this.props.topicData ? (
       <div className="forum-preview">
         <h3 className="title">{title}</h3>

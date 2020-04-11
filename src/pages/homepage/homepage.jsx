@@ -8,6 +8,7 @@ import './homepage.scss';
 import Slider from '../../components/slider/slider';
 import LatestPost from '../../components/latest-post/latest-post';
 import ShopFavorite from '../../components/shop-favorite/shop-favorite';
+import InstagramPosts from '../../components/instagram/instagram';
 class Homepage extends React.Component {
   constructor(props) {
     super(props);
@@ -39,6 +40,7 @@ class Homepage extends React.Component {
         <Slider />
         <ShopFavorite />
         <LatestPost homepage />
+        <InstagramPosts />
       </div>
     );
   }
