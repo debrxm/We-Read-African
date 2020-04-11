@@ -29,22 +29,24 @@ export default class InstagramPosts extends Component {
         <div className="shadow"></div>
         <Carousel
           renderCenterLeftControls={({ previousSlide }) => (
+            this.state.windowWidth < 400 ? null :
             <button className="ctrl-btn prev" onClick={previousSlide}>
               <img src={rightArrow} alt="" />
             </button>
           )}
           renderCenterRightControls={({ nextSlide }) => (
+            this.state.windowWidth < 400 ? null :
             <button className="ctrl-btn next" onClick={nextSlide}>
               <img src={rightArrow} alt="" />
             </button>
           )}
-          slidesToShow={this.state.windowWidth < 300 ? 2 :this.state.windowWidth < 500 ? 3 : this.state.windowWidth < 700 ? 4 :7}
+          slidesToShow={this.state.windowWidth < 400 ? 2 :this.state.windowWidth < 500 ? 3 : this.state.windowWidth < 700 ? 4 :7}
         >
           {this.state.posts.map((item, index) => (
             <div key={index} className="post">
               <img
                 src={item.node.thumbnail_src}
-                height="150px"
+                height="180px"
                 width="150px"
                 alt="post"
               />

@@ -27,6 +27,7 @@ $secondaryColor: #ffffff;
       display: none;
       color: $primaryColor;
       font-size: 20px;
+      font-weight: 400;
       margin-bottom: 20px;
       
       @include smartphone(){
