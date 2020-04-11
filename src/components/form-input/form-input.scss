@@ -1,4 +1,4 @@
-$smartphone-width: 600px;
+$smartphone-width: 500px;
 $sub-color: grey;
 $main-color: black;
 
@@ -17,6 +17,9 @@ $main-color: black;
 .group {
   position: relative;
   margin: 30px 0;
+  @include smartphone() {
+    margin: 20px 0;
+  }
 
   .form-input {
     background: none;
@@ -30,6 +33,11 @@ $main-color: black;
     border-radius: 0;
     border-bottom: 1px solid $sub-color;
     margin: 20px 0;
+    @include smartphone() {
+      margin: 10px 0;
+      font-size: 16;
+      padding: 5px;
+    }
 
     &:focus {
       outline: none;
@@ -47,6 +55,9 @@ $main-color: black;
     right: 10px;
     top: 10px;
     z-index: 9999;
+    @include smartphone() {
+      top: 8px;
+    }
   }
   .forgot-password {
     cursor: pointer;
@@ -71,6 +82,10 @@ $main-color: black;
     left: 5px;
     top: 10px;
     transition: 300ms ease all;
+    @include smartphone() {
+      font-size: 14px;
+      top: 8px;
+    }
 
     &.shrink {
       @include shrinkLabel();

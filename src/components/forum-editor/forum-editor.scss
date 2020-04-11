@@ -1,5 +1,5 @@
 $tablet: 850px;
-$smartphone: 600px;
+$smartphone: 500px;
 $primaryColor: #77323b;
 $blackColor: #000000;
 $secondaryColor: #ffffff;
@@ -33,6 +33,12 @@ $secondaryColor: #ffffff;
   padding: 20px;
   width: 60vw;
   margin: auto;
+  @include tablet() {
+    width: 80vw;
+  }
+  @include smartphone() {
+    width: 90%;
+  }
   h4 {
     text-align: center;
     font-weight: 500;
@@ -47,9 +53,15 @@ $secondaryColor: #ffffff;
       color: red;
       font-size: 12px;
     }
+    @include smartphone() {
+      font-size: 15px;
+    }
   }
   .group-input {
     margin: 20px 0;
+    @include smartphone() {
+      margin: 10px 0;
+    }
     .form-input {
       background: none;
       // background-color: white;
@@ -62,6 +74,9 @@ $secondaryColor: #ffffff;
       border-radius: 0;
       border: 1px solid darken($color: $secondaryColor, $amount: 15);
       // margin: 20px 0;
+      @include smartphone() {
+        font-size: 15px;
+      }
 
       &:focus {
         outline: none;
@@ -72,6 +87,10 @@ $secondaryColor: #ffffff;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    @include smartphone() {
+      justify-content: center;
+    }
     .btn {
       cursor: pointer;
       white-space: nowrap;
@@ -92,7 +111,8 @@ $secondaryColor: #ffffff;
         transform: translateY(-2px);
       }
       @include smartphone() {
-        display: none;
+        width: 80%;
+        font-size: 10px;
       }
     }
     .post-topic-btn {

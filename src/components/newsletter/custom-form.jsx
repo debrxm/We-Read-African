@@ -10,7 +10,7 @@ const CustomForm = () => (
     url={url}
     render={({ subscribe, status, message }) => (
       <div>
-        <MyForm onSubmitted={formData => subscribe(formData)} />
+        <MyForm onSubmitted={(formData) => subscribe(formData)} />
         {status === 'success' ? (
           <span className="success">
             Subscribed{' '}

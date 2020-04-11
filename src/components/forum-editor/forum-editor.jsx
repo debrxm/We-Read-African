@@ -16,16 +16,15 @@ class ForumEditor extends React.Component {
     this.state = {
       title: '',
       body: '',
-      isLoading: false
+      isLoading: false,
     };
     this.handleChange = this.handleChange.bind(this);
   }
-  handleChangeInput = e => {
+  handleChangeInput = (e) => {
     const { name, value } = e.target;
     this.setState({ [name]: value }, () => {});
   };
   handleChange(content) {
-    console.log(content); //Get Content Inside Editor
     this.setState({ body: content });
   }
   handlePostTopic = async () => {
@@ -34,10 +33,11 @@ class ForumEditor extends React.Component {
       title: this.state.title,
       body: this.state.body,
       id: GenerateId(),
+      tag: 'blank',
       user: this.props.currentUser,
-      posted_at: Date.now()
+      posted_at: Date.now(),
     };
-    await sendNewTopicToDatabase(newTopic); 
+    await sendNewTopicToDatabase(newTopic);
     this.setState({ isLoading: !this.setState.isLoading });
     this.props.handleToggleEditore();
   };
@@ -53,6 +53,7 @@ class ForumEditor extends React.Component {
             <input
               type="text"
               name="title"
+              required
               value={this.state.title}
               className="form-input"
               onChange={this.handleChangeInput}
@@ -69,7 +70,7 @@ class ForumEditor extends React.Component {
             show={true}
             enable={true}
             setOptions={{
-              height: 200,
+              height: 100,
               plugins: plugins,
               buttonList: [
                 ['undo', 'redo'],
@@ -78,8 +79,8 @@ class ForumEditor extends React.Component {
                 ['blockquote'],
                 ['outdent', 'indent'],
                 ['link', 'image'],
-                ['codeView']
-              ]
+                ['codeView'],
+              ],
             }}
           />
           <div className="forum-editor-footer">
@@ -102,6 +103,6 @@ class ForumEditor extends React.Component {
   }
 }
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
 });
 export default connect(mapStateToProps)(ForumEditor);

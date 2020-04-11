@@ -5,11 +5,15 @@ import facebook from '../../assets/socials/facebook.svg';
 import twitter from '../../assets/socials/twitter.svg';
 // import footerPattern from '../../assets/footerPattern.svg';
 import CustomForm from '../newsletter/custom-form';
+import SmartNewsletter from '../smart-newsletter/smart-newsletter';
 import './footer.scss';
 const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-content">
+        <div className="smart-form-section">
+          <SmartNewsletter />
+        </div>
         <div className="menu">
           <h2 className="heading">Quick Links</h2>
           <div className="menu-links">
@@ -33,7 +37,9 @@ const Footer = () => {
             </Link>
           </div>
         </div>
-        <CustomForm />
+        <div className="custom-form-section">
+          <CustomForm />
+        </div>
         <div className="connect">
           <h2 className="heading">Connect</h2>
           <br />

@@ -56,9 +56,11 @@ const Header = ({ currentUser, history }) => {
               {isShow ? <UserDropdown /> : null}
             </div>
           ) : (
-            <Link to="/signin">
-              <CustomButton acen>Log In / Register</CustomButton>
-            </Link>
+            <span className="buton">
+              <Link to="/signin">
+                <CustomButton acen>Log In / Register</CustomButton>
+              </Link>
+            </span>
           )}
         </div>
       </div>
@@ -149,7 +151,7 @@ const Header = ({ currentUser, history }) => {
 };
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
 });
 
 export default withRouter(connect(mapStateToProps)(Header));

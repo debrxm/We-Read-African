@@ -50,6 +50,10 @@ $secondaryColor: #ffffff;
     color: #a3a3a3;
     margin-right: 20px;
 
+    @include tablet() {
+      margin: 0;
+    }
+
     &:hover {
       background-color: #a3a3a3;
       color: $secondaryColor;
@@ -61,6 +65,10 @@ $secondaryColor: #ffffff;
     background-color: #3b5998;
     color: white;
     margin-left: 20px;
+
+    @include tablet() {
+      margin: 0;
+    }
 
     &:hover {
       background-color: #a3a3a3;

@@ -12,7 +12,12 @@ const FormInput = ({
   ...otherProps
 }) => {
   return (
-    <div className="group">
+    <div
+      className="group"
+      style={
+        forgotPassword ? { marginBottom: '40px' } : { marginBottom: '30px' }
+      }
+    >
       <input onChange={handleChange} className="form-input" {...otherProps} />
       {label ? (
         <label

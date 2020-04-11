@@ -22,7 +22,7 @@ const PostpageLatestPost = ({ allBlog, homepage, line, postpage, except }) => {
           <div className="output">
             {allBlog ? (
               allBlog
-                .filter((item, index) => item.title !== except)
+                .filter((item, index) => (item.title !== except) & (index > 3))
                 .map(blog =>
                   postpage ? (
                     <PostPreview

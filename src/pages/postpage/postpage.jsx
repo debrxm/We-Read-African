@@ -1,47 +1,59 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
+import { DeviceUUID } from 'device-uuid';
 import renderHTML from 'react-render-html';
 import { getAllComments, updateViews } from '../../firebase/firebase.utils';
 import { selectBlogPost } from '../../redux/blog/blog.selector';
+import {
+  setCurrentReading,
+  updateHistory,
+} from '../../redux/blog/blog.actions';
 import BlogNavigation from '../../components/blog-navigation/blog-navigation';
 import whatsapp from '../../assets/socials/whatsapp.svg';
 import linkedin from '../../assets/socials/linkedin.svg';
 import facebook from '../../assets/socials/facebook.svg';
 import twitter from '../../assets/socials/twitter.svg';
-import './postpage.scss';
 import PostpageLatestPost from '../../components/postpage-latest-post/postpage-latest-post';
 import Comments from '../../components/comments/comments';
 import CommentBox from '../../components/comment-box/comment-box';
 import ProgressIndicator from '../../components/progress-indicator/progress-indicator';
+import './postpage.scss';
 class PostPage extends React.Component {
   state = {
     comments: [],
-    userIp: ''
+    userIp: '',
   };
 
   async componentDidMount() {
-    let response = await fetch('https://api.ipify.org?format=json');
-    let IP = await response.json();
-    this.setState({ userIp: IP.ip });
+    const uuid = new DeviceUUID().get();
+    this.setState({ userIp: uuid });
 
-    const commentRef = await getAllComments({
-      collection: 'blog_comments',
-      documente: this.props.blog[0].title.toLowerCase()
-    });
-    if (commentRef) {
-      commentRef.onSnapshot(snapShot => {
-        this.setState({
-          comments: snapShot.data() ? snapShot.data().comments : []
-        });
+    if (this.props.blog[0]) {
+      const commentRef = await getAllComments({
+        collection: 'blog_comments',
+        documente: this.props.blog[0].title.toLowerCase(),
       });
+      if (commentRef) {
+        commentRef.onSnapshot((snapShot) => {
+          this.setState({
+            comments: snapShot.data() ? snapShot.data().comments : [],
+          });
+        });
+      }
     }
 
     await updateViews({
       collection: 'blog_views',
       title: this.props.blog[0].title.toLowerCase(),
-      userIp: this.state.userIp
+      userIp: this.state.userIp,
     });
+    setTimeout(() => {
+      this.props.setCurrentReading(this.props.blog[0]);
+    }, 1000);
+  }
+  componentWillUnmount() {
+    this.props.addToHistory(this.props.blog[0]);
   }
   render() {
     const { title, content, image, tag } = this.props.blog[0];
@@ -72,7 +84,7 @@ class PostPage extends React.Component {
           <div className="blog-content">{renderHTML(`${content}`)}</div>
         </div>
         <ProgressIndicator />
-        <BlogNavigation />
+        <BlogNavigation title={title} />
         <div className="full-blog-footer">
           <div className="date-posted">
             <span>Posted Febuary 16 2020</span>
@@ -96,7 +108,7 @@ class PostPage extends React.Component {
           </div>
         </div>
         <PostpageLatestPost line postpage except={title} />
-        <Comments category="blog_comments" comments={this.state.comments} />
+        <Comments collection="blog_comments" comments={this.state.comments} />
         <CommentBox category="blog_comments" title={this.props.blog[0].title} />
       </div>
     );
@@ -108,8 +120,13 @@ const mapStateToProps = (state, ownProps) => {
     blog: selectBlogPost(
       ownProps.match.params.blogId,
       ownProps.match.url
-    )(state)
+    )(state),
+    prevHistory: state.blog.history,
   };
 };
+const mapDispatchToProps = (dispatch) => ({
+  setCurrentReading: (reading) => dispatch(setCurrentReading(reading)),
+  addToHistory: (history) => dispatch(updateHistory(history)),
+});
 
-export default connect(mapStateToProps)(PostPage);
+export default connect(mapStateToProps, mapDispatchToProps)(PostPage);

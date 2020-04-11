@@ -99,7 +99,64 @@ $shadow: 0px 4px 20px rgba(64, 27, 32, 0.15);
       .post-footer-date {
         margin-right: 30px;
       }
-      // text-align: center;
+      .post-footer-share {
+        position: relative;
+
+        .share {
+          position: absolute;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          right: 0;
+          ul {
+            li {
+              position: absolute;
+              top: 0;
+              left: 0;
+              bottom: 0;
+              right: 0;
+              list-style: none;
+              transition: all 0.5s;
+              opacity: 0;
+              a {
+                display: block;
+                text-align: center;
+                border-radius: 50%;
+                font-size: 2em;
+                img {
+                  width: 30px;
+                  height: 30px;
+                }
+              }
+            }
+            &:after {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: 0;
+              bottom: 0;
+              right: 0;
+              cursor: pointer;
+              text-align: center;
+              color: black;
+              border-radius: 50%;
+              z-index: 1;
+            }
+            &:hover li:nth-child(1) {
+              transform: translate(30px, -100px);
+              opacity: 1;
+            }
+            &:hover li:nth-child(2) {
+              transform: translate(30px, -65px);
+              opacity: 1;
+            }
+            &:hover li:nth-child(3) {
+              transform: translate(30px, -30px);
+              opacity: 1;
+            }
+          }
+        }
+      }
     }
   }
 }

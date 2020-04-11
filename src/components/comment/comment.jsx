@@ -1,10 +1,13 @@
 import React from 'react';
 import userIco from '../../assets/userIco.svg';
 import './comment.scss';
-const Comment = ({ comment }) => {
+const Comment = ({ comment, reply }) => {
   const { date, name, photo, text } = comment;
   return (
-    <article className="media">
+    <article
+      className="media"
+      style={reply ? { marginLeft: '30px' } : { marginLeft: '0px' }}
+    >
       <div className="user">
         <img className="user-icon" src={photo ? photo : userIco} alt="user" />
         <div className="name-time">

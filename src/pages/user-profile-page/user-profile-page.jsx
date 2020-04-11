@@ -1,9 +1,13 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
+import {
+  selectCurrentReading,
+  selectHistory,
+} from '../../redux/blog/blog.selector';
 import { auth } from '../../firebase/firebase.utils';
 import pattern from '../../assets/pattern.svg';
 import Loader from '../../components/loader/loader';
@@ -11,7 +15,7 @@ import userIco from '../../assets/userIco.svg';
 import logo from '../../assets/logo.svg';
 import logout from '../../assets/logout.svg';
 import './user-profile-page.scss';
-const UserProfilePage = ({ currentUser, history }) => {
+const UserProfilePage = ({ currentUser, history, reading, historyArr }) => {
   const handleSignout = () => {
     auth.signOut();
     history.push(`/`);
@@ -53,10 +57,37 @@ const UserProfilePage = ({ currentUser, history }) => {
             <div className="heading">
               <span>Current Reading</span>
             </div>
+            {reading ? (
+              <Link
+                to={`/blog/${reading.tag}/${reading.title
+                  .split(' ')
+                  .join('-')
+                  .toLowerCase()}`}
+              >
+                <h3 className="reading">{reading.title}</h3>
+              </Link>
+            ) : null}
           </div>
           <div className="favorite">
             <div className="heading">
-              <span>Favorites</span>
+              <span>History</span>
+            </div>
+            <div className="history-lists">
+              {historyArr.lenght !== 0
+                ? [...new Set(historyArr)]
+                    .filter((item, index) => index < 4)
+                    .map((item, index) => (
+                      <Link
+                        key={index}
+                        to={`/blog/${reading.tag}/${reading.title
+                          .split(' ')
+                          .join('-')
+                          .toLowerCase()}`}
+                      >
+                        <span>{item.title}</span>
+                      </Link>
+                    ))
+                : null}
             </div>
           </div>
           <div className="pattern">
@@ -70,6 +101,8 @@ const UserProfilePage = ({ currentUser, history }) => {
   );
 };
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
+  reading: selectCurrentReading,
+  historyArr: selectHistory,
 });
 export default withRouter(connect(mapStateToProps)(UserProfilePage));

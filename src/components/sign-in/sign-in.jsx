@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import {
   auth,
   signInWithGoogle,
-  signInWithFacebook
+  signInWithFacebook,
 } from '../../firebase/firebase.utils';
 import FormInput from '../form-input/form-input';
 import CustomButton from '../custom-button/custom-button';
@@ -20,12 +20,12 @@ export default class SignIn extends Component {
       password: '',
       errorMessage: '',
       isShowPassword: false,
-      isLoading: false
+      isLoading: false,
     };
   }
   handleToggleShowPassword = () =>
     this.setState({ isShowPassword: !this.state.isShowPassword });
-  handleSubmit = async event => {
+  handleSubmit = async (event) => {
     event.preventDefault();
     const { email, password } = this.state;
 
@@ -38,24 +38,24 @@ export default class SignIn extends Component {
         ? this.setState({
             isLoading: false,
             errorMessage:
-              'The password is invalid or the user does not have a password.'
+              'The password is invalid or the user does not have a password.',
           })
         : error.code === 'auth/user-not-found'
         ? this.setState({
             isLoading: false,
             errorMessage:
-              'There is no user record corresponding to this identifier.'
+              'There is no user record corresponding to this identifier.',
           })
         : this.setState({ isLoading: false, errorMessage: 'Wierd' });
     }
 
     // this.setState({ email: '', password: '' });
   };
-  handleChange = event => {
+  handleChange = (event) => {
     const { name, value } = event.target;
     this.setState({
       [name]: value,
-      errorMessage: ''
+      errorMessage: '',
     });
   };
   render() {
@@ -64,7 +64,7 @@ export default class SignIn extends Component {
       password,
       errorMessage,
       isShowPassword,
-      isLoading
+      isLoading,
     } = this.state;
     return (
       <div className="sign-in">

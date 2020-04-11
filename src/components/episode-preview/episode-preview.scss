@@ -1,0 +1,101 @@
+$tablet: 850px;
+$smartphone: 600px;
+$extremsmallphone: 300px;
+$primaryColor: #77323b;
+$secondaryColor: #ffffff;
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+@mixin extremsmallphone {
+  @media (max-width: #{$extremsmallphone}) {
+    @content;
+  }
+}
+
+.episode-preview {
+  display: flex;
+  text-align: left;
+  // flex-direction: column;
+  align-items: center;
+  margin-bottom: 50px;
+  @include smartphone() {
+    flex-direction: column;
+  }
+  .image-container {
+    img {
+      width: 220px;
+    }
+  }
+  .details-control {
+    padding: 0 30px 0 20px;
+    @include smartphone() {
+      padding: 0;
+    }
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .epi {
+      font-size: 14px;
+      color: #028289;
+    }
+    .title {
+      font-weight: 500;
+      margin: 10px 0;
+    }
+    .sub-title {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    .time {
+      color: darken($color: $secondaryColor, $amount: 50);
+      font-size: 13px;
+    }
+    .controls {
+      margin-top: auto;
+      display: flex;
+      padding: 10px;
+      border-top: 1px solid darken($color: $secondaryColor, $amount: 10);
+      @include smartphone() {
+        flex-wrap: wrap;
+      }
+      a {
+        img {
+          height: 18px;
+          @include smartphone() {
+            height: 15px;
+          }
+        }
+      }
+      .link {
+        margin-right: 25px;
+        @include smartphone() {
+          margin-right: 15px;
+        }
+      }
+      .download {
+        margin-left: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        span {
+          margin-left: 8px;
+          font-size: 13px;
+          @include extremsmallphone() {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}

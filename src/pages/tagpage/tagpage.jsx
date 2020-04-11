@@ -10,7 +10,7 @@ const TagPage = ({ blogs }) => {
     <div className="tag-page">
       <div className="output">
         {blogs ? (
-          blogs.map(blog => (
+          blogs.map((blog) => (
             <PostPreview
               showDate
               showTrunc
@@ -33,7 +33,10 @@ const TagPage = ({ blogs }) => {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    blogs: selectTagPost(ownProps.match.params.tagId, ownProps.match.url)(state)
+    blogs: selectTagPost(
+      ownProps.match.params.tagId,
+      ownProps.match.url
+    )(state),
   };
 };
 

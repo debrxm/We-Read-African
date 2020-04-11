@@ -12,17 +12,17 @@ class CommentBox extends Component {
   state = {
     name: this.props.currentUser ? this.props.currentUser.displayName : '',
     newComment: '',
-    isLoading: false
+    isLoading: false,
   };
 
-  updateInput = event => {
+  updateInput = (event) => {
     const { name, value } = event.target;
     this.setState({
-      [name]: value
+      [name]: value,
     });
   };
 
-  addComment = async event => {
+  addComment = async (event) => {
     this.setState({ isLoading: true });
     event.preventDefault();
     const { title, category, currentUser } = this.props;
@@ -35,12 +35,12 @@ class CommentBox extends Component {
       photo: currentUser.photoURL ? currentUser.photoURL : null,
       post: title.toLowerCase(),
       date: Date.now(),
-      replies: []
+      replies: [],
     };
     await addAComment({ collection: category, d_ata });
     this.setState({
       newComment: '',
-      isLoading: false
+      isLoading: false,
     });
   };
 
@@ -100,7 +100,7 @@ class CommentBox extends Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
 });
 
 export default connect(mapStateToProps)(CommentBox);

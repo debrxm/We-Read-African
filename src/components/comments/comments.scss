@@ -60,4 +60,13 @@ $secondaryColor: #ffffff;
       }
     }
   }
+  .reply {
+    text-align: left;
+    span {
+      font-size: 11px;
+    }
+    .reply-count {
+      margin-left: 20px;
+    }
+  }
 }

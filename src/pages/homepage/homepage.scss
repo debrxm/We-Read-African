@@ -1,6 +1,7 @@
 $tablet: 850px;
 $smartphone: 500px;
-$primaryColor: #000000;
+$primaryColor: #77323b;
+$blackColor: #000000;
 $secondaryColor: #ffffff;
 
 // Mixin
@@ -17,5 +18,20 @@ $secondaryColor: #ffffff;
 }
 
 .homepage {
-  // margin-top: 159px;
+  @include smartphone() {
+    width: 100%;
+    margin: 0;
+    padding: 0 10px;
+  }
+  .check-latest{
+      display: none;
+      color: $primaryColor;
+      font-size: 20px;
+      font-weight: 400;
+      margin-bottom: 20px;
+      
+      @include smartphone(){
+        display: block;
+      }
+    }
 }

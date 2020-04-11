@@ -1,0 +1,38 @@
+$tablet: 850px;
+$smartphone: 500px;
+$primaryColor: #77323b;
+$blackColor: #000000;
+$secondaryColor: #ffffff;
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+.instagram-posts {
+  width: 80vw;
+  margin: auto;
+  position: relative;
+  @include smartphone(){
+    width: 90vw
+  }
+  /*.shadow {
+    position: absolute;
+    -webkit-box-shadow: inset -36px 0px 5px 0px rgba(255,255,255,0.7);
+-moz-box-shadow: inset -36px 0px 5px 0px rgba(255,255,255,0.7);
+box-shadow: inset -36px 0px 5px 0px rgba(255,255,255,0.7);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    pointer-event: none;
+  }*/
+}
