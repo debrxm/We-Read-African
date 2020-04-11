@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Helmet } from 'react-helmet';
+import ThankYouMessage from '../../components/ThankYouMessage/ThankYouMessage';
 import './contactpage.scss';
+import SideBar from '../../components/SideBar/SideBar';
 
 //Components
 import FormInput from '../../components/form-input/form-input';
@@ -82,8 +84,9 @@ export default class ContactPage extends Component {
           </CustomButton>
         </form>
       </div>
+      <ThankYouMessage />
       </main> 
-      <div id='sideBar'></div>
+      <SideBar />
     </div>
   )
   }
