@@ -24,18 +24,21 @@ class Search extends Component {
   };
   handleSelected = (evnt) => {
     this.setState({ selected: evnt });
-    console.log(this.state);
   };
   handleSubmit = (e) => {
     e.preventDefault();
   };
   render() {
-    const fillterdBlog = this.props.blogs.filter((blog) =>
-      blog.title.toLowerCase().includes(this.state.search.toLowerCase())
-    );
-    const fillterdForum = this.props.forums.filter((forum) =>
-      forum.title.toLowerCase().includes(this.state.search.toLowerCase())
-    );
+    const fillterdBlog = this.props.blogs
+      ? this.props.blogs.filter((blog) =>
+          blog.title.toLowerCase().includes(this.state.search.toLowerCase())
+        )
+      : [];
+    const fillterdForum = this.props.forums
+      ? this.props.forums.filter((forum) =>
+          forum.title.toLowerCase().includes(this.state.search.toLowerCase())
+        )
+      : [];
     return (
       <div
         className="search-page"
@@ -86,10 +89,18 @@ class Search extends Component {
           {this.state.search
             ? this.state.selected === 'blog'
               ? fillterdBlog.map((blog) => (
-                  <PostPreview key={blog.title} blog_data={blog} />
+                  <PostPreview
+                    key={blog.title}
+                    blog_data={blog}
+                    closeSearch={this.props.showSearch}
+                  />
                 ))
               : fillterdForum.map((topic) => (
-                  <ForumPreview key={topic.id} topicData={topic} />
+                  <ForumPreview
+                    key={topic.id}
+                    topicData={topic}
+                    closeSearch={this.props.showSearch}
+                  />
                 ))
             : null}
         </div>

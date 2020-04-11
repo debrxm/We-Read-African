@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import { selectAllComments, selectViews } from '../../redux/blog/blog.selector';
 import renderHTML from 'react-render-html';
@@ -34,6 +34,7 @@ class PostPreview extends React.Component {
       blog_data,
       showTrunc,
       showDate,
+      closeSearch,
       showViewShare,
       noFooter,
       reDirect,
@@ -41,13 +42,16 @@ class PostPreview extends React.Component {
     } = this.props;
     const { title, image, tag, updated_at, truncate } = blog_data;
     const handleRouting = () => {
-      reDirect
-        ? history.push(`${tag}/${title.split(' ').join('-').toLowerCase()}`)
-        : postpage
-        ? history.push(`${title.split(' ').join('-').toLowerCase()}`)
-        : history.push(
-            `blog/${tag}/${title.split(' ').join('-').toLowerCase()}`
-          );
+      // reDirect
+      //   ? history.push(`${tag}/${title.split(' ').join('-').toLowerCase()}`)
+      //   : postpage
+      //   ? history.push(`${title.split(' ').join('-').toLowerCase()}`)
+      //   : history.push(
+      //       `blog/${tag}/${title.split(' ').join('-').toLowerCase()}`
+      //     );
+      if (closeSearch) {
+        this.props.closeSearch();
+      }
     };
     const date = new Date(updated_at.seconds * 1000),
       months = [
@@ -102,15 +106,26 @@ class PostPreview extends React.Component {
             className="post-preview-header"
             style={showTrunc ? { minHeight: '150px' } : { minHeight: '70px' }}
           >
-            <h4 className="title" id="post-link" onClick={handleRouting}>
-              {title}
-            </h4>
+            <Link
+              to={`/blog/${tag}/${title.split(' ').join('-').toLowerCase()}`}
+            >
+              <h4 className="title" id="post-link" onClick={handleRouting}>
+                {title}
+              </h4>
+            </Link>
             {showTrunc ? (
               <p className="trunc">
                 {renderHTML(`${trunc}`)}{' '}
-                <span className="read-more" onClick={handleRouting}>
-                  read more
-                </span>{' '}
+                <Link
+                  to={`/blog/${tag}/${title
+                    .split(' ')
+                    .join('-')
+                    .toLowerCase()}`}
+                >
+                  <span className="read-more" onClick={handleRouting}>
+                    read more
+                  </span>
+                </Link>
               </p>
             ) : null}
           </div>

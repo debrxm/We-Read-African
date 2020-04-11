@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import {
   selectTopicComments,
@@ -29,17 +29,20 @@ class ForumPreview extends React.Component {
       .map((view) => this.setState({ views: view }));
   }
   render() {
-    const { history, reDirect, postpage } = this.props;
+    const { history, reDirect, closeSearch, postpage } = this.props;
     const { title, body, user, posted_at, tag } = this.props.topicData;
     const { displayName, photoURL } = user;
     const handleRouting = () => {
-      reDirect
-        ? history.push(`${tag}/${title.split(' ').join('-').toLowerCase()}`)
-        : postpage
-        ? history.push(`${title.split(' ').join('-').toLowerCase()}`)
-        : history.push(
-            `forum/${tag}/${title.split(' ').join('-').toLowerCase()}`
-          );
+      // reDirect
+      //   ? history.push(`${tag}/${title.split(' ').join('-').toLowerCase()}`)
+      //   : postpage
+      //   ? history.push(`${title.split(' ').join('-').toLowerCase()}`)
+      //   : history.push(
+      //       `forum/${tag}/${title.split(' ').join('-').toLowerCase()}`
+      //     );
+      if (closeSearch) {
+        this.props.closeSearch();
+      }
     };
     let commentLength = 0;
     this.state.setComment.comments
@@ -73,9 +76,13 @@ class ForumPreview extends React.Component {
                 .props.children[0].split(' ')
                 .slice(0, 30)
                 .join(' ')}{' '}
-          <span className="read-more" onClick={handleRouting}>
-            read more
-          </span>
+          <Link
+            to={`/forum/${tag}/${title.split(' ').join('-').toLowerCase()}`}
+          >
+            <span className="read-more" onClick={handleRouting}>
+              read more
+            </span>
+          </Link>
         </p>
         <div className="forum-preview-footer">
           <span className="forum-preview-footer-comment">
