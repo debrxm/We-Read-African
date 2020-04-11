@@ -2,10 +2,14 @@ import React, { Component } from 'react';
 
 //Components
 import Search from '../Search/Search';
+import PodcastPlay from '../PodcastPlay/PodcastPlay';
 
 const SideBar = () => { 
   return ( 
-    <Search />
+    <div>
+      <Search />
+      <PodcastPlay />
+    </div>
   )
 }
 
