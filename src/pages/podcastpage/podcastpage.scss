@@ -22,11 +22,27 @@ $secondaryColor: #ffffff;
   @include smartphone() {
     padding: 0;
   }
-  .left {
-    width: 60vw;
-    @include smartphone() {
-      width: 90vw;
-      margin: auto;
+  .left-right {
+    display: flex;
+    justify-content: space-between;
+    .left {
+      width: 70vw;
+      // @include tablet() {
+      //   width: 50vw;
+      // }
+      @include smartphone() {
+        width: 90vw;
+        margin: auto;
+        padding: 0 10px;
+      }
+    }
+    .right {
+      width: 25vw;
+      padding-right: 5%;
+
+      @include smartphone() {
+        display: none;
+      }
     }
   }
 }

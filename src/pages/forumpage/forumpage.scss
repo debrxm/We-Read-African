@@ -33,6 +33,9 @@ $secondaryColor: #ffffff;
     .right {
       width: 25vw;
       padding-left: 5%;
+      @include smartphone() {
+        display: none;
+      }
     }
   }
 }

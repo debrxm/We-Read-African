@@ -32,8 +32,23 @@ $secondaryColor: #ffffff;
     flex-direction: column;
   }
   .image-container {
+    width: 220px;
+    height: 220px;
+    display: flex;
+    flex-direction: column;
+    // justify-content: flex-end;
+    // align-items: flex-end;
+    background-position: center;
+    background-size: cover;
     img {
-      width: 220px;
+      height: 100%;
+    }
+    .aud {
+      opacity: 0;
+      transition: 0.5s ease-in-out;
+    }
+    &:hover .aud {
+      opacity: 1;
     }
   }
   .details-control {
