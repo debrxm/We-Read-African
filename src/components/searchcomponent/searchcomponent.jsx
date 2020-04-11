@@ -5,10 +5,10 @@ import { createStructuredSelector } from 'reselect';
 import { selectAllBlog } from '../../redux/blog/blog.selector';
 import { selectAllForumTopics } from '../../redux/forum/forum.selector';
 import ForumPreview from '../forum-preview/forum-preview';
-import PostPreview from '../../components/post-preview/post-preview';
+import PostPreview from '../post-preview/post-preview';
 import close from '../../assets/close.svg';
 import search from '../../assets/search.svg';
-import './search.scss';
+import './searchcomponent.scss';
 class Search extends Component {
   state = {
     search: '',

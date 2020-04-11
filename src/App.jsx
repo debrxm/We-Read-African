@@ -15,7 +15,7 @@ import {
   updateBlogViews,
 } from './redux/blog/blog.actions';
 import Header from './components/header/header';
-import Search from './components/search/search';
+import Search from './components/searchcomponent/searchcomponent';
 import Footer from './components/footer/footer';
 import Loader from './components/loader/loader';
 /*==============================*/

@@ -17,13 +17,22 @@ $secondaryColor: #ffffff;
   }
 }
 .forum-page {
-  .left {
-    width: 65vw;
-    margin-left: 6%;
-    @include smartphone() {
-      width: 100%;
-      margin: 0;
-      padding: 0 10px;
+  .left-right {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 5%;
+    .left {
+      width: 70vw;
+      // margin-left: 5%;
+      @include smartphone() {
+        width: 100%;
+        margin: 0;
+        padding: 0 10px;
+      }
+    }
+    .right {
+      width: 25vw;
+      padding-left: 5%;
     }
   }
 }

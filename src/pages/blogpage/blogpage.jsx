@@ -9,10 +9,11 @@ import BlogPosts from '../../components/blog-posts/blog-posts';
 import TagPage from '../tagpage/tagpage';
 import PostPage from '../postpage/postpage';
 import BlogSubNav from '../../components/blog-sub-nav/blog-sub-nav';
+import SideBar from '../../components/SideBar/SideBar';
 import './blogpage.scss';
-class Blogpage extends React.Component { 
+class Blogpage extends React.Component {
   state = {
-    isLoading: true
+    isLoading: true,
   };
   render() {
     const { history, match } = this.props;
@@ -38,28 +39,33 @@ class Blogpage extends React.Component {
         ) : history.location.pathname === '/blog/african_lit_&_life' ? (
           <BlogSubNav />
         ) : null}
-
-        <div className="left">
-          <Route exact path={`${match.path}`} component={BlogPosts} />
-          <Route exact path={`/blog/:tagId`} component={TagPage} />
-          <Route path={`/blog/book_review/:blogId`} component={PostPage} />
-          <Route path={`/blog/lit_anatomy/:blogId`} component={PostPage} />
-          <Route
-            path={`/blog/african_lit_&_life/:blogId`}
-            component={PostPage}
-          />
+        <div className="left-right">
+          <div className="left">
+            <Route exact path={`${match.path}`} component={BlogPosts} />
+            <Route exact path={`/blog/:tagId`} component={TagPage} />
+            <Route path={`/blog/book_review/:blogId`} component={PostPage} />
+            <Route path={`/blog/lit_anatomy/:blogId`} component={PostPage} />
+            <Route
+              path={`/blog/african_lit_&_life/:blogId`}
+              component={PostPage}
+            />
+          </div>
+          <div className="right">
+            <SideBar />
+          </div>
         </div>
       </div>
     );
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  updateCategories: collectionsMap => dispatch(updateCategories(collectionsMap))
+const mapDispatchToProps = (dispatch) => ({
+  updateCategories: (collectionsMap) =>
+    dispatch(updateCategories(collectionsMap)),
 });
 
 const mapStateToProps = createStructuredSelector({
-  allBlog: selectAllBlog
+  allBlog: selectAllBlog,
 });
 
 export default withRouter(

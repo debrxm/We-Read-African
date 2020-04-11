@@ -3,7 +3,7 @@ $smartphone: 500px;
 $primaryColor: #77323b;
 $secondaryColor: #ffffff;
 $lightColor: #d6a478;
-$Montserrat: "Montserrat", sans-serif;
+$Montserrat: 'Montserrat', sans-serif;
 // Mixin
 @mixin tablet {
   @media (max-width: #{$tablet}) {
@@ -17,29 +17,28 @@ $Montserrat: "Montserrat", sans-serif;
   }
 }
 
-#searchSection { 
-    
-    h3 { 
-      color: $primaryColor;
-    }  
-    form { 
+#searchSection {
+  h3 {
+    color: $primaryColor;
+  }
+  form {
+    font-family: $Montserrat;
+    position: relative;
+    input {
+      // width: 105%;
       font-family: $Montserrat;
-      position: relative;
-        input { 
-          width: 105%;
-          font-family: $Montserrat;
-          border-color: $primaryColor;
-        }
-        button { 
-          background-color: rgba(255, 255, 255, 0);
-          border: none;
-          align-items: center;
-          transform: scale(1.7);
-          cursor: pointer;
-          position: absolute;
-          top: 30%;
-          right: 0;
-          color: $primaryColor
-        }
+      border-color: $primaryColor;
     }
+    button {
+      background-color: rgba(255, 255, 255, 0);
+      border: none;
+      align-items: center;
+      transform: scale(1.7);
+      cursor: pointer;
+      position: absolute;
+      top: 30%;
+      right: 0;
+      color: $primaryColor;
+    }
+  }
 }

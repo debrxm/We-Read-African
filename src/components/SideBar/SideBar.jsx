@@ -1,16 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 //Components
 import Search from '../Search/Search';
 import PodcastPlay from '../PodcastPlay/PodcastPlay';
+import CustomForm from '../newsletter/custom-form';
+import SidebarLatestPosts from '../sidebar-latest-posts/sidebar-latest-posts';
 
-const SideBar = () => { 
-  return ( 
+const SideBar = () => {
+  return (
     <div>
       <Search />
       <PodcastPlay />
+      <CustomForm sidebar />
+      <SidebarLatestPosts />
     </div>
-  )
-}
+  );
+};
 
 export default SideBar;

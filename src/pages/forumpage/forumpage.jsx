@@ -6,6 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import ForumSubNav from '../../components/forum-sub-nav/forum-sub-nav';
 import LatestTopics from '../../components/latest-topics/latest-topics';
 import ForumSubPage from '../forum-sub-page/forum-sub-page';
+import SideBar from '../../components/SideBar/SideBar';
 import {
   firestore,
   convertTrendingForumSnapshotToMap,
@@ -104,6 +105,7 @@ class Forumpage extends React.Component {
         ) : history.location.pathname === '/forum/featured_topics' ? (
           <ForumSubNav />
         ) : null}
+        <div className="left-right">
 
         <div className="left">
           <Route exact path={`${match.path}`} component={LatestTopics} />
@@ -125,6 +127,10 @@ class Forumpage extends React.Component {
             path={`/forum/featured_topics/:forumPostId`}
             component={TopicPage}
           />
+        </div>
+        <div className="right">
+            <SideBar />
+          </div>
         </div>
       </div>
     );
