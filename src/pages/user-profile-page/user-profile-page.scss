@@ -74,16 +74,47 @@ $secondaryColor: #ffffff;
         @include smartphone() {
           border: none;
           height: 40px;
+          justify-content: flex-start;
+          text-align: left;
           border-bottom: 1px solid #eab88c;
         }
       }
       .current-reading {
-        width: 50%;
+        width: 100%;
+        padding: 0 10px;
         // height: 40%;
+        .reading {
+          font-size: 20px;
+          // font-weight: 100 !important;
+          @include smartphone() {
+            font-size: 15px;
+          }
+        }
       }
       .favorite {
-        width: 50%;
+        width: 100%;
+        padding: 0 10px;
         // height: 40%;
+        .history-lists {
+          display: flex;
+          overflow-x: hidden;
+          &:hover {
+            overflow-x: scroll;
+          }
+          @include smartphone() {
+            overflow-x: scroll;
+          }
+          a {
+            margin: 10px;
+            span {
+              font-size: 15px;
+              font-weight: 100 !important;
+              @include smartphone() {
+                font-size: 10px;
+              }
+            }
+          }
+        }
       }
       .pattern {
         position: relative;

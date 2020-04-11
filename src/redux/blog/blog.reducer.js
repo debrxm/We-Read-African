@@ -27,9 +27,7 @@ const BlogReducer = (state = INITIAL_STATE, action) => {
     case BlogActionTypes.UPDATE_HISTORY:
       return {
         ...state,
-        history: [...state.history, action.payload],
-        // .filter((item, index) => item.title === action.payload.title)
-        // .push(action.payload),
+        history: [...new Set([...state.history, action.payload])],
       };
     case BlogActionTypes.SET_CURRENT_READING:
       return {

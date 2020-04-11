@@ -72,19 +72,23 @@ const UserProfilePage = ({ currentUser, history, reading, historyArr }) => {
             <div className="heading">
               <span>History</span>
             </div>
-            {historyArr.lenght !== 0
-              ? historyArr.map((item, index) => (
-                  <Link
-                    key={index}
-                    to={`/blog/${reading.tag}/${reading.title
-                      .split(' ')
-                      .join('-')
-                      .toLowerCase()}`}
-                  >
-                    <li>{item.title}</li>
-                  </Link>
-                ))
-              : null}
+            <div className="history-lists">
+              {historyArr.lenght !== 0
+                ? [...new Set(historyArr)]
+                    .filter((item, index) => index < 4)
+                    .map((item, index) => (
+                      <Link
+                        key={index}
+                        to={`/blog/${reading.tag}/${reading.title
+                          .split(' ')
+                          .join('-')
+                          .toLowerCase()}`}
+                      >
+                        <span>{item.title}</span>
+                      </Link>
+                    ))
+                : null}
+            </div>
           </div>
           <div className="pattern">
             <img src={pattern} alt="Pattern" />
