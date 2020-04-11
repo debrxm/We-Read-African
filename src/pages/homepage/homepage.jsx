@@ -40,6 +40,7 @@ class Homepage extends React.Component {
         <Slider />
         <ShopFavorite />
         <LatestPost homepage />
+        <h4 className="check-latest">Check our Latest Instagram Posts</h4>
         <InstagramPosts />
       </div>
     );
