@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import { firestore } from '../../firebase/firebase.utils';
 import { updatePodcastEpisodes } from '../../redux/podcast/podcast.actions';
@@ -31,21 +32,23 @@ class SideBar extends React.Component {
     return (
       <div className="sidebar">
         <Search />
-        <div className="now-playing">
-          <div className="podcastPlayHeader">
-            <img src={logo} alt="logo" />
+        {this.props.history.location.pathname === '/podcast' ? null : (
+          <div className="now-playing">
+            <div className="podcastPlayHeader">
+              <img src={logo} alt="logo" />
+            </div>
+            <br />
+            {this.props.episodes.map((episode, index) => {
+              return (
+                <Audio
+                  key={index}
+                  episode_mp={episode.audio_file}
+                  episode_title={episode.title}
+                />
+              );
+            })}
           </div>
-          <br />
-          {this.props.episodes.map((episode, index) => {
-            return (
-              <Audio
-                key={index}
-                episode_mp={episode.audio_file}
-                episode_title={episode.title}
-              />
-            );
-          })}
-        </div>
+        )}
         <CustomForm sidebar />
         <SidebarLatestPosts />
         <CurrentRead />
@@ -61,4 +64,6 @@ const mapDespatchToProps = (dispatch) => ({
 const mapStateToProps = createStructuredSelector({
   episodes: selectPodcastEpisodes,
 });
-export default connect(mapStateToProps, mapDespatchToProps)(SideBar);
+export default withRouter(
+  connect(mapStateToProps, mapDespatchToProps)(SideBar)
+);

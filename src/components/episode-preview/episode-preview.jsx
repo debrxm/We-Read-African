@@ -28,14 +28,13 @@ class EpisodePreview extends Component {
     xhr.send();
   }
   render() {
-    // console.log(this.props.episode_data);
     const {
       title,
       episode,
-      itune,
-      soundcloud,
+      // itune,
+      // soundcloud,
       audio_file,
-      posted_ad,
+      // posted_ad,
     } = this.props.episode_data;
     return (
       <div className="episode-preview">

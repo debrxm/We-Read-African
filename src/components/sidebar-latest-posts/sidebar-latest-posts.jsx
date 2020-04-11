@@ -13,7 +13,7 @@ const SidebarLatestPosts = ({ allBlog }) => {
         {allBlog ? (
           allBlog
             .filter((item, index) => index < 3)
-            .map((blog) => {
+            .map((blog, index) => {
               const date = new Date(blog.updated_at.seconds * 1000),
                 months = [
                   'January',
@@ -34,7 +34,7 @@ const SidebarLatestPosts = ({ allBlog }) => {
                 year = date.getFullYear();
 
               return (
-                <div className="post">
+                <div key={index} className="post">
                   <div className="image-container">
                     <img src={blog.image} alt="post img" />
                   </div>
