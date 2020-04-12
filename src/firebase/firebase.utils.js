@@ -60,6 +60,15 @@ export const convertFeaturedForumSnapshotToMap = (collections) => {
 
   return collections.sort(compare).filter((item, index) => index < 9);
 };
+export const convertFavSnapshotToMap = (collections) => {
+  const compare = (a, b) => {
+    if (a.view.views.length < b.view.views.length) return 1;
+    if (a.view.views.length < b.view.views.length) return -1;
+    return 0;
+  };
+
+  return collections.sort(compare).filter((item, index) => index < 4);
+};
 
 export const getAllComments = async ({ collection, documente }) => {
   const commentRef = firestore.doc(`${collection}/${documente}`);

@@ -21,3 +21,7 @@ export const setCurrentReading = (reading) => ({
   type: BlogActionTypes.SET_CURRENT_READING,
   payload: reading,
 });
+export const setReadersFavorite = (favorite) => ({
+  type: BlogActionTypes.SET_READERS_FAVORITE,
+  payload: favorite,
+});

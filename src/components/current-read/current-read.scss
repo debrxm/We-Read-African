@@ -1,0 +1,38 @@
+$tablet: 850px;
+$smartphone: 500px;
+$primaryColor: #77323b;
+$secondaryColor: #ffffff;
+
+// Mixin
+@mixin tablet {
+  @media (max-width: #{$tablet}) {
+    @content;
+  }
+}
+
+@mixin smartphone {
+  @media (max-width: #{$smartphone}) {
+    @content;
+  }
+}
+
+.current-read {
+  text-align: center;
+  padding: 40px 0;
+  margin-bottom: 40px;
+  border-bottom: 1px solid $primaryColor;
+  h4 {
+    font-weight: 400;
+    color: $primaryColor;
+  }
+  .read-container {
+    img {
+      width: 120px;
+      height: 120px;
+    }
+    h3 {
+      font-size: 14px;
+      font-weight: 400;
+    }
+  }
+}

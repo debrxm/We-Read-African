@@ -1,0 +1,12 @@
+.sidebar {
+  .now-playing {
+    .podcastPlayHeader {
+      width: 100%;
+      align-items: center;
+      & img {
+        transform: scale(1);
+        margin-bottom: 50px;
+      }
+    }
+  }
+}

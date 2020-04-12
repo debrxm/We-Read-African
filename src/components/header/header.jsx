@@ -13,7 +13,7 @@ import search from '../../assets/search.svg';
 import logo from '../../assets/logo.svg';
 import arrowDown from '../../assets/arrowDown.svg';
 import './header.scss';
-const Header = ({ currentUser, history }) => {
+const Header = ({ currentUser, showSearch, history }) => {
   const [isShow, setisShow] = useState(false);
   const handleToggleUserDropdown = () => {
     setisShow(!isShow);
@@ -47,7 +47,7 @@ const Header = ({ currentUser, history }) => {
         </div>
         <div className="controls">
           <span className="search">
-            <img src={search} alt="Search Icon" />
+            <img src={search} alt="Search Icon" onClick={showSearch} />
           </span>
 
           {currentUser ? (

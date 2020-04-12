@@ -5,6 +5,7 @@ const INITIAL_STATE = {
   views: [],
   history: [],
   reading: null,
+  favorite: [],
 };
 
 const BlogReducer = (state = INITIAL_STATE, action) => {
@@ -33,6 +34,11 @@ const BlogReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         reading: action.payload,
+      };
+    case BlogActionTypes.SET_READERS_FAVORITE:
+      return {
+        ...state,
+        favorite: action.payload,
       };
     default:
       return state;

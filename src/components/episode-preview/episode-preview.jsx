@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import ReactWebMediaPlayer from 'react-web-media-player';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectPodcastEpisodes } from '../../redux/podcast/podcast.selector';
+import Audio from '../../components/audio/audio';
 import tomb from '../../assets/tomb.svg';
 import itune_podcast from '../../assets/itune_podcast.svg';
 import sound from '../../assets/sound.svg';
@@ -7,7 +10,7 @@ import rss from '../../assets/rss.svg';
 import spotify from '../../assets/spotify.svg';
 import download from '../../assets/download.svg';
 import './episode-preview.scss';
-export default class EpisodePreview extends Component {
+class EpisodePreview extends Component {
   saveAs(url) {
     var filename = url.substring(url.lastIndexOf('/') + 1).split('?')[0];
     var xhr = new XMLHttpRequest();
@@ -25,26 +28,22 @@ export default class EpisodePreview extends Component {
     xhr.send();
   }
   render() {
-    // console.log(this.props.episode_data);
     const {
       title,
       episode,
-      itune,
-      soundcloud,
+      // itune,
+      // soundcloud,
       audio_file,
-      posted_ad,
+      // posted_ad,
     } = this.props.episode_data;
     return (
       <div className="episode-preview">
-        <div className="image-container">
-          <ReactWebMediaPlayer
-            width={220}
-            height={210}
-            className="player"
-            thumbnail={tomb}
-            audio={audio_file}
-            vinyl={{ img: tomb, rpm: 10 }}
-          />
+        <div className="image-container" style={{ background: `${tomb}` }}>
+          <img src={tomb} alt="podcast img" className="image" />
+          <div className="overlay"></div>
+          <div className="aud">
+            <Audio episode_mp={audio_file} episode_title={title} noTitle />
+          </div>
         </div>
         <div className="details-control">
           <span className="epi">Episode {episode}</span>
@@ -90,3 +89,8 @@ export default class EpisodePreview extends Component {
     );
   }
 }
+const mapStateToProps = createStructuredSelector({
+  episodes: selectPodcastEpisodes,
+});
+
+export default connect(mapStateToProps)(EpisodePreview);

@@ -6,6 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import ForumSubNav from '../../components/forum-sub-nav/forum-sub-nav';
 import LatestTopics from '../../components/latest-topics/latest-topics';
 import ForumSubPage from '../forum-sub-page/forum-sub-page';
+import SideBar from '../../components/SideBar/SideBar';
 import {
   firestore,
   convertTrendingForumSnapshotToMap,
@@ -104,27 +105,31 @@ class Forumpage extends React.Component {
         ) : history.location.pathname === '/forum/featured_topics' ? (
           <ForumSubNav />
         ) : null}
-
-        <div className="left">
-          <Route exact path={`${match.path}`} component={LatestTopics} />
-          <Route exact path={`/forum/:forumId`} component={ForumSubPage} />
-          {/* <Route path={`/forum/:forumPostId`} component={TopicPage} /> */}
-          {/* <Route path={`/forum/latest/:forumPostId`} component={TopicPage} /> */}
-          <Route
-            exact
-            path={`/forum/blank/:forumPostId`}
-            component={TopicPage}
-          />
-          <Route
-            exact
-            path={`/forum/trending_topics/:forumPostId`}
-            component={TopicPage}
-          />
-          <Route
-            exact
-            path={`/forum/featured_topics/:forumPostId`}
-            component={TopicPage}
-          />
+        <div className="left-right">
+          <div className="left">
+            <Route exact path={`${match.path}`} component={LatestTopics} />
+            <Route exact path={`/forum/:forumId`} component={ForumSubPage} />
+            {/* <Route path={`/forum/:forumPostId`} component={TopicPage} /> */}
+            {/* <Route path={`/forum/latest/:forumPostId`} component={TopicPage} /> */}
+            <Route
+              exact
+              path={`/forum/blank/:forumPostId`}
+              component={TopicPage}
+            />
+            <Route
+              exact
+              path={`/forum/trending_topics/:forumPostId`}
+              component={TopicPage}
+            />
+            <Route
+              exact
+              path={`/forum/featured_topics/:forumPostId`}
+              component={TopicPage}
+            />
+          </div>
+          <div className="right">
+            <SideBar />
+          </div>
         </div>
       </div>
     );
