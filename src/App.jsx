@@ -6,13 +6,16 @@ import {
   auth,
   firestore,
   createUserProfileDocument,
+  convertFavSnapshotToMap
 } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
+import { selectAllBlog } from './redux/blog/blog.selector';
 import {
   updateCategories,
   updateBlogComments,
   updateBlogViews,
+  setReadersFavorite
 } from './redux/blog/blog.actions';
 import Header from './components/header/header';
 import Search from './components/searchcomponent/searchcomponent';
@@ -30,9 +33,9 @@ import Aboutpage from './pages/aboutpage/aboutpage';
 import Blogpage from './pages/blogpage/blogpage';
 import NotFound from './pages/notfoundpage/NotFoundPage';
 import MobileHeader from './components/mobile-header/mobile-header';
-import './App.css';
 import Forumpage from './pages/forumpage/forumpage';
 import PodcastPage from './pages/podcastpage/podcastpage';
+import './App.css';
 
 class App extends React.Component {
   state = {
@@ -48,12 +51,13 @@ class App extends React.Component {
       updateCategories,
       updateBlogViews,
       setCurrentUser,
+      setReadersFavorite
     } = this.props;
     this.setState({ isLoading: true });
     const blogRef = firestore
       .collection('blog_temp')
       .orderBy('updated_at', 'desc');
-    const commentRef = firestore.collection('blog_comments');
+    const commentRef = firestore.collection('blog_comments'); 
     const viewRef = firestore.collection('blog_views');
     commentRef.onSnapshot(async (snapshot) => {
       const comments = [];
@@ -82,6 +86,21 @@ class App extends React.Component {
         };
         views.push(viewObj);
       });
+      const compare = (a, b) => {
+        if (a.posted_at > b.posted_at) return 1;
+        // if (a.view.views.length < b.view.views.length) return -1;
+        return 0;
+      };
+      const favArrRef = convertFavSnapshotToMap(views)
+      const favArr = []
+      this.props.allBlogs.sort(compare).map((blog) => {
+        return favArrRef.forEach((item) => {
+          if (blog.title.toLowerCase() === item.id) {
+            favArr.push(blog)
+          }
+        });
+      });
+      setReadersFavorite(favArr);
       updateBlogViews(views);
     });
     this.unSubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
@@ -125,7 +144,7 @@ class App extends React.Component {
           '/signup' ? null : (
           <div className="showing">
             <div className="desktop">
-              <Header />
+              <Header showSearch={this.handleSearchShow} />
             </div>
             <div className="mobile">
               <MobileHeader showSearch={this.handleSearchShow} />
@@ -163,7 +182,6 @@ class App extends React.Component {
               <Route exact path="/podcast" component={PodcastPage} />
               <Route exact path="/contact" component={Contactpage} />
               <Route component={NotFound} />
-              {/* <Route exact path="/notfound" component={NotFound} /> */}
             </Switch>
           )}
         </div>
@@ -179,6 +197,7 @@ class App extends React.Component {
 }
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
+  allBlogs: selectAllBlog
 });
 const mapDispatchToProps = (dispatch) => ({
   updateCategories: (collectionsMap) =>
@@ -186,6 +205,7 @@ const mapDispatchToProps = (dispatch) => ({
   updateBlogComments: (comment) => dispatch(updateBlogComments(comment)),
   updateBlogViews: (views) => dispatch(updateBlogViews(views)),
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+  setReadersFavorite: (fav) => dispatch(setReadersFavorite(fav)),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

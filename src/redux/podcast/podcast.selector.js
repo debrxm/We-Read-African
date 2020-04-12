@@ -5,3 +5,11 @@ export const selectPodcastEpisodes = createSelector(
   [selectPodcast],
   (podcast) => podcast.episodes
 );
+export const selectNowPlaying = createSelector(
+  [selectPodcast],
+  (podcast) => podcast.playing
+);
+export const selectPlayedTime = createSelector(
+  [selectPodcast],
+  (podcast) => podcast.playedTime
+);

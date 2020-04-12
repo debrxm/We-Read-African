@@ -106,29 +106,28 @@ class Forumpage extends React.Component {
           <ForumSubNav />
         ) : null}
         <div className="left-right">
-
-        <div className="left">
-          <Route exact path={`${match.path}`} component={LatestTopics} />
-          <Route exact path={`/forum/:forumId`} component={ForumSubPage} />
-          {/* <Route path={`/forum/:forumPostId`} component={TopicPage} /> */}
-          {/* <Route path={`/forum/latest/:forumPostId`} component={TopicPage} /> */}
-          <Route
-            exact
-            path={`/forum/blank/:forumPostId`}
-            component={TopicPage}
-          />
-          <Route
-            exact
-            path={`/forum/trending_topics/:forumPostId`}
-            component={TopicPage}
-          />
-          <Route
-            exact
-            path={`/forum/featured_topics/:forumPostId`}
-            component={TopicPage}
-          />
-        </div>
-        <div className="right">
+          <div className="left">
+            <Route exact path={`${match.path}`} component={LatestTopics} />
+            <Route exact path={`/forum/:forumId`} component={ForumSubPage} />
+            {/* <Route path={`/forum/:forumPostId`} component={TopicPage} /> */}
+            {/* <Route path={`/forum/latest/:forumPostId`} component={TopicPage} /> */}
+            <Route
+              exact
+              path={`/forum/blank/:forumPostId`}
+              component={TopicPage}
+            />
+            <Route
+              exact
+              path={`/forum/trending_topics/:forumPostId`}
+              component={TopicPage}
+            />
+            <Route
+              exact
+              path={`/forum/featured_topics/:forumPostId`}
+              component={TopicPage}
+            />
+          </div>
+          <div className="right">
             <SideBar />
           </div>
         </div>

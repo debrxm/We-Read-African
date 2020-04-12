@@ -1,5 +1,7 @@
 const PodcastActionTypes = {
   UPDATE_PODCAST_EPISODES: 'UPDATE_PODCAST_EPISODES',
+  SET_NOW_PLAYING: 'SET_NOW_PLAYING',
+  UPDATE_PERCENTAGE: 'UPDATE_PERCENTAGE',
 };
 
 export default PodcastActionTypes;
