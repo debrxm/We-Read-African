@@ -179,7 +179,7 @@ class App extends React.Component {
               <Route path="/forum" component={Forumpage} />
               <Route exact path="/user-profile" component={UserProfilePage} />
               <Route exact path="/about" component={Aboutpage} />
-              <Route exact path="/podcast" component={PodcastPage} />
+              <Route path="/podcast" component={PodcastPage} />
               <Route exact path="/contact" component={Contactpage} />
               <Route component={NotFound} />
             </Switch>

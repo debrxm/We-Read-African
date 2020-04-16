@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import { selectPodcastEpisodes } from '../../redux/podcast/podcast.selector';
-import Audio from '../../components/audio/audio';
+import {
+  setNowPlaying,
+  updatePercentage,
+} from '../../redux/podcast/podcast.actions';
+// import AudioPlayer from '../../utils/audio-player';
+// import useAudioPlayer from '../../utils/use-audio-player';
 import tomb from '../../assets/tomb.svg';
 import itune_podcast from '../../assets/itune_podcast.svg';
 import sound from '../../assets/sound.svg';
@@ -11,49 +17,45 @@ import spotify from '../../assets/spotify.svg';
 import download from '../../assets/download.svg';
 import './episode-preview.scss';
 class EpisodePreview extends Component {
-  saveAs(url) {
-    var filename = url.substring(url.lastIndexOf('/') + 1).split('?')[0];
-    var xhr = new XMLHttpRequest();
-    xhr.responseType = 'blob';
-    xhr.onload = function () {
-      var a = document.createElement('a');
-      a.href = window.URL.createObjectURL(xhr.response);
-      a.download = filename;
-      a.style.display = 'none';
-      document.body.appendChild(a);
-      a.click();
-      // delete a;
-    };
-    xhr.open('GET', url);
-    xhr.send();
-  }
+  state = {
+    isPlaying: false,
+  };
+  handlechangePlaying = () => {
+    this.props.setNowPlaying(this.props.episode_data.title);
+    this.props.updatePercentage(0);
+    this.forceUpdate();
+  };
   render() {
     const {
       title,
+      sub_title,
       episode,
+      updated_at,
       // itune,
       // soundcloud,
-      audio_file,
-      // posted_ad,
+      // rss,
+      // spotify
     } = this.props.episode_data;
     return (
       <div className="episode-preview">
-        <div className="image-container" style={{ background: `${tomb}` }}>
+        <div className="image-container" onClick={this.handlechangePlaying}>
           <img src={tomb} alt="podcast img" className="image" />
-          <div className="overlay"></div>
-          <div className="aud">
-            <Audio episode_mp={audio_file} episode_title={title} noTitle />
-          </div>
         </div>
         <div className="details-control">
           <span className="epi">Episode {episode}</span>
-          <h3 className="title">{title}</h3>
-          <p className="sub-title">
-            Eliza Griswold joins Kelvin Young to discuss her poetry sequence
-            "First Person"
-          </p>
-          <span className="time">03:44 | February 18, 2020</span>
-          <div className="controls">
+          <Link to={`/podcast/${title.split(' ').join('-').toLowerCase()}`}>
+            <h3 className="title">{title}</h3>
+          </Link>
+          <p className="sub-title">{sub_title}</p>
+          <span className="time">
+            {' '}
+            {new Date(updated_at.seconds * 1000)
+              .toString()
+              .split(' ')
+              .slice(0, 4)
+              .join(' ')}
+          </span>
+          <div className="control-links">
             <a href="https://www.itune.com" className="link">
               <img src={itune_podcast} alt="itune stream icon" />
             </a>
@@ -73,11 +75,6 @@ class EpisodePreview extends Component {
                   : null
               }
               className="download"
-              onClick={
-                this.props.episode_data
-                  ? this.saveAs.bind(this, this.props.episode_data.audio_file)
-                  : null
-              }
               download
             >
               <img src={download} alt="download icon" />
@@ -92,5 +89,9 @@ class EpisodePreview extends Component {
 const mapStateToProps = createStructuredSelector({
   episodes: selectPodcastEpisodes,
 });
+const mapDispatchToProps = (dispatch) => ({
+  setNowPlaying: (playing) => dispatch(setNowPlaying(playing)),
+  updatePercentage: (percent) => dispatch(updatePercentage(percent)),
+});
 
-export default connect(mapStateToProps)(EpisodePreview);
+export default connect(mapStateToProps, mapDispatchToProps)(EpisodePreview);

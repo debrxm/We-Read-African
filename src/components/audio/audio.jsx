@@ -7,7 +7,13 @@ import Bar from '../../utils/bar';
 import useAudioPlayer from '../../utils/use-audio-player';
 import './audio.scss';
 
-const Audio = ({ episode_mp, episode_title, setNowPlaying, noTitle, sidebarplaying }) => {
+const Audio = ({
+  episode_mp,
+  episode_title,
+  setNowPlaying,
+  noTitle,
+  sidebarplaying,
+}) => {
   const {
     curTime,
     duration,
@@ -31,9 +37,9 @@ const Audio = ({ episode_mp, episode_title, setNowPlaying, noTitle, sidebarplayi
         ) : (
           <Play handleClick={handleplay} noTitle={noTitle} />
         )}
-        {noTitle ? null : (
-          <h5 className="podcast__title">Now Playing: {episode_title}</h5>
-        )}
+        <h5 className="podcast__title">
+          {noTitle ? 'Now Playing:' : null} {episode_title}
+        </h5>
       </div>
       <div className="player__wrapper">
         <audio id="audio">
@@ -45,6 +51,7 @@ const Audio = ({ episode_mp, episode_title, setNowPlaying, noTitle, sidebarplayi
             duration={duration}
             onTimeUpdate={(time) => setClickedTime(time)}
             sidebarplaying={sidebarplaying}
+            setPlaying={setPlaying}
           />
         </div>
       </div>

@@ -25,8 +25,11 @@ $shadow: 0px 4px 20px rgba(64, 27, 32, 0.15);
     justify-content: space-between;
     .left {
       width: 70vw;
-      @include smartphone() {
+      @include tablet() {
         width: 100%;
+        padding-right: 5%;
+      }
+      @include smartphone() {
         margin: 0;
         padding: 0 10px;
       }
@@ -34,7 +37,7 @@ $shadow: 0px 4px 20px rgba(64, 27, 32, 0.15);
     .right {
       width: 25vw;
       padding-right: 5%;
-      @include smartphone() {
+      @include tablet() {
         display: none;
       }
     }

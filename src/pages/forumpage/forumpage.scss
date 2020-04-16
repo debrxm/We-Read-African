@@ -24,9 +24,10 @@ $secondaryColor: #ffffff;
     padding: 0 5%;
     .left {
       width: 70vw;
-      // margin-left: 5%;
-      @include smartphone() {
+      @include tablet() {
         width: 100%;
+      }
+      @include smartphone() {
         margin: 0;
         padding: 0 10px;
       }
@@ -34,7 +35,7 @@ $secondaryColor: #ffffff;
     .right {
       width: 25vw;
       padding-left: 5%;
-      @include smartphone() {
+      @include tablet() {
         display: none;
       }
     }
