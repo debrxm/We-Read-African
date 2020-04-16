@@ -17,28 +17,31 @@ $lightColor: #d6a478;
   }
 }
 
-.NotFound { 
-    h1 { 
-      font-weight: bold;
-      letter-spacing: 0.04em;
-      color: $primaryColor;
+.NotFound {
+  h1 {
+    font-weight: bold;
+    letter-spacing: 0.04em;
+    color: $primaryColor;
+  }
+  p {
+    width: 50%;
+    margin: 1em auto 2em auto;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1em;
+  }
+  a {
+    display: block;
+    width: 30%;
+    background-color: white;
+    color: $primaryColor;
+    border: 1px solid $primaryColor;
+    padding: 1em 2em;
+    margin: 5em auto 0 auto;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1em;
+    border-radius: 200px;
+    @include smartphone() {
+      width: auto;
     }
-    p { 
-      width: 50%;
-      margin: 1em auto 2em auto;
-      font-family: "Montserrat", sans-serif;
-      font-size: 1em;
-    }
-    a { 
-      display: block;
-      width: 30%;
-      background-color: white;
-      color: $primaryColor;
-      border: 1px solid $primaryColor;
-      padding: 1em 2em;
-      margin: 5em auto 0 auto;
-      font-family: "Montserrat", sans-serif;
-      font-size: 1em;
-      border-radius: 200px;
-    }
+  }
 }
