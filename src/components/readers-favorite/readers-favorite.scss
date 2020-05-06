@@ -26,11 +26,15 @@ $secondaryColor: #ffffff;
     color: $primaryColor;
   }
   .fav-posts {
+    display: grid;
+    grid-row-gap: 1px;
+    grid-column-gap: 5px;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    justify-items: center;
     .fav-post {
       img {
-        width: 80px;
-        height: 80px;
-        margin: 3px;
+        width: 100%;
+        height: 100px;
       }
     }
   }

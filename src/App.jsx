@@ -41,7 +41,7 @@ class App extends React.Component {
   state = {
     isAvailableInYourCountry: false,
     isLoading: true,
-    isShowSearch: false,
+    isShowSearch: false
   };
   unsubscribFromSnapshot = null;
   unSubscribeFromAuth = null;
@@ -57,32 +57,32 @@ class App extends React.Component {
     const blogRef = firestore
       .collection('blog_temp')
       .orderBy('updated_at', 'desc');
-    const commentRef = firestore.collection('blog_comments'); 
+    const commentRef = firestore.collection('blog_comments');
     const viewRef = firestore.collection('blog_views');
-    commentRef.onSnapshot(async (snapshot) => {
+    commentRef.onSnapshot(async snapshot => {
       const comments = [];
-      snapshot.docs.forEach((doc) => {
+      snapshot.docs.forEach(doc => {
         const commentObj = {
           id: doc.id,
-          comments: doc.data(),
+          comments: doc.data()
         };
         comments.push(commentObj);
       });
       updateBlogComments(comments);
     });
-    blogRef.onSnapshot(async (snapshot) => {
+    blogRef.onSnapshot(async snapshot => {
       const blogs = [];
-      snapshot.docs.forEach((doc) => {
+      snapshot.docs.forEach(doc => {
         blogs.push(doc.data());
       });
       updateCategories(blogs);
     });
-    viewRef.onSnapshot(async (snapshot) => {
+    viewRef.onSnapshot(async snapshot => {
       const views = [];
-      snapshot.docs.forEach((doc) => {
+      snapshot.docs.forEach(doc => {
         const viewObj = {
           id: doc.id,
-          view: doc.data(),
+          view: doc.data()
         };
         views.push(viewObj);
       });
@@ -91,32 +91,32 @@ class App extends React.Component {
         // if (a.view.views.length < b.view.views.length) return -1;
         return 0;
       };
-      const favArrRef = convertFavSnapshotToMap(views)
-      const favArr = []
-      this.props.allBlogs.sort(compare).map((blog) => {
-        return favArrRef.forEach((item) => {
+      const favArrRef = convertFavSnapshotToMap(views);
+      const favArr = [];
+      this.props.allBlogs.sort(compare).map(blog => {
+        return favArrRef.forEach(item => {
           if (blog.title.toLowerCase() === item.id) {
-            favArr.push(blog)
+            favArr.push(blog);
           }
         });
       });
       setReadersFavorite(favArr);
       updateBlogViews(views);
     });
-    this.unSubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
+    this.unSubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
-        userRef.onSnapshot((snapShot) => {
+        userRef.onSnapshot(snapShot => {
           setCurrentUser({
             id: snapShot.id,
-            ...snapShot.data(),
+            ...snapShot.data()
           });
         });
       }
       setCurrentUser(userAuth);
 
       this.setState({
-        isLoading: false,
+        isLoading: false
       });
     });
   }
@@ -199,13 +199,18 @@ const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
   allBlogs: selectAllBlog
 });
-const mapDispatchToProps = (dispatch) => ({
-  updateCategories: (collectionsMap) =>
+const mapDispatchToProps = dispatch => ({
+  updateCategories: collectionsMap =>
     dispatch(updateCategories(collectionsMap)),
-  updateBlogComments: (comment) => dispatch(updateBlogComments(comment)),
-  updateBlogViews: (views) => dispatch(updateBlogViews(views)),
-  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
-  setReadersFavorite: (fav) => dispatch(setReadersFavorite(fav)),
+  updateBlogComments: comment => dispatch(updateBlogComments(comment)),
+  updateBlogViews: views => dispatch(updateBlogViews(views)),
+  setCurrentUser: user => dispatch(setCurrentUser(user)),
+  setReadersFavorite: fav => dispatch(setReadersFavorite(fav))
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(App)
+);

@@ -19,9 +19,8 @@ $secondaryColor: #ffffff;
 
 .footer {
   color: $blackColor;
-  padding: 40px 0 50px 0;
   position: relative;
-  background: #eab88c;
+  // background: #eab88c;
   overflow: hidden;
   width: 100%;
   @include smartphone() {
@@ -39,14 +38,26 @@ $secondaryColor: #ffffff;
   // }
   .footer-content {
     text-align: left;
-    display: grid;
-    grid-gap: auto;
-    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    // display: grid;
+    background: #eab88c;
+    // grid-gap: auto;
+    // grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
     padding: 20px 7%;
+    padding: 40px 7% 50px 7%;
     @include smartphone() {
       padding: 0;
+      padding-bottom: 20px;
       text-align: center;
+      flex-direction: column;
     }
+    // .group-flex {
+    //   width: 100%;
+    //   display: flex;
+    //   // justify-content: space-evenly;
+    // }
 
     p {
       color: darken($color: $secondaryColor, $amount: 20);
@@ -122,6 +133,13 @@ $secondaryColor: #ffffff;
     img {
       margin: auto;
       width: 100%;
+    }
+  }
+  .cright {
+    height: 60px;
+    display: flex;
+    .copyright {
+      margin: auto;
     }
   }
 }

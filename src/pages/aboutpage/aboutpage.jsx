@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 import SideBar from '../../components/SideBar/SideBar';
-import sandra from '../../assets/sandra.svg';
+// import sandra from '../../assets/sandra.svg';
 import './aboutpage.scss';
 const Aboutpage = () => {
   return (
@@ -16,8 +16,7 @@ const Aboutpage = () => {
       </Helmet>
       <div className="left-right">
         <div className="left">
-          <div className="about-image">
-          </div>
+          <div className="about-image" />
           <p>
             I'm Sandra, an award-winning book blogger and writer with a passion
             for brilliant books, independent bookstores and literary festivals.
