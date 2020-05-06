@@ -32,6 +32,7 @@ $secondaryColor: #ffffff;
     flex-direction: column;
   }
   .image-container {
+    cursor: pointer;
     width: 220px;
     height: 220px;
     display: flex;
@@ -42,13 +43,6 @@ $secondaryColor: #ffffff;
     background-size: cover;
     img {
       height: 100%;
-    }
-    .aud {
-      opacity: 0;
-      transition: 0.5s ease-in-out;
-    }
-    &:hover .aud {
-      opacity: 1;
     }
   }
   .details-control {
@@ -76,7 +70,7 @@ $secondaryColor: #ffffff;
       color: darken($color: $secondaryColor, $amount: 50);
       font-size: 13px;
     }
-    .controls {
+    .control-links {
       margin-top: auto;
       display: flex;
       padding: 10px;

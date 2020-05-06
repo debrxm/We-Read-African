@@ -27,20 +27,23 @@ $secondaryColor: #ffffff;
     justify-content: space-between;
     .left {
       width: 70vw;
-      // @include tablet() {
-      //   width: 50vw;
-      // }
+      @include tablet() {
+        width: 100%;
+      }
       @include smartphone() {
         width: 90vw;
         margin: auto;
         padding: 0 10px;
+      }
+      .overlay {
+        margin-top: 20px;
       }
     }
     .right {
       width: 25vw;
       padding-right: 5%;
 
-      @include smartphone() {
+      @include tablet() {
         display: none;
       }
     }

@@ -73,11 +73,11 @@ class Forumpage extends React.Component {
         });
       });
       this.props.forums.sort(compare).map((topic) => {
-        featuredTopicArr.forEach((item) => {
+        return( featuredTopicArr.forEach((item) => {
           if (topic.title.toLowerCase() === item.id) {
             topic.tag = 'featured_topics';
           }
-        });
+        }));
       });
       this.props.updateForums(this.props.forums);
       this.props.updateForumViews(views);
@@ -109,8 +109,6 @@ class Forumpage extends React.Component {
           <div className="left">
             <Route exact path={`${match.path}`} component={LatestTopics} />
             <Route exact path={`/forum/:forumId`} component={ForumSubPage} />
-            {/* <Route path={`/forum/:forumPostId`} component={TopicPage} /> */}
-            {/* <Route path={`/forum/latest/:forumPostId`} component={TopicPage} /> */}
             <Route
               exact
               path={`/forum/blank/:forumPostId`}

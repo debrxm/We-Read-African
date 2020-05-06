@@ -30,25 +30,15 @@ class PostPreview extends React.Component {
   }
   render() {
     const {
-      history,
       blog_data,
       showTrunc,
       showDate,
       closeSearch,
       showViewShare,
       noFooter,
-      reDirect,
-      postpage,
     } = this.props;
     const { title, image, tag, updated_at, truncate } = blog_data;
     const handleRouting = () => {
-      // reDirect
-      //   ? history.push(`${tag}/${title.split(' ').join('-').toLowerCase()}`)
-      //   : postpage
-      //   ? history.push(`${title.split(' ').join('-').toLowerCase()}`)
-      //   : history.push(
-      //       `blog/${tag}/${title.split(' ').join('-').toLowerCase()}`
-      //     );
       if (closeSearch) {
         this.props.closeSearch();
       }
@@ -82,10 +72,7 @@ class PostPreview extends React.Component {
 
     return (
       <div className="post-preview">
-        <div
-          className="blog-image"
-          // style={{ background: `url(${image})` }}
-        >
+        <div className="blog-image">
           <img src={image} alt="post img" />
           {showDate ? (
             <button className="date-created">

@@ -19,9 +19,7 @@ import ReadersFavorite from '../readers-favorite/readers-favorite';
 
 class SideBar extends React.Component {
   componentDidMount() {
-    const podcastRef = firestore
-      .collection('podcast')
-      .orderBy('posted_at', 'desc');
+    const podcastRef = firestore.collection('pod').orderBy('episode', 'asc');
     podcastRef.onSnapshot(async (snapshot) => {
       const episodes = [];
       snapshot.docs.forEach((doc) => {
@@ -36,7 +34,7 @@ class SideBar extends React.Component {
     return (
       <div className="sidebar">
         <Search />
-        {this.props.history.location.pathname === '/podcast' ? null : (
+        {this.props.history.location.pathname.includes('/podcast') ? null : (
           <div className="now-playing">
             <div className="podcastPlayHeader">
               <img src={logo} alt="logo" />

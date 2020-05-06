@@ -13,3 +13,10 @@ export const selectPlayedTime = createSelector(
   [selectPodcast],
   (podcast) => podcast.playedTime
 );
+export const selectEpisode = (episodeUrlParam, url) =>
+  createSelector([selectPodcastEpisodes], (episodes) =>
+    episodes.filter(
+      (item, index) =>
+        item.title.toLowerCase() === episodeUrlParam.split('-').join(' ')
+    )
+  );

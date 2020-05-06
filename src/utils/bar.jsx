@@ -41,8 +41,6 @@ class Bar extends React.Component {
     }
 
     const handleTimeDrag = (e) => {
-      // console.log(calcClickedTime(e));
-
       onTimeUpdate(this.calcClickedTime(e));
 
       const updateTimeOnMove = (eMove) => {
