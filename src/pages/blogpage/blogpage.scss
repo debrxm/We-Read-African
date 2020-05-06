@@ -11,6 +11,11 @@ $shadow: 0px 4px 20px rgba(64, 27, 32, 0.15);
     @content;
   }
 }
+//font integration here
+@font-face {
+  font-family: Orkney;
+  src: url('../../src/orkney/orkney-light.otf');
+}
 
 @mixin smartphone {
   @media (max-width: #{$smartphone}) {

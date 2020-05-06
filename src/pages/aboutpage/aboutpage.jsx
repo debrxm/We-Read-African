@@ -17,7 +17,6 @@ const Aboutpage = () => {
       <div className="left-right">
         <div className="left">
           <div className="about-image">
-            <img src={sandra} alt="About Img" />
           </div>
           <p>
             I'm Sandra, an award-winning book blogger and writer with a passion

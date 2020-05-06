@@ -17,6 +17,12 @@ $shadow: 0px 4px 20px rgba(64, 27, 32, 0.15);
     @content;
   }
 }
+//font integration here
+@font-face {
+  font-family: Orkney;
+  src: url('../../src/orkney/orkney-light.otf');
+}
+
 .post-preview {
   width: 100%;
   border-radius: 10px;
@@ -65,6 +71,7 @@ $shadow: 0px 4px 20px rgba(64, 27, 32, 0.15);
   .blog-info {
     text-align: left;
     padding: 10px 20px 20px 20px;
+    font-family: Orkney;
     .post-preview-header {
       .title {
         cursor: pointer;
