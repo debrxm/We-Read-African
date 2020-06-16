@@ -1,3 +1,9 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Orkney !important;
+}
 html,
 body {
   -webkit-font-smoothing: antialiased;
@@ -8,7 +14,7 @@ body {
   cursor: url('./assets/logo.png'), auto;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@font-face {
+  font-family: Orkney;
+  src: url('./font/orkney/orkney-regular.otf');
 }

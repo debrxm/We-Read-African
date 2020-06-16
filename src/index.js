@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+// import App from './App';
+import ComingSoon from './pages/coming-soon/coming-soon';
 import * as serviceWorker from './serviceWorker';
 import { HashRouter as Router } from 'react-router-dom';
 import ScrollMemory from 'react-router-scroll-memory';
@@ -16,7 +17,8 @@ ReactDOM.render(
       <div>
         <ScrollMemory />
         <PersistGate persistor={persistor}>
-          <App />
+          <ComingSoon />
+          {/* <App /> */}
         </PersistGate>
       </div>
     </Router>
@@ -24,4 +26,4 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-serviceWorker.unregister();
+serviceWorker.register();
