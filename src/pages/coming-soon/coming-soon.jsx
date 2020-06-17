@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import { connect } from 'react-redux';
 import MailchimpSubscribe from 'react-mailchimp-subscribe';
 import logoText from '../../assets/coming-soon/logo-text.svg'
 import comingSoonBg from '../../assets/coming-soon/coming-soon-bg.svg'
@@ -7,11 +8,16 @@ import instagram from '../../assets/coming-soon/instagram.svg';
 import facebook from '../../assets/coming-soon/facebook.svg';
 import twitter from '../../assets/coming-soon/twitter.svg';
 import MyForm from '../../components/coming-soon-newsletter/my-form';
+import { setSubscribed } from '../../redux/coming-soon/coming-soon.actions'
 import './coming-soon.scss';
 const url =
     'https://wereadafrican.us10.list-manage.com/subscribe/post?u=d8b06d9729c203b746c0d2aaa&amp;id=007e45ae63';
 
-const ComingSoon = () => {
+const ComingSoon = ({ setSubscribed, isSuccess }) => {
+    const showThankYou = () => {
+        setSubscribed()
+        return <span></span>
+    }
     return (
         <div className="coming-soon-page" style={{ backgroundImage: `url(${comingSoonBg})` }}>
             <div className="coming-soon-container">
@@ -34,14 +40,7 @@ const ComingSoon = () => {
                                     <MyForm
                                         onSubmitted={formData => subscribe(formData)}
                                     />
-                                    {status === 'success' ? (
-                                        <span className="success">
-                                            Subscribed{' '}
-                                            <span role="img" aria-label="check">
-                                                ✔
-            </span>
-                                        </span>
-                                    ) : null}
+                                    {status === 'success' ? showThankYou() : null}
                                 </div>
                             )}
                         />
@@ -62,5 +61,12 @@ const ComingSoon = () => {
         </div>
     )
 }
-
-export default ComingSoon
+const mapStateToProps = (state) => {
+    return {
+        isSuccess: state.comingSoon.isSubscribed,
+    };
+};
+const mapDispatchToProps = dispatch => ({
+    setSubscribed: () => dispatch(setSubscribed()),
+})
+export default connect(mapStateToProps, mapDispatchToProps)(ComingSoon)

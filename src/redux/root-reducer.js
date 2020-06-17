@@ -6,11 +6,12 @@ import BlogReducer from './blog/blog.reducer';
 import ForumReducer from './forum/forum.reducer';
 import UserReducer from './user/user.reducer';
 import PodcastReducer from './podcast/podcast.reducer';
+import ComingSoonReducer from './coming-soon/coming-soon.reducer';
 
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['blog', 'forum', 'podcast'],
+  whitelist: ['comingSoon', 'blog', 'forum', 'podcast'],
 };
 
 const rootReducer = combineReducers({
@@ -18,6 +19,7 @@ const rootReducer = combineReducers({
   forum: ForumReducer,
   user: UserReducer,
   podcast: PodcastReducer,
+  comingSoon: ComingSoonReducer
 });
 
 export default persistReducer(persistConfig, rootReducer);
