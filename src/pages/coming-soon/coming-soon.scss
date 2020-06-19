@@ -28,7 +28,7 @@ $secondaryColor: #ffffff;
     background-size: cover;
     display: flex;
     .coming-soon-container{
-        width: 500px;
+        width:  55vw;
         background-color: $primaryColor;
         padding: 10px;
         margin: auto;
@@ -98,6 +98,26 @@ $secondaryColor: #ffffff;
             .copyright{
                 font-size: .9em;
             }
+        }
+    }
+}
+
+
+//Tablets.
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) { 
+    .coming-soon-page { 
+        .coming-soon-container { 
+            width: 90vw;
+        }
+    }
+
+}
+
+//Mobile
+@media (min-width: 320px) and (max-width: 480px) { 
+    .coming-soon-page { 
+        .coming-soon-container { 
+            width: 90vw;
         }
     }
 }
