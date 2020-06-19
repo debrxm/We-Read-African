@@ -1,0 +1,61 @@
+#thankyouPageContaioner {
+  border: 1px solid white;
+  padding: 15% 10%;
+    #heading {
+      text-align: center;
+      font-size: 5em;
+      color: white;
+      font-weight: bold;
+    }
+    p {
+      text-align: center;
+      color: white;
+      line-height: 1.5em;
+      font-weight: lighter;
+    }
+    .social { 
+      display: grid;
+      grid-template-columns: repeat(4, 25%);
+      gap: 1em;
+      width: 45%;
+      margin: 3em auto 0 auto;
+        a { 
+          width: 25px;
+          height: 25px;
+          background-color: #ffffff;
+          margin: 0 auto;
+
+        }
+        a:nth-child(1) { 
+          background: url('../../assets/coming-soon/pintrest.svg');
+          background-position: center;
+          background-size: contain;
+          background-repeat: no-repeat;
+        } 
+        a:nth-child(2) { 
+          background: url('../../assets/coming-soon/instagram.svg');
+          background-position: center;
+          background-size: contain;
+          background-repeat: no-repeat;
+        }
+        a:nth-child(3) { 
+          background: url('../../assets/coming-soon/twitter.svg');
+          background-position: center;
+          background-size: contain;
+          background-repeat: no-repeat;
+        }
+        a:nth-child(4) { 
+          background: url('../../assets/coming-soon/facebook.svg');
+          background-position: center;
+          background-size: contain;
+          background-repeat: no-repeat;
+        }
+        a:nth-child(5) { 
+          background: url('../../assets/coming-soon/facebook.svg');
+          background-position: center;
+          background-size: contain;
+          background-repeat: no-repeat;
+          display: none;
+        }
+    }
+}
