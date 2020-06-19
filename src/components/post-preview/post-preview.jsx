@@ -5,28 +5,28 @@ import { createStructuredSelector } from 'reselect';
 import { selectAllComments, selectViews } from '../../redux/blog/blog.selector';
 import renderHTML from 'react-render-html';
 import comment from '../../assets/comment.svg';
-import share from '../../assets/share.svg';
-import facebook from '../../assets/socials/facebook.svg';
-import twitter from '../../assets/socials/twitter.svg';
-import linkedin from '../../assets/socials/linkedin.svg';
-import view from '../../assets/view.svg';
+// import share from '../../assets/share.svg';
+// import facebook from '../../assets/socials/facebook.svg';
+// import twitter from '../../assets/socials/twitter.svg';
+// import linkedin from '../../assets/socials/linkedin.svg';
+// import view from '../../assets/view.svg';
 import './post-preview.scss';
 class PostPreview extends React.Component {
   state = {
     setComment: {},
-    views: {},
+    views: {}
   };
   componentDidMount() {
     this.props.postComments
       .filter(
         (item, index) => item.id === this.props.blog_data.title.toLowerCase()
       )
-      .map((comm) => this.setState({ setComment: comm }));
+      .map(comm => this.setState({ setComment: comm }));
     this.props.postViews
       .filter(
         (item, index) => item.id === this.props.blog_data.title.toLowerCase()
       )
-      .map((view) => this.setState({ views: view }));
+      .map(view => this.setState({ views: view }));
   }
   render() {
     const {
@@ -34,8 +34,8 @@ class PostPreview extends React.Component {
       showTrunc,
       showDate,
       closeSearch,
-      showViewShare,
-      noFooter,
+      // showViewShare,
+      noFooter
     } = this.props;
     const { title, image, tag, updated_at, truncate } = blog_data;
     const handleRouting = () => {
@@ -56,15 +56,18 @@ class PostPreview extends React.Component {
         'Sep',
         'Oct',
         'Nov',
-        'Dec',
+        'Dec'
       ],
       currentMonth = months[date.getMonth()],
       currentDate = date.getDate(),
       year = date.getFullYear(),
-      trunc = truncate.split(' ').slice(0, 12).join(' ');
+      trunc = truncate
+        .split(' ')
+        .slice(0, 12)
+        .join(' ');
     let commentLength = 0;
     if (this.state.setComment.comments) {
-      this.state.setComment.comments.comments.forEach((comment) => {
+      this.state.setComment.comments.comments.forEach(comment => {
         commentLength = commentLength + comment.replies.length;
       });
     }
@@ -94,7 +97,10 @@ class PostPreview extends React.Component {
             style={showTrunc ? { minHeight: '150px' } : { minHeight: '70px' }}
           >
             <Link
-              to={`/blog/${tag}/${title.split(' ').join('-').toLowerCase()}`}
+              to={`/blog/${tag}/${title
+                .split(' ')
+                .join('-')
+                .toLowerCase()}`}
             >
               <h4 className="title" id="post-link" onClick={handleRouting}>
                 {title}
@@ -118,11 +124,11 @@ class PostPreview extends React.Component {
           </div>
           {noFooter ? null : (
             <div className="post-footer">
-              {showViewShare ? null : (
-                <span className="post-footer-date">
-                  {currentDate} {currentMonth} {year}
-                </span>
-              )}
+              {/* {showViewShare ? null : ( */}
+              <span className="post-footer-date">
+                {currentDate} {currentMonth} {year}
+              </span>
+              {/* )} */}
               <span className="post-footer-comment">
                 <img src={comment} alt="Comment Icon" />
                 {this.state.setComment.comments
@@ -131,7 +137,7 @@ class PostPreview extends React.Component {
                   : 0}{' '}
                 Comments
               </span>
-              {showViewShare ? (
+              {/* {showViewShare ? (
                 <span className="post-footer-comment">
                   <img src={view} alt="Comment Icon" />
                   {this.state.views.view
@@ -139,8 +145,8 @@ class PostPreview extends React.Component {
                     : 0}{' '}
                   Views
                 </span>
-              ) : null}
-              {showViewShare ? (
+              ) : null} */}
+              {/* {showViewShare ? (
                 <span className="post-footer-share">
                   <img src={share} alt="Comment Icon" />
                   share
@@ -182,7 +188,7 @@ class PostPreview extends React.Component {
                     </ul>
                   </div>
                 </span>
-              ) : null}
+              ) : null} */}
             </div>
           )}
         </div>
@@ -192,7 +198,7 @@ class PostPreview extends React.Component {
 }
 const mapStateToProps = createStructuredSelector({
   postComments: selectAllComments,
-  postViews: selectViews,
+  postViews: selectViews
 });
 
 export default withRouter(connect(mapStateToProps)(PostPreview));

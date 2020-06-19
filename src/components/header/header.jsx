@@ -11,7 +11,6 @@ import twitter from '../../assets/socials/twitter.svg';
 import facebook from '../../assets/socials/facebook.svg';
 import search from '../../assets/search.svg';
 import logo from '../../assets/logo.svg';
-import arrowDown from '../../assets/arrowDown.svg';
 import './header.scss';
 const Header = ({ currentUser, showSearch, history }) => {
   const [isShow, setisShow] = useState(false);
@@ -102,7 +101,7 @@ const Header = ({ currentUser, showSearch, history }) => {
                   : { border: 'none' }
               }
             >
-              Blog <img src={arrowDown} alt="Down Arrow Icon" />
+              Blog
             </Link>
           </li>
           <li>
@@ -115,7 +114,7 @@ const Header = ({ currentUser, showSearch, history }) => {
                   : { border: 'none' }
               }
             >
-              Forum <img src={arrowDown} alt="Down Arrow Icon" />
+              Forum
             </Link>
           </li>
           <li>

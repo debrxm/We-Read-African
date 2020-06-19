@@ -61,6 +61,11 @@ const Footer = () => {
         src={footerPattern}
         alt="Footer Pattern"
       /> */}
+      <div className="cright">
+        <p className="copyright">
+          Copyright &copy; We Read African {new Date().getFullYear()}
+        </p>
+      </div>
     </footer>
   );
 };
