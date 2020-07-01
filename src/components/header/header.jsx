@@ -25,7 +25,7 @@ const Header = ({ currentUser, showSearch, history }) => {
           <p>
             Join the WeReadAfrican Tribe. Register to be a part of the forum.
           </p>
-          <Link to="/signup">
+          <Link to="https://forum.wereadafrican.com/signup">
             <CustomButton acen>Register</CustomButton>
           </Link>
         </div>
@@ -56,7 +56,7 @@ const Header = ({ currentUser, showSearch, history }) => {
             </div>
           ) : (
             <span className="buton">
-              <Link to="/signin">
+              <Link to="https://forum.wereadafrican.com/signin">
                 <CustomButton acen>Log In / Register</CustomButton>
               </Link>
             </span>
@@ -105,8 +105,8 @@ const Header = ({ currentUser, showSearch, history }) => {
             </Link>
           </li>
           <li>
-            <Link
-              to="/forum"
+            <a
+              href="https://forum.wereadafrican.com"
               className="nav-link"
               style={
                 history.location.pathname === '/forum'
@@ -115,7 +115,7 @@ const Header = ({ currentUser, showSearch, history }) => {
               }
             >
               Forum
-            </Link>
+            </a>
           </li>
           <li>
             <Link

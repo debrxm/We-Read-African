@@ -3,15 +3,26 @@ import 'firebase/firestore';
 import 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyBZSP7CF1qWOUtI7710O6eT_SJPzm2ow1k',
-  authDomain: 'blog-test-cf27d.firebaseapp.com',
-  databaseURL: 'https://blog-test-cf27d.firebaseio.com',
-  projectId: 'blog-test-cf27d',
-  storageBucket: 'blog-test-cf27d.appspot.com',
-  messagingSenderId: '712716765117',
-  appId: '1:712716765117:web:757aed783e2814d70eb4d4',
-  measurementId: 'G-3E2DRSVVNM',
+  apiKey: 'AIzaSyAfOZTme6RWsZUzxwaMi0f3yYWMrDF-1S8',
+  authDomain: 'we-read-african.firebaseapp.com',
+  databaseURL: 'https://we-read-african.firebaseio.com',
+  projectId: 'we-read-african',
+  storageBucket: 'we-read-african.appspot.com',
+  messagingSenderId: '1057818585153',
+  appId: '1:1057818585153:web:dfa8c3fc20bafb0d957ec0',
+  measurementId: 'G-3J9N7K0V7B',
 };
+
+// const firebaseConfig = {
+//   apiKey: 'AIzaSyBZSP7CF1qWOUtI7710O6eT_SJPzm2ow1k',
+//   authDomain: 'blog-test-cf27d.firebaseapp.com',
+//   databaseURL: 'https://blog-test-cf27d.firebaseio.com',
+//   projectId: 'blog-test-cf27d',
+//   storageBucket: 'blog-test-cf27d.appspot.com',
+//   messagingSenderId: '712716765117',
+//   appId: '1:712716765117:web:757aed783e2814d70eb4d4',
+//   measurementId: 'G-3E2DRSVVNM',
+// };
 
 firebase.initializeApp(firebaseConfig);
 
