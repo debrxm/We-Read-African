@@ -20,8 +20,8 @@ $secondaryColor: #ffffff;
   width: 80vw;
   margin: auto;
   position: relative;
-  @include smartphone(){
-    width: 90vw
+  @include smartphone() {
+    width: 90vw;
   }
   /*.shadow {
     position: absolute;
@@ -35,4 +35,10 @@ box-shadow: inset -36px 0px 5px 0px rgba(255,255,255,0.7);
     z-index: 1;
     pointer-event: none;
   }*/
+}
+.no-post {
+  span {
+    line-height: 100px;
+    color: darken($color: $secondaryColor, $amount: 40);
+  }
 }
