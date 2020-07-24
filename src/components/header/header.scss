@@ -3,6 +3,7 @@ $smartphone: 500px;
 $primaryColor: #77323b;
 $blackColor: #000000;
 $secondaryColor: #ffffff;
+$shadow: 0px 3px 5px -3px rgba(133, 131, 131, 0.75);
 
 // Mixin
 @mixin tablet {
@@ -17,7 +18,6 @@ $secondaryColor: #ffffff;
   }
 }
 .header {
-  border-bottom: 1px solid darken($color: $secondaryColor, $amount: 40);
   position: fixed;
   top: 0;
   right: 0;
@@ -103,6 +103,9 @@ $secondaryColor: #ffffff;
   }
   nav {
     display: flex;
+    -webkit-box-shadow: $shadow;
+    -moz-box-shadow: $shadow;
+    box-shadow: $shadow;
     .nav-links {
       display: flex;
       margin: auto;

@@ -1,28 +1,28 @@
-import firebase from 'firebase/app';
-import 'firebase/firestore';
-import 'firebase/auth';
-
-const firebaseConfig = {
-  apiKey: 'AIzaSyAfOZTme6RWsZUzxwaMi0f3yYWMrDF-1S8',
-  authDomain: 'we-read-african.firebaseapp.com',
-  databaseURL: 'https://we-read-african.firebaseio.com',
-  projectId: 'we-read-african',
-  storageBucket: 'we-read-african.appspot.com',
-  messagingSenderId: '1057818585153',
-  appId: '1:1057818585153:web:dfa8c3fc20bafb0d957ec0',
-  measurementId: 'G-3J9N7K0V7B',
-};
+import firebase from "firebase/app";
+import "firebase/firestore";
+import "firebase/auth";
 
 // const firebaseConfig = {
-//   apiKey: 'AIzaSyBZSP7CF1qWOUtI7710O6eT_SJPzm2ow1k',
-//   authDomain: 'blog-test-cf27d.firebaseapp.com',
-//   databaseURL: 'https://blog-test-cf27d.firebaseio.com',
-//   projectId: 'blog-test-cf27d',
-//   storageBucket: 'blog-test-cf27d.appspot.com',
-//   messagingSenderId: '712716765117',
-//   appId: '1:712716765117:web:757aed783e2814d70eb4d4',
-//   measurementId: 'G-3E2DRSVVNM',
+//   apiKey: 'AIzaSyAfOZTme6RWsZUzxwaMi0f3yYWMrDF-1S8',
+//   authDomain: 'we-read-african.firebaseapp.com',
+//   databaseURL: 'https://we-read-african.firebaseio.com',
+//   projectId: 'we-read-african',
+//   storageBucket: 'we-read-african.appspot.com',
+//   messagingSenderId: '1057818585153',
+//   appId: '1:1057818585153:web:dfa8c3fc20bafb0d957ec0',
+//   measurementId: 'G-3J9N7K0V7B',
 // };
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBZSP7CF1qWOUtI7710O6eT_SJPzm2ow1k",
+  authDomain: "blog-test-cf27d.firebaseapp.com",
+  databaseURL: "https://blog-test-cf27d.firebaseio.com",
+  projectId: "blog-test-cf27d",
+  storageBucket: "blog-test-cf27d.appspot.com",
+  messagingSenderId: "712716765117",
+  appId: "1:712716765117:web:757aed783e2814d70eb4d4",
+  measurementId: "G-3E2DRSVVNM",
+};
 
 firebase.initializeApp(firebaseConfig);
 
@@ -46,7 +46,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
         ...additionalData,
       });
     } catch (error) {
-      console.log('error creating user', error.message);
+      console.log("error creating user", error.message);
     }
   }
 
@@ -88,7 +88,7 @@ export const getAllComments = async ({ collection, documente }) => {
     try {
       return commentRef;
     } catch (error) {
-      console.log('error creating user', error.message);
+      console.log("error creating user", error.message);
     }
   } else {
     return null;
@@ -107,7 +107,7 @@ export const updateViews = async ({ collection, title, userIp }) => {
 
       return viewRef;
     } catch (error) {
-      console.log('error adding view to database', error.message);
+      console.log("error adding view to database", error.message);
     }
   } else {
     let oldView = [];
@@ -121,7 +121,7 @@ export const updateViews = async ({ collection, title, userIp }) => {
       }
       return viewRef;
     } catch (error) {
-      console.log('error adding view to database', error.message);
+      console.log("error adding view to database", error.message);
     }
   }
 };
@@ -135,10 +135,10 @@ export const sendNewTopicToDatabase = async (topicData) => {
       });
       return newTopicRef;
     } catch (error) {
-      console.log('error adding comment to database', error.message);
+      console.log("error adding comment to database", error.message);
     }
   } else {
-    return 'This topic already exist';
+    return "This topic already exist";
   }
 };
 export const addAReply = async ({ collection, d_ata, commentId, blogName }) => {
@@ -173,7 +173,7 @@ export const addAReply = async ({ collection, d_ata, commentId, blogName }) => {
     });
     return addReplyRef;
   } catch (error) {
-    console.log('error Updating comment', error.message);
+    console.log("error Updating comment", error.message);
   }
 };
 export const addAComment = async ({ collection, d_ata }) => {
@@ -189,7 +189,7 @@ export const addAComment = async ({ collection, d_ata }) => {
       });
       return addCommentRef;
     } catch (error) {
-      console.log('error adding comment to database', error.message);
+      console.log("error adding comment to database", error.message);
     }
   } else {
     let oldComment = [];
@@ -201,7 +201,7 @@ export const addAComment = async ({ collection, d_ata }) => {
       });
       return addCommentRef;
     } catch (error) {
-      console.log('error adding comment to database', error.message);
+      console.log("error adding comment to database", error.message);
     }
   }
 };
@@ -210,11 +210,11 @@ export const firestore = firebase.firestore();
 
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 googleProvider.setCustomParameters({
-  prompt: 'select_account',
+  prompt: "select_account",
 });
 const facebookProvider = new firebase.auth.FacebookAuthProvider();
 facebookProvider.setCustomParameters({
-  display: 'popup',
+  display: "popup",
 });
 
 export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
