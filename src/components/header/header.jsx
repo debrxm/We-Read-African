@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { selectCurrentUser } from '../../redux/user/user.selectors';
-import UserDropdown from '../user-dropdown/user-dropdown';
-import CustomButton from '../custom-button/custom-button';
-import UserPreview from '../user-preview/user-preview';
-import instagram from '../../assets/socials/instagram.svg';
-import twitter from '../../assets/socials/twitter.svg';
-import facebook from '../../assets/socials/facebook.svg';
-import search from '../../assets/search.svg';
-import logo from '../../assets/logo.svg';
-import './header.scss';
+import React, { useState } from "react";
+import { Link, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import { selectCurrentUser } from "../../redux/user/user.selectors";
+import UserDropdown from "../user-dropdown/user-dropdown";
+import CustomButton from "../custom-button/custom-button";
+import UserPreview from "../user-preview/user-preview";
+import instagram from "../../assets/socials/instagram.svg";
+import twitter from "../../assets/socials/twitter.svg";
+import facebook from "../../assets/socials/facebook.svg";
+import search from "../../assets/search.svg";
+import logo from "../../assets/logo.svg";
+import "./header.scss";
 const Header = ({ currentUser, showSearch, history }) => {
   const [isShow, setisShow] = useState(false);
   const handleToggleUserDropdown = () => {
@@ -25,9 +25,9 @@ const Header = ({ currentUser, showSearch, history }) => {
           <p>
             Join the WeReadAfrican Tribe. Register to be a part of the forum.
           </p>
-          <Link to="https://forum.wereadafrican.com/signup">
+          <a href="https://forum.wereadafrican.com/#/signup">
             <CustomButton acen>Register</CustomButton>
-          </Link>
+          </a>
         </div>
       )}
       <div className="branding container">
@@ -40,7 +40,7 @@ const Header = ({ currentUser, showSearch, history }) => {
         </div>
         <div className="brand">
           <Link to="/">
-            {' '}
+            {" "}
             <img src={logo} alt="Logo" />
           </Link>
         </div>
@@ -56,9 +56,9 @@ const Header = ({ currentUser, showSearch, history }) => {
             </div>
           ) : (
             <span className="buton">
-              <Link to="https://forum.wereadafrican.com/signin">
+              <a href="https://forum.wereadafrican.com/#/signin">
                 <CustomButton acen>Log In / Register</CustomButton>
-              </Link>
+              </a>
             </span>
           )}
         </div>
@@ -70,9 +70,9 @@ const Header = ({ currentUser, showSearch, history }) => {
               to="/"
               className="nav-link"
               style={
-                history.location.pathname === '/'
-                  ? { borderBottom: '3px solid #77323b' }
-                  : { border: 'none' }
+                history.location.pathname === "/"
+                  ? { borderBottom: "3px solid #77323b" }
+                  : { border: "none" }
               }
             >
               Home
@@ -83,9 +83,9 @@ const Header = ({ currentUser, showSearch, history }) => {
               to="/about"
               className="nav-link"
               style={
-                history.location.pathname === '/about'
-                  ? { borderBottom: '3px solid #77323b' }
-                  : { border: 'none' }
+                history.location.pathname === "/about"
+                  ? { borderBottom: "3px solid #77323b" }
+                  : { border: "none" }
               }
             >
               About
@@ -96,9 +96,9 @@ const Header = ({ currentUser, showSearch, history }) => {
               to="/blog"
               className="nav-link"
               style={
-                history.location.pathname.includes('/blog')
-                  ? { borderBottom: '3px solid #77323b' }
-                  : { border: 'none' }
+                history.location.pathname.includes("/blog")
+                  ? { borderBottom: "3px solid #77323b" }
+                  : { border: "none" }
               }
             >
               Blog
@@ -109,9 +109,9 @@ const Header = ({ currentUser, showSearch, history }) => {
               href="https://forum.wereadafrican.com"
               className="nav-link"
               style={
-                history.location.pathname === '/forum'
-                  ? { borderBottom: '3px solid #77323b' }
-                  : { border: 'none' }
+                history.location.pathname === "/forum"
+                  ? { borderBottom: "3px solid #77323b" }
+                  : { border: "none" }
               }
             >
               Forum
@@ -119,25 +119,12 @@ const Header = ({ currentUser, showSearch, history }) => {
           </li>
           <li>
             <Link
-              to="/podcast"
-              className="nav-link"
-              style={
-                history.location.pathname === '/podcast'
-                  ? { borderBottom: '3px solid #77323b' }
-                  : { border: 'none' }
-              }
-            >
-              Podcast
-            </Link>
-          </li>
-          <li>
-            <Link
               to="/contact"
               className="nav-link"
               style={
-                history.location.pathname === '/contact'
-                  ? { borderBottom: '3px solid #77323b' }
-                  : { border: 'none' }
+                history.location.pathname === "/contact"
+                  ? { borderBottom: "3px solid #77323b" }
+                  : { border: "none" }
               }
             >
               Contact
