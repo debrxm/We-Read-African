@@ -18,52 +18,50 @@ $lightColor: #d6a478;
 }
 
 .contactpage {
-  margin-top: 5vh;
-  padding: 0 4vw;
+  margin-top: 0vh;
+  padding: 0;
   .left-right {
     display: flex;
     justify-content: space-between;
     .left {
       width: 70vw;
+      background:url(../../assets/coming-soon/coming-soon-bg.svg) no-repeat;
+      background-position: top;
+      background-size: cover;
       @include tablet() {
         width: 100%;
       }
       @include smartphone() {
-        width: 90vw;
+        width: 100vw;
         margin: auto;
         padding: 0 10px;
       }
       & main {
-        padding: 0 10vw;
+        width: 90%;
+        margin: 0 auto;
+        padding: 0 4vw;
+        background-color: $primaryColor;
+        
         & #contactHeading {
           text-align: left;
-          & h1 {
-            font-size: 2em;
-            margin-bottom: 1em;
-          }
-
-          p {
-            margin: 2em 0;
-            & a {
-              color: $primaryColor;
-              font-weight: bold;
-            }
-          }
         }
         #contactForm {
           & form {
             padding: 2em 0;
             margin-top: 1em;
             text-align: left;
+            & h1, & p { 
+              color: white;
+            }
             & input {
-              width: 60%;
+              width: 90%;
               font-weight: lighter;
               @include smartphone() {
                 width: 100%;
               }
             }
             & textarea {
-              width: 60%;
+              width: 90%;
               padding: 1em;
               margin-bottom: 2em;
               height: 30vh;
@@ -74,6 +72,8 @@ $lightColor: #d6a478;
             }
             & button { 
               font-family: Orkney;
+              background-color: white;
+              color: $primaryColor;
             }
           }
         }

@@ -1,12 +1,12 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import instagram from '../../assets/socials/instagram.svg';
-import facebook from '../../assets/socials/facebook.svg';
-import twitter from '../../assets/socials/twitter.svg';
+import React from "react";
+import { Link } from "react-router-dom";
+import instagram from "../../assets/socials/instagram.svg";
+import facebook from "../../assets/socials/facebook.svg";
+import twitter from "../../assets/socials/twitter.svg";
 // import footerPattern from '../../assets/footerPattern.svg';
-import CustomForm from '../newsletter/custom-form';
-import SmartNewsletter from '../smart-newsletter/smart-newsletter';
-import './footer.scss';
+import CustomForm from "../newsletter/custom-form";
+import SmartNewsletter from "../smart-newsletter/smart-newsletter";
+import "./footer.scss";
 const Footer = () => {
   return (
     <footer className="footer">
@@ -20,15 +20,18 @@ const Footer = () => {
             <Link to="/" className="menu-link">
               Home
             </Link>
-            <Link to="/signup" className="menu-link">
+            <a
+              href="https://forum.wereadafrican.com/#/signin"
+              className="menu-link"
+            >
               Log In / Register
-            </Link>
-            <Link to="/podcast" className="menu-link">
-              Podcast
-            </Link>
+            </a>
             <Link to="/blog" className="menu-link">
               Blog
             </Link>
+            <a href="https://forum.wereadafrican.com" className="menu-link">
+              Forum
+            </a>
             <Link to="/contact" className="menu-link">
               Contact
             </Link>
