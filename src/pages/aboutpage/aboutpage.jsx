@@ -14,30 +14,51 @@ const Aboutpage = () => {
         <meta property="og:site_name" content="We Read African" />
         <meta property="og:url" content="https://www.wereadafrican.com/about" />
       </Helmet>
-      <div className="left-right">
         <div className="left">
-          <div className="about-image" />
-          <p>
-            I'm Sandra, an award-winning book blogger and writer with a passion
-            for brilliant books, independent bookstores and literary festivals.
-            <br />
-            <br />
-            WeReadAfrican was named after the African Book Fair's inaugural Book
-            Blog of the Year, and is a stylish online space for readers,writers
-            and literary travellers.
-            <br />
-            <br />
-            Here you'll find weekly book reviews, beautiful bookstores from
-            around the world, literary city guides and some personal insights
-            into the life of an expat, all written lovingly from my beach-side
-            bedroom.
-          </p>
+          <div className="aboutShowcase">
+            <div id='aboutShowcaseText'>
+              <h1>CASNADRA <br/> OLUCHI <br/> OBI</h1>
+              <p>
+              CASNADRA has always been a young and nice fellow. <br/>
+              Inspiring  democrats to be better people
+              </p>
+              <div className="socials">
+                <a href="#"></a>
+                <a href="#"></a>
+                <a href="#"></a>
+              </div>
+            </div>
+            <div id='aboutShowcaseImg'></div>
+          </div>
+          <div className="profiling">
+            <div>
+              <h1>background</h1>
+              <p>
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores deserunt ipsa sapiente cupiditate nisi 
+                architecto impedit at enim recusandae quam?
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+                Mollitia unde corrupti consectetur illum harum quis illo! 
+                Tenetur voluptas, nostrum ea quod pariatur
+                atque tempore omnis doloribus eveniet. Fuga, nam iure!
+              </p>
+            </div>
+            <div>
+              <h1>projects/goals</h1>
+              <p>
+              unde corrupti consectetur illum harum quis illo! 
+                Tenetur voluptas, nostrum ea quod upiditate nisi 
+                architecto impedit at enim recusandae quam?
+              </p>
+              <p>
+                Lorem ipsum dolor sr
+                atque tempore omnis doloribus eveniet. Fuga, nam iure!
+              </p>
+            </div>
         </div>
-        <div className="right">
-          <SideBar />
         </div>
       </div>
-    </div>
   );
 };
 
