@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import App from './App';
+import App from './App';
 import ComingSoonPage from './pages/coming-soon/coming-soon';
 import * as serviceWorker from './serviceWorker';
 import { HashRouter as Router } from 'react-router-dom';
@@ -17,8 +17,7 @@ ReactDOM.render(
       <div>
         <ScrollMemory />
         <PersistGate persistor={persistor}>
-          <ComingSoonPage />
-          {/* <App /> */}
+          <App /> 
         </PersistGate>
       </div>
     </Router>

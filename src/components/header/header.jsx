@@ -25,9 +25,9 @@ const Header = ({ currentUser, showSearch, history }) => {
           <p>
             Join the WeReadAfrican Tribe. Register to be a part of the forum.
           </p>
-          <Link to="https://forum.wereadafrican.com/signup">
+          <a href="https://forum.wereadafrican.com/signup">
             <CustomButton acen>Register</CustomButton>
-          </Link>
+          </a>
         </div>
       )}
       <div className="branding container">
@@ -56,9 +56,9 @@ const Header = ({ currentUser, showSearch, history }) => {
             </div>
           ) : (
             <span className="buton">
-              <Link to="https://forum.wereadafrican.com/signin">
+              <a href="https://forum.wereadafrican.com/#/signin">
                 <CustomButton acen>Log In / Register</CustomButton>
-              </Link>
+              </a>
             </span>
           )}
         </div>
