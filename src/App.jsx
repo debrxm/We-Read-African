@@ -1,47 +1,42 @@
-import React from 'react';
-import { Switch, Route, Redirect, withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import React from "react";
+import { Switch, Route, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
 import {
   auth,
   firestore,
   createUserProfileDocument,
-  convertFavSnapshotToMap
-} from './firebase/firebase.utils';
-import { setCurrentUser } from './redux/user/user.actions';
-import { selectCurrentUser } from './redux/user/user.selectors';
-import { selectAllBlog } from './redux/blog/blog.selector';
+  convertFavSnapshotToMap,
+} from "./firebase/firebase.utils";
+import { setCurrentUser } from "./redux/user/user.actions";
+import { selectCurrentUser } from "./redux/user/user.selectors";
+import { selectAllBlog } from "./redux/blog/blog.selector";
 import {
   updateCategories,
   updateBlogComments,
   updateBlogViews,
-  setReadersFavorite
-} from './redux/blog/blog.actions';
-import Header from './components/header/header';
-import Search from './components/searchcomponent/searchcomponent';
-import Footer from './components/footer/footer';
-import Loader from './components/loader/loader';
+  setReadersFavorite,
+} from "./redux/blog/blog.actions";
+import Header from "./components/header/header";
+import Search from "./components/searchcomponent/searchcomponent";
+import Footer from "./components/footer/footer";
+import Loader from "./components/loader/loader";
 /*==============================*/
 /*PAGES*/
 /*==============================*/
-import Homepage from './pages/homepage/homepage';
-import UserProfilePage from './pages/user-profile-page/user-profile-page';
-import SignInPage from './pages/sign-in/sign-in-page';
-import SignUpPage from './pages/sign-up/sign-up-page';
-import Contactpage from './pages/contactpage/contactpage';
-import Aboutpage from './pages/aboutpage/aboutpage';
-import Blogpage from './pages/blogpage/blogpage';
-import NotFound from './pages/notfoundpage/NotFoundPage';
-import MobileHeader from './components/mobile-header/mobile-header';
-import Forumpage from './pages/forumpage/forumpage';
-import PodcastPage from './pages/podcastpage/podcastpage';
-import './App.css';
+import Homepage from "./pages/homepage/homepage";
+import Contactpage from "./pages/contactpage/contactpage";
+import Aboutpage from "./pages/aboutpage/aboutpage";
+import Blogpage from "./pages/blogpage/blogpage";
+import NotFound from "./pages/notfoundpage/NotFoundPage";
+import MobileHeader from "./components/mobile-header/mobile-header";
+import "./App.css";
 
 class App extends React.Component {
   state = {
     isAvailableInYourCountry: false,
     isLoading: true,
-    isShowSearch: false
+    isShowSearch: false,
   };
   unsubscribFromSnapshot = null;
   unSubscribeFromAuth = null;
@@ -51,38 +46,38 @@ class App extends React.Component {
       updateCategories,
       updateBlogViews,
       setCurrentUser,
-      setReadersFavorite
+      setReadersFavorite,
     } = this.props;
     this.setState({ isLoading: true });
     const blogRef = firestore
-      .collection('blog_temp')
-      .orderBy('updated_at', 'desc');
-    const commentRef = firestore.collection('blog_comments');
-    const viewRef = firestore.collection('blog_views');
-    commentRef.onSnapshot(async snapshot => {
+      .collection("blog_temp")
+      .orderBy("updated_at", "desc");
+    const commentRef = firestore.collection("blog_comments");
+    const viewRef = firestore.collection("blog_views");
+    commentRef.onSnapshot(async (snapshot) => {
       const comments = [];
-      snapshot.docs.forEach(doc => {
+      snapshot.docs.forEach((doc) => {
         const commentObj = {
           id: doc.id,
-          comments: doc.data()
+          comments: doc.data(),
         };
         comments.push(commentObj);
       });
       updateBlogComments(comments);
     });
-    blogRef.onSnapshot(async snapshot => {
+    blogRef.onSnapshot(async (snapshot) => {
       const blogs = [];
-      snapshot.docs.forEach(doc => {
+      snapshot.docs.forEach((doc) => {
         blogs.push(doc.data());
       });
       updateCategories(blogs);
     });
-    viewRef.onSnapshot(async snapshot => {
+    viewRef.onSnapshot(async (snapshot) => {
       const views = [];
-      snapshot.docs.forEach(doc => {
+      snapshot.docs.forEach((doc) => {
         const viewObj = {
           id: doc.id,
-          view: doc.data()
+          view: doc.data(),
         };
         views.push(viewObj);
       });
@@ -93,8 +88,8 @@ class App extends React.Component {
       };
       const favArrRef = convertFavSnapshotToMap(views);
       const favArr = [];
-      this.props.allBlogs.sort(compare).map(blog => {
-        return favArrRef.forEach(item => {
+      this.props.allBlogs.sort(compare).map((blog) => {
+        return favArrRef.forEach((item) => {
           if (blog.title.toLowerCase() === item.id) {
             favArr.push(blog);
           }
@@ -103,20 +98,20 @@ class App extends React.Component {
       setReadersFavorite(favArr);
       updateBlogViews(views);
     });
-    this.unSubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+    this.unSubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
-        userRef.onSnapshot(snapShot => {
+        userRef.onSnapshot((snapShot) => {
           setCurrentUser({
             id: snapShot.id,
-            ...snapShot.data()
+            ...snapShot.data(),
           });
         });
       }
       setCurrentUser(userAuth);
 
       this.setState({
-        isLoading: false
+        isLoading: false,
       });
     });
   }
@@ -133,15 +128,15 @@ class App extends React.Component {
         className="App"
         style={
           currentUser
-            ? { paddingTop: '110px' }
-            : history.location.pathname === '/notfound'
+            ? { paddingTop: "110px" }
+            : history.location.pathname === "/notfound"
             ? { paddingTop: 0 }
-            : { paddingTop: '160px' }
+            : { paddingTop: "160px" }
         }
       >
-        {history.location.pathname === '/signin' ? null : history.location
-            .pathname === '/notfound' ? null : history.location.pathname ===
-          '/signup' ? null : (
+        {history.location.pathname === "/signin" ? null : history.location
+            .pathname === "/notfound" ? null : history.location.pathname ===
+          "/signup" ? null : (
           <div className="showing">
             <div className="desktop">
               <Header showSearch={this.handleSearchShow} />
@@ -162,16 +157,15 @@ class App extends React.Component {
               <Route exact path="/" component={Homepage} />
               <Route path="/blog" component={Blogpage} />
               <Route exact path="/about" component={Aboutpage} />
-              <Route path="/podcast" component={PodcastPage} />
               <Route exact path="/contact" component={Contactpage} />
               <Route component={NotFound} />
             </Switch>
           )}
         </div>
-        {history.location.pathname === '/signin' ? null : history.location
-            .pathname === '/signup' ? null : history.location.pathname ===
-          '/notfound' ? null : history.location.pathname ===
-          '/user-profile' ? null : (
+        {history.location.pathname === "/signin" ? null : history.location
+            .pathname === "/signup" ? null : history.location.pathname ===
+          "/notfound" ? null : history.location.pathname ===
+          "/user-profile" ? null : (
           <Footer />
         )}
       </div>
@@ -180,20 +174,15 @@ class App extends React.Component {
 }
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
-  allBlogs: selectAllBlog
+  allBlogs: selectAllBlog,
 });
-const mapDispatchToProps = dispatch => ({
-  updateCategories: collectionsMap =>
+const mapDispatchToProps = (dispatch) => ({
+  updateCategories: (collectionsMap) =>
     dispatch(updateCategories(collectionsMap)),
-  updateBlogComments: comment => dispatch(updateBlogComments(comment)),
-  updateBlogViews: views => dispatch(updateBlogViews(views)),
-  setCurrentUser: user => dispatch(setCurrentUser(user)),
-  setReadersFavorite: fav => dispatch(setReadersFavorite(fav))
+  updateBlogComments: (comment) => dispatch(updateBlogComments(comment)),
+  updateBlogViews: (views) => dispatch(updateBlogViews(views)),
+  setCurrentUser: (user) => dispatch(setCurrentUser(user)),
+  setReadersFavorite: (fav) => dispatch(setReadersFavorite(fav)),
 });
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(App)
-);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
