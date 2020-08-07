@@ -10,7 +10,10 @@
       name="description"
       content="Web site created using create-react-app"
     />
+    <meta name="p:domain_verify" content="0a61ab1186f27f39ae81266236bc474a"/>
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-174547425-1"></script>
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
     <title>We Read African</title>
   </head>
@@ -18,4 +21,12 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
   </body>
+
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'UA-174547425-1');
+  </script>
 </html>
