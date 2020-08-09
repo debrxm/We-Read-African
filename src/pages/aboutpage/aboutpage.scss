@@ -18,29 +18,118 @@ $secondaryColor: #ffffff;
 
 .aboutpage {
   margin-top: 50px;
-  .left-right {
-    display: flex;
-    justify-content: space-between;
+  font-family: 'Poppins', sans-serif;
     .left {
-      width: 70vw;
-      .about-image {
-        width: 300px;
-        height: 300px;
-        background: url('./../../assets/sandra.svg');
-        background-position: center;
-        background-size: contain;
-        background-repeat: no-repeat;
-        margin: 5vh auto;
-        img {
-          margin: auto;
-          width: 300px;
-          height: 330;
-          @include smartphone() {
-            width: 200px;
-            height: 230px;
+      width: 100vw;
+        & .aboutShowcase { 
+          display: grid;
+          grid-template-columns: 3fr 2fr;
+          height: 75vh;
+          width: 80vw;
+          margin: 0.5em auto;
+          @include tablet() { 
+            width: 90vw;
+            height: auto;
+            margin-bottom: 10vh;
           }
+          @include smartphone() { 
+            display: 100%;
+          }
+            & #aboutShowcaseText { 
+              color: black;
+              font-weight: bolder;
+              text-align: left;
+                h1 { 
+                  letter-spacing: 0.5px;
+                  font-weight: bolder;
+                  font-size: 3.7em;
+                  font-family: 'Poppins', sans-serif !important; 
+                  @include tablet() { 
+                    font-size: 3em;
+                  }                  
+                }
+                p { 
+                  color: #C8C8C8;
+                  font-size: 14px;
+                  margin-top: 16%;;
+                }
+                .socials { 
+                  width: 50%;
+                  margin-top: 4em;
+                  display: grid;
+                  grid-template-columns: 20% 20% 20%;
+                  @include tablet() { 
+                    width: 100%;
+                  }
+                    a { 
+                      display: block;
+                      width: 43px;
+                      height: 43px;
+                      background: url(../../assets/socials/whitefacebookicon.svg)no-repeat;
+                      background-size: contain;
+                      border-radius: 2000px;
+                      position: relative;
+                    }
+                    a:nth-child(2) { 
+                      background: url(../../assets/socials/whiteigicon.svg)no-repeat;
+                      background-size: contain;
+                    }
+                    a:nth-child(3) { 
+                      background: url(../../assets/socials/whitetwittericon.svg)no-repeat;
+                      background-size: contain;
+                    }
+                }
+            }
+            & #aboutShowcaseImg { 
+              height: 100%;
+              width: 100%;
+              background: url(../../assets/aboutShowcase.png) no-repeat;
+              background-size: 85%;
+              @include tablet() { 
+                background-size: 90%;
+              }
+              @include tablet() {
+                display: none;
+              }
+            }
         }
-      }
+
+        .profiling { 
+          text-align: left;
+          width: 80%;
+          margin: 0 auto;
+            div { 
+              margin: 3em 0;
+                h1 { 
+                  font-family: 'Poppins', sans-serif !important; 
+                  text-transform: uppercase;  
+                  margin-bottom: 0.61em;  
+                  width: fit-content;
+                  padding: 0 1em;
+                  position: relative;
+                    &::before { 
+                      width: 6%;
+                      height: 9%;
+                      background-color: black;
+                      position: absolute;
+                      top: 48%;
+                      left: 0%;
+                      content: '';
+                    }              
+                }
+                p { 
+                  font-family: 'Poppins', sans-serif !important; 
+                  font-weight: 300;
+                  line-height: 1.9em;
+                  margin: 0.8em 0;
+                  width: 60%;
+                  @include tablet() { 
+                    width: 80%;
+                  }  
+                }
+            }                  
+        }
+        
       @include tablet() {
         width: 100%;
         padding-right: 5%;
@@ -57,5 +146,4 @@ $secondaryColor: #ffffff;
         display: none;
       }
     }
-  }
 }

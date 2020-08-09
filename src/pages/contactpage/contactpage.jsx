@@ -8,7 +8,7 @@ import CustomButton from '../../components/custom-button/custom-button';
 import SideBar from '../../components/SideBar/SideBar';
 
 // Assets
-import sendIcon from '../../assets/sendIcon.svg';
+import sendIconPurple from '../../assets/sendIconPurple.svg';
 
 import './contactpage.scss';
 
@@ -86,33 +86,12 @@ export default class ContactPage extends Component {
         <div className="left-right">
           <div className="left">
             <main>
-              <div id="contactHeading">
-                <h1>CONTACT WE READ AFRICAN</h1>
-                <p>
-                  Whether you want to get in touch about something you’ve seen
-                  on my blog, would like to see on my blog or to discuss a book,
-                  put forward your bookstore for a feature or suggest some
-                  content you’dlike to see, feel free to get in touch with me at{' '}
-                  <a
-                    href="mailto:sandra@wereadafrican.com?Subject=Hello%20Friend"
-                    target="_top"
-                  >
-                    sandra@wereadafrican.com
-                  </a>
-                </p>
-                <p>
-                  Alternatively, you can find me on{' '}
-                  <a href="https://www.facebook.com">Facebook</a>,{' '}
-                  <a href="https://www.twitter.com">Twitter</a> and{' '}
-                  <a href="https://www.jw.com">Instagram</a>.
-                </p>
-                <p>
-                  If you’d like to work with me, find out about the services i
-                  offer here.
-                </p>
-              </div>
               <div id="contactForm">
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit}>  
+                  <h1>CONTACT.</h1>
+                  <p>
+                    want to react out? Type and send your message below and we'll be in touch asap
+                  </p>
                   <FormInput
                     type="text"
                     name="userFullName"
@@ -143,8 +122,8 @@ export default class ContactPage extends Component {
                     placeholder="Leave a Message"
                   />
                   <CustomButton>
-                    <img src={sendIcon} alt="Send Icon" /> Send Message
-                  </CustomButton>
+                    <img src={sendIconPurple} alt="Send Icon" /> Send Message
+                  </CustomButton>               
                 </form>
               </div>
               {this.state.isSuccess ? <ThankYouMessage /> : null}
